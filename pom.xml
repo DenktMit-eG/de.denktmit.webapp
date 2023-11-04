@@ -24,6 +24,7 @@
         <kotlin.version>1.8.22</kotlin.version>
         <revision>0.0.1</revision>
         <sha1></sha1>
+        <!--suppress UnresolvedMavenProperty -->
         <skip.tests.all>${skipTests}</skip.tests.all>
         <skip.tests.e2e>${skip.tests.all}</skip.tests.e2e>
         <skip.tests.it>${skip.tests.all}</skip.tests.it>
