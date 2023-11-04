@@ -1,0 +1,49 @@
+spring:
+  logging:
+    group:
+      db: 'org.hibernate,org.springframework.data.jpa,org.springframework.jdbc'
+    level:
+      db: DEBUG
+
+  datasource:
+    url: jdbc:postgresql://localhost:35432/webapp
+    username: db-it-user
+    password: db-it-pass
+    hikari:
+      connectionTimeout: 20000
+      maximumPoolSize: 5
+      pool-name: 'hikari-pool'
+
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        tmp:
+          use_jdbc_metadata_defaults: false
+        jdbc:
+          lob:
+            non_contextual_creation: true
+        hbm2ddl:
+          auto: create-drop
+    open-in-view: false
+    show-sql: true
+
+  # Java Mail config
+  mail:
+    host: localhost
+    #username: <login user to smtp server>
+    #password: <login password to smtp server>
+    port: '1025'
+    properties:
+      mail:
+        smtp:
+          auth: 'false'
+          starttls:
+            enable: 'false'
+            required: 'false'
+          # Enable, if target server expects SSL instead of STARTTLS
+          #socketFactory:
+          #  port: '1025'
+          #  class: javax.net.ssl.SSLSocketFactor
+          #  fallback: 'false'
+
