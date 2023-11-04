@@ -5,11 +5,10 @@
         <groupId>de.denktmit</groupId>
         <artifactId>aggregator</artifactId>
         <version>${revision}${sha1}${changelist}</version>
-        <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>application</artifactId>
     <name>DenktMit eG :: Webapp :: Application</name>
-    <description>The Markenzentrale Webapp application</description>
+    <description>The DenktMit eG Webapp runnable application</description>
     <properties>
         <jib-maven-plugin.image>eclipse-temurin:17-jre@sha256:9e416007cfe1ebd4ec0bd86ca84f6d0af305af87872c9411d61a9c90ce188415</jib-maven-plugin.image>
     </properties>

@@ -13,15 +13,19 @@
     <version>${revision}${sha1}${changelist}</version>
     <packaging>pom</packaging>
     <name>DenktMit eG :: Webapp :: Aggregator</name>
-    <description>The Markenzentrale web application</description>
+    <description>The DenktMit eG Webapp build aggregator</description>
     <modules>
         <module>application</module>
+        <module>build-reports</module>
     </modules>
     <properties>
         <changelist>-SNAPSHOT</changelist>
         <goals.jib.packageGoal>dockerBuild</goals.jib.packageGoal>
         <java.version>17</java.version>
         <kotlin.version>1.8.22</kotlin.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <revision>0.0.1</revision>
         <sha1></sha1>
         <!--suppress UnresolvedMavenProperty -->
