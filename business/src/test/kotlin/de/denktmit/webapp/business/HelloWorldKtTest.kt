@@ -1,4 +1,4 @@
-package de.denktmit.webapp
+package de.denktmit.webapp.business
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test

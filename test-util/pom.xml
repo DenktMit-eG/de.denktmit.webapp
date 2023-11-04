@@ -8,9 +8,9 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>common</artifactId>
-    <name>DenktMit eG :: Webapp :: Common</name>
-    <description>The DenktMit eG Webapp common lib</description>
+    <artifactId>test-util</artifactId>
+    <name>DenktMit eG :: Webapp :: Test-Util</name>
+    <description>The DenktMit eG Webapp test support lib</description>
 
     <properties>
         <dir.project.root>${project.basedir}/..</dir.project.root>

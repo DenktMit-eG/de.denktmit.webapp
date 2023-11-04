@@ -4,23 +4,17 @@
 
     <parent>
         <groupId>de.denktmit.webapp</groupId>
-        <artifactId>aggregator</artifactId>
+        <artifactId>persistence</artifactId>
         <version>${revision}${sha1}${changelist}</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>persistence</artifactId>
-    <packaging>pom</packaging>
-    <name>DenktMit eG :: Webapp :: Persistence</name>
-    <description>The DenktMit eG Webapp persistence aggregator</description>
-
-    <modules>
-        <module>persistence-it-data</module>
-        <module>persistence-provider</module>
-    </modules>
+    <artifactId>persistence-it-data</artifactId>
+    <name>DenktMit eG :: Webapp :: Persistence :: IT-Data</name>
+    <description>The DenktMit eG Webapp persistence integration test data</description>
 
     <properties>
-        <dir.project.root>${project.basedir}/..</dir.project.root>
+        <dir.project.root>${project.basedir}/../..</dir.project.root>
     </properties>
 
 </project>

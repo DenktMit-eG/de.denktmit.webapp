@@ -18,6 +18,7 @@
     <description>The DenktMit eG Webapp build aggregator</description>
 
     <modules>
+        <module>test-util</module>
         <module>common</module>
         <module>persistence</module>
         <module>business</module>
@@ -57,12 +58,22 @@
         <dependencies>
             <dependency>
                 <groupId>${project.groupId}</groupId>
+                <artifactId>test-util</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>common</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
-                <artifactId>persistence</artifactId>
+                <artifactId>persistence-it-data</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>persistence-provider</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -252,14 +263,15 @@
             </plugin>
         </plugins>
     </build>
-
     <url>https://spring.io/projects/spring-boot/aggregator/application</url>
+
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
             <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
     </licenses>
+
     <developers>
         <developer>
             <name>DenktMit eG</name>
