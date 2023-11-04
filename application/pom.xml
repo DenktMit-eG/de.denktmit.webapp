@@ -11,6 +11,7 @@
     <description>The DenktMit eG Webapp runnable application</description>
     <properties>
         <jib-maven-plugin.image>eclipse-temurin:17-jre@sha256:9e416007cfe1ebd4ec0bd86ca84f6d0af305af87872c9411d61a9c90ce188415</jib-maven-plugin.image>
+        <dir.project.root>${project.basedir}/..</dir.project.root>
     </properties>
     <dependencies>
         <dependency>

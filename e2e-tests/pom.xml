@@ -6,9 +6,9 @@
         <artifactId>aggregator</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>build-reports</artifactId>
-    <name>DenktMit eG :: Webapp :: Build Reports</name>
-    <description>The DenktMit eG Webapp build reports</description>
+    <artifactId>e2e-tests</artifactId>
+    <name>DenktMit eG :: Webapp :: E2E Tests</name>
+    <description>The DenktMit eG Webapp end to end tests</description>
     <properties>
         <dir.project.root>${project.basedir}/..</dir.project.root>
     </properties>
