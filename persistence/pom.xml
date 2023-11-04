@@ -7,9 +7,9 @@
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <artifactId>e2e-tests</artifactId>
-    <name>DenktMit eG :: Webapp :: E2E Tests</name>
-    <description>The DenktMit eG Webapp end to end tests</description>
+    <artifactId>persistence</artifactId>
+    <name>DenktMit eG :: Webapp :: Persistence</name>
+    <description>The DenktMit eG Webapp persistence layer</description>
     <properties>
         <dir.project.root>${project.basedir}/..</dir.project.root>
     </properties>

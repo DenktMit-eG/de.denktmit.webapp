@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -8,29 +9,38 @@
         <relativePath></relativePath>
         <!-- lookup parent from repository -->
     </parent>
+
     <groupId>de.denktmit</groupId>
     <artifactId>aggregator</artifactId>
     <version>${revision}${sha1}${changelist}</version>
     <packaging>pom</packaging>
     <name>DenktMit eG :: Webapp :: Aggregator</name>
     <description>The DenktMit eG Webapp build aggregator</description>
+
     <modules>
+        <module>persistence</module>
+        <module>business</module>
+        <module>web</module>
         <module>application</module>
         <module>e2e-tests</module>
         <module>build-reports</module>
     </modules>
+
     <properties>
         <changelist>-SNAPSHOT</changelist>
+        <dir.project.root>${project.basedir}</dir.project.root>
+        <dir.report.jacoco.aggregate>${dir.project.root}/build-reports/target/site/jacoco-aggregate-all</dir.report.jacoco.aggregate>
         <goals.jib.packageGoal>dockerBuild</goals.jib.packageGoal>
         <java.version>17</java.version>
         <kotlin.version>1.8.22</kotlin.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
-        <skip.reports.jacoco>false</skip.reports.jacoco>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <revision>0.0.1</revision>
         <sha1></sha1>
+        <skip.reports.jacoco>false</skip.reports.jacoco>
+        <skip.reports.jacoco>false</skip.reports.jacoco>
         <!--suppress UnresolvedMavenProperty -->
         <skip.tests.all>${skipTests}</skip.tests.all>
         <skip.tests.e2e>${skip.tests.all}</skip.tests.e2e>
@@ -41,6 +51,32 @@
         <version.org.codehaus.mojo.flatten-maven-plugin>1.5.0</version.org.codehaus.mojo.flatten-maven-plugin>
         <version.org.jacoco.jacoco-maven-plugin>0.8.11</version.org.jacoco.jacoco-maven-plugin>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>persistence</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>business</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>web</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>application</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <build>
         <pluginManagement>
             <plugins>
@@ -51,7 +87,7 @@
                     <configuration>
                         <createBackupFile>false</createBackupFile>
                         <encoding>${project.build.sourceEncoding}</encoding>
-                        <keepBlankLines>false</keepBlankLines>
+                        <keepBlankLines>true</keepBlankLines>
                         <lineSeparator>\n</lineSeparator>
                         <nrOfIndentSpace>4</nrOfIndentSpace>
                         <predefinedSortOrder>custom_1</predefinedSortOrder>
@@ -85,19 +121,23 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-failsafe-plugin</artifactId>
                     <configuration>
-                        <skipTests>${skip.tests.it}</skipTests>
-                        <argLine>-XX:+EnableDynamicAgentLoading</argLine>
                         <includes>
                             <include>**/*IT.java</include>
                         </includes>
+                        <!-- Adds argument to VM to trigger JaCoCo Agents to run for unit tests -->
+                        <argLine>${failsafeArgLine}</argLine>
+                        <!--                        <argLine>-XX:+EnableDynamicAgentLoading</argLine>-->
+                        <skipTests>${skip.tests.it}</skipTests>
                     </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <configuration>
+                        <!-- Adds argument to VM to trigger JaCoCo Agents to run for integration tests -->
+                        <argLine>${surefireArgLine}</argLine>
+                        <!--                        <argLine>-XX:+EnableDynamicAgentLoading</argLine>-->
                         <skipTests>${skip.tests.unit}</skipTests>
-                        <argLine>-XX:+EnableDynamicAgentLoading</argLine>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -129,6 +169,29 @@
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
                     <version>${version.org.jacoco.jacoco-maven-plugin}</version>
+                    <configuration>
+                        <skip>${skip.reports.jacoco}</skip>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>prepare-agent</id>
+                            <goals>
+                                <goal>prepare-agent</goal>
+                            </goals>
+                            <configuration>
+                                <propertyName>surefireArgLine</propertyName>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>prepare-agent-integration</id>
+                            <goals>
+                                <goal>prepare-agent-integration</goal>
+                            </goals>
+                            <configuration>
+                                <propertyName>failsafeArgLine</propertyName>
+                            </configuration>
+                        </execution>
+                    </executions>
                 </plugin>
                 <plugin>
                     <groupId>org.jetbrains.kotlin</groupId>
@@ -159,10 +222,15 @@
                 </plugin>
             </plugins>
         </pluginManagement>
+
         <plugins>
             <plugin>
                 <groupId>com.github.ekryd.sortpom</groupId>
                 <artifactId>sortpom-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -176,35 +244,24 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
             </plugin>
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <configuration>
-                    <skip>${skip.reports.jacoco}</skip>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>prepare-agent</id>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                        <configuration>
-                            <propertyName>surefireArgLine</propertyName>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>prepare-agent-integration</id>
-                        <goals>
-                            <goal>prepare-agent-integration</goal>
-                        </goals>
-                        <configuration>
-                            <propertyName>failsafeArgLine</propertyName>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
+
+    <url>https://spring.io/projects/spring-boot/aggregator/application</url>
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <name>DenktMit eG</name>
+            <email>hallo@denktmit.de</email>
+            <organizationUrl>https://denktmit.de</organizationUrl>
+        </developer>
+    </developers>
+
     <profiles>
         <profile>
             <id>ci</id>
@@ -222,4 +279,5 @@
             </properties>
         </profile>
     </profiles>
+
 </project>

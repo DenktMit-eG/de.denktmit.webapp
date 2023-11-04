@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>de.denktmit</groupId>
         <artifactId>aggregator</artifactId>
         <version>${revision}${sha1}${changelist}</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
+
     <artifactId>application</artifactId>
     <name>DenktMit eG :: Webapp :: Application</name>
     <description>The DenktMit eG Webapp runnable application</description>
+
     <properties>
-        <jib-maven-plugin.image>eclipse-temurin:17-jre@sha256:9e416007cfe1ebd4ec0bd86ca84f6d0af305af87872c9411d61a9c90ce188415</jib-maven-plugin.image>
         <dir.project.root>${project.basedir}/..</dir.project.root>
+        <jib-maven-plugin.image>eclipse-temurin:17-jre@sha256:9e416007cfe1ebd4ec0bd86ca84f6d0af305af87872c9411d61a9c90ce188415</jib-maven-plugin.image>
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -85,6 +90,7 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
     <build>
         <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
         <testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
@@ -126,18 +132,5 @@
             </plugin>
         </plugins>
     </build>
-    <url>https://spring.io/projects/spring-boot/aggregator/application</url>
-    <licenses>
-        <license>
-            <name>Apache License, Version 2.0</name>
-            <url>https://www.apache.org/licenses/LICENSE-2.0</url>
-        </license>
-    </licenses>
-    <developers>
-        <developer>
-            <name>DenktMit eG</name>
-            <email>hallo@denktmit.de</email>
-            <organizationUrl>https://denktmit.de</organizationUrl>
-        </developer>
-    </developers>
+
 </project>

@@ -1,15 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>de.denktmit</groupId>
         <artifactId>aggregator</artifactId>
         <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
+
     <artifactId>build-reports</artifactId>
+    <packaging>pom</packaging>
     <name>DenktMit eG :: Webapp :: Build Reports</name>
     <description>The DenktMit eG Webapp build reports</description>
+
     <properties>
         <dir.project.root>${project.basedir}/..</dir.project.root>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>persistence</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>business</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>application</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <configuration>
+                    <skip>${skip.reports.jacoco}</skip>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>aggregate-reports-ut</id>
+                        <goals>
+                            <goal>report-aggregate</goal>
+                        </goals>
+                        <phase>test</phase>
+                        <configuration>
+                            <title>Webapp: Coverage of Unit Tests</title>
+                            <outputDirectory>${project.reporting.outputDirectory}/jacoco-aggregate-ut</outputDirectory>
+                            <dataFileExcludes>
+                                <dataFileExclude>**/target/jacoco-it.exec</dataFileExclude>
+                            </dataFileExcludes>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>aggregate-reports-it</id>
+                        <goals>
+                            <goal>report-aggregate</goal>
+                        </goals>
+                        <phase>verify</phase>
+                        <configuration>
+                            <title>Webapp: Coverage of Integration Tests</title>
+                            <outputDirectory>${project.reporting.outputDirectory}/jacoco-aggregate-it</outputDirectory>
+                            <dataFileExcludes>
+                                <dataFileExclude>**/target/jacoco.exec</dataFileExclude>
+                            </dataFileExcludes>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>aggregate-reports-all</id>
+                        <goals>
+                            <goal>report-aggregate</goal>
+                        </goals>
+                        <phase>verify</phase>
+                        <configuration>
+                            <title>Webapp: Overall Coverage</title>
+                            <outputDirectory>${project.reporting.outputDirectory}/jacoco-aggregate-all</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>

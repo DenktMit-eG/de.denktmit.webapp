@@ -9,7 +9,7 @@ class HelloWorldKtTest {
 
     @Test
     fun sayHelloWorld() {
-        assertThat(sayHello("World")).isEqualTo("Hello World")
+        assertThat(sayHello()).isEqualTo("Hello World")
     }
 
     @Test
