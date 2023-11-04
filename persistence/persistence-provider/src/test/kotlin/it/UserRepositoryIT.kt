@@ -1,6 +1,5 @@
 package it
 
-import de.denktmit.webapp.persistence.users.User
 import de.denktmit.webapp.persistence.users.UserRepository
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test

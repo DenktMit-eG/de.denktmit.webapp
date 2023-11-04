@@ -3,8 +3,6 @@ package de.denktmit.webapp.persistence.users
 import jakarta.persistence.*
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotNull
-import java.time.Instant
-import java.util.UUID
 
 @Entity
 @Table(name = "users")

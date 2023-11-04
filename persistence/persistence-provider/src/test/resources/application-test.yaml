@@ -1,10 +1,4 @@
 spring:
-  logging:
-    group:
-      db: 'org.hibernate,org.springframework.data.jpa,org.springframework.jdbc'
-    level:
-      db: DEBUG
-
   datasource:
     url: jdbc:postgresql://localhost:35432/webapp
     username: db-it-user
