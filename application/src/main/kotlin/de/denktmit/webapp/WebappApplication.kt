@@ -4,8 +4,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class MarkenzentraleWebappApplication
+class WebappApplication
 
 fun main(args: Array<String>) {
-	runApplication<MarkenzentraleWebappApplication>(*args)
+	runApplication<WebappApplication>(*args)
 }
