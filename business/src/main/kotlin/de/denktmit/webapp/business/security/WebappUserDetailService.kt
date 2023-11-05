@@ -1,7 +1,7 @@
 package de.denktmit.webapp.business.security
 
 
-import de.denktmit.webapp.persistence.users.UserRepository
+import de.denktmit.webapp.business.user.UserRepository
 import de.denktmit.webapp.springconfig.BusinessContextConfigProperties
 import org.springframework.security.core.userdetails.User
 import org.springframework.security.core.userdetails.UserDetails
@@ -15,6 +15,10 @@ class WebappUserDetailService(
     private val config: BusinessContextConfigProperties,
     private val userRepository: UserRepository
 ) : UserDetailsService {
+
+    init {
+        println(config)
+    }
 
     @Throws(UsernameNotFoundException::class)
     override fun loadUserByUsername(name: String): UserDetails {
