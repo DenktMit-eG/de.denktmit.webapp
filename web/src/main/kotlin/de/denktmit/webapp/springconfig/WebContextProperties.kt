@@ -8,30 +8,30 @@ import java.util.*
 
 @Configuration
 @ConfigurationProperties(prefix = "web")
-class WebContextProperties {
+class WebContextProperties(
+    val protocol: HttpProtocol = HttpProtocol.HTTP,
 
-    var protocol: @NotNull HTTP_PROTOCOL? = HTTP_PROTOCOL.HTTP
+    @NotBlank
+    @Pattern(regexp = "^[a-zA-Z]+$/")
+    val hostname: String = "",
 
-    var hostname: @NotBlank @Pattern(regexp = "^[a-zA-Z]+$/") String =
-        ""
-
-    var port: @Min(1) @Max(65536) Int = 0
+    @Min(1)
+    @Max(65536)
+    val port: Int = 0
+) {
 
     val baseUri: URI?
         get() {
-            val baseUri = if (port != 0) {
-                protocol!!.toLowercaseString() + "://$hostname:$port"
+            val baseUri = if (port != 0 && port != protocol.defaultPort) {
+                protocol.name.lowercase() + "://$hostname:$port"
             } else {
-                protocol!!.toLowercaseString() + "://$hostname"
+                protocol.name.lowercase() + "://$hostname"
             }
             return URI.create(baseUri)
         }
 
-    enum class HTTP_PROTOCOL(val defaultPort: Int) {
-        HTTP(80), HTTPS(443);
-
-        fun toLowercaseString(): String {
-            return name.lowercase(Locale.getDefault())
-        }
+    enum class HttpProtocol(val defaultPort: Int) {
+        HTTP(80),
+        HTTPS(443);
     }
 }
