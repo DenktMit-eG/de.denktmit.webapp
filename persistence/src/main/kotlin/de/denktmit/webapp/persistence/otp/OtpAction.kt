@@ -3,6 +3,7 @@ package de.denktmit.webapp.persistence.otp
 import jakarta.persistence.*
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotNull
+import org.hibernate.annotations.UuidGenerator
 import java.time.Instant
 import java.util.UUID
 
@@ -11,7 +12,8 @@ import java.util.UUID
 data class OtpAction(
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue
+    @UuidGenerator
     val otpActionId: UUID = UUID.randomUUID(),
 
     @Column(length = 255)

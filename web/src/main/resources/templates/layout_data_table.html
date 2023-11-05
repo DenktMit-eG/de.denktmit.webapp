@@ -1,0 +1,69 @@
+<!doctype html>
+<html class="no-js" lang="de">
+<head>
+    <meta charset="utf-8">
+    <title>DenktMit eG - Ihre Gefährten für IT-Projekte</title>
+    <link rel="icon" href="/img/favicon.svg">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta property="og:title" content="">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+
+    <link rel="manifest" href="/misc/site.webmanifest">
+    <link rel="apple-touch-icon" href="icon.png">
+    <!-- Place favicon.ico in the root directory -->
+
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/denktmit.css">
+    <link rel="stylesheet" href="/css/typographie.css">
+
+    <meta name="theme-color" content="#fafafa">
+</head>
+
+<body>
+<header>
+    <nav>
+        <img src="/img/logo.svg" alt="Das DenktMit eG Signet mit Firmenname"/>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/">Über unns</a></li>
+            <li><a href="/">Was wir tun</a></li>
+            <li><a href="/">Expertise</a></li>
+            <li><a href="/">Team</a></li>
+            <li><a href="/">Karriere</a></li>
+            <li><a href="/">Blog</a></li>
+            <li><a href="/">Kontakt</a></li>
+        </ul>
+    </nav>
+    <hgroup>
+        <h1>Ihre Gefährten für IT-Projekte</h1>
+        <p>DenktMit ist das flexible Experten-Netzwerk erfahrener IT-Spezialisten.<br>Gefährten - mehr als nur Berater.
+        </p>
+    </hgroup>
+</header>
+<main>
+    <article>
+        <table class="table" id="data-table" th:object="${dataTable}">
+            <thead>
+            <tr>
+                <th th:each="columnName : ${dataTable.meta.columnNames}" th:text="${columnName}"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="row, stat : ${dataTable.takeRows(null)}">
+                <td th:each="cell: ${row.iterator()}" th:text="${cell}">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </article>
+</main>
+<footer>
+
+</footer>
+
+</body>
+</html>

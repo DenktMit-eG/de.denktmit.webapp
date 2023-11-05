@@ -4,6 +4,7 @@ import de.denktmit.webapp.persistence.Constants.FAR_FUTURE
 import jakarta.persistence.*
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotNull
+import org.hibernate.annotations.NaturalId
 import java.time.Instant
 
 
@@ -14,23 +15,16 @@ data class User(
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    val userId: Long = -1,
+    val userId: Long = 0,
 
+    @NaturalId
     @Column(length = 255)
     @NotBlank
     val mail: String = "",
 
-    @Column(length = 60)
+    @Column(length = 500)
     @NotBlank
     val password: String = "",
-
-    @Column(length = 60)
-    @NotBlank
-    val firstName: String = "",
-
-    @Column(length = 60)
-    @NotBlank
-    val lastName: String = "",
 
     @Column
     @NotNull
