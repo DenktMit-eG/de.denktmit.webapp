@@ -1,0 +1,34 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:35432/webapp
+    username: db-it-user
+    password: db-it-pass
+    hikari:
+      connectionTimeout: 20000
+      maximumPoolSize: 5
+      pool-name: 'hikari-pool'
+
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        tmp:
+          use_jdbc_metadata_defaults: false
+        jdbc:
+          lob:
+            non_contextual_creation: true
+        hbm2ddl:
+          auto: none
+    open-in-view: false
+    show-sql: true
+
+  jooq:
+    sql-dialect: postgres
+
+business:
+  adminUsers:
+    - admin.user@denktmit.de
+  domainNames:
+    - the-webapp.denktmit.de
+  mail:
+    sender: "mailbot@denktmit.de"

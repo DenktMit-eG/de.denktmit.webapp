@@ -24,7 +24,7 @@ spring:
           lob:
             non_contextual_creation: true
         hbm2ddl:
-          auto: create-drop
+          auto: none
     open-in-view: false
     show-sql: true
 
@@ -37,13 +37,20 @@ spring:
     properties:
       mail:
         smtp:
-          auth: 'true'
+          auth: 'false'
           starttls:
-            enable: 'true'
-            required: 'true'
+            enable: 'false'
+            required: 'false'
           # Enable, if target server expects SSL instead of STARTTLS
           #socketFactory:
           #  port: '1025'
           #  class: javax.net.ssl.SSLSocketFactor
           #  fallback: 'false'
 
+business:
+  adminUsers:
+    - admin.user@denktmit.de
+  domainNames:
+    - denktmit.de
+  mail:
+    sender: "mailbot@denktmit.de"
