@@ -54,12 +54,12 @@
                 <dependencies>
                     <dependency>
                         <groupId>de.denktmit.webapp</groupId>
-                        <artifactId>persistence-provider</artifactId>
+                        <artifactId>persistence-it-data</artifactId>
                         <version>${project.parent.version}</version>
                     </dependency>
                     <dependency>
                         <groupId>de.denktmit.webapp</groupId>
-                        <artifactId>persistence-it-data</artifactId>
+                        <artifactId>persistence-provider</artifactId>
                         <version>${project.parent.version}</version>
                     </dependency>
                 </dependencies>

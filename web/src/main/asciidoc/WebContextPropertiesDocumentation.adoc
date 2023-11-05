@@ -1,0 +1,86 @@
+= WebContextProperties Class
+:icons: font
+:source-highlighter: coderay
+
+== Description
+
+The `WebContextProperties` class is a Kotlin class that is part of the `de.denktmit.webapp.springconfig` package. It is used to configure properties related to a web application context.
+
+== Class Declaration
+
+[source,kotlin]
+----
+package de.denktmit.webapp.springconfig
+
+import jakarta.validation.constraints.*
+import org.springframework.boot.context.properties.ConfigurationProperties
+import org.springframework.context.annotation.Configuration
+import java.net.URI
+import java.util.*
+
+@Configuration
+@ConfigurationProperties(prefix = "web")
+class WebContextProperties(
+    val protocol: HttpProtocol = HttpProtocol.HTTP,
+
+    @NotBlank
+    @Pattern(regexp = "^[a-zA-Z]+$/")
+    val hostname: String = "",
+
+    @Min(1)
+    @Max(65536)
+    val port: Int = 0
+) {
+
+    val baseUri: URI?
+        get() {
+            val baseUri = if (port != 0 && port != protocol.defaultPort) {
+                protocol.name.lowercase() + "://$hostname:$port"
+            } else {
+                protocol.name.lowercase() + "://$hostname"
+            }
+            return URI.create(baseUri)
+        }
+
+    enum class HttpProtocol(val defaultPort: Int) {
+        HTTP(80),
+        HTTPS(443);
+    }
+}
+----
+
+== Class Members
+
+This section describes the members of the `WebContextProperties` class:
+
+=== Properties
+
+* `protocol` (Property)
+  - Type: `HttpProtocol`
+  - Default Value: `HttpProtocol.HTTP`
+  - Description: Represents the HTTP protocol used (HTTP or HTTPS).
+
+* `hostname` (Property)
+  - Type: `String`
+  - Default Value: `""`
+  - Constraints: Must not be blank and must match the regex "^[a-zA-Z]+$".
+  - Description: Represents the hostname of the web application.
+
+* `port` (Property)
+  - Type: `Int`
+  - Default Value: `0`
+  - Constraints: Must be between 1 and 65536.
+  - Description: Represents the port number for the web application.
+
+=== Methods
+
+* `baseUri` (Method)
+  - Return Type: `URI`
+  - Description: Calculates and returns the base URI for the web application based on the configured protocol, hostname, and port. If the port is 0 or matches the default port for the protocol, it's omitted.
+
+=== Nested Enum
+
+* `HttpProtocol` (Enum)
+  - Description: Represents the available HTTP protocols (HTTP and HTTPS) and their default port numbers.
+
+This AsciiDoc documentation provides an overview of the `WebContextProperties` class and its members, including properties, methods, and a nested enum.

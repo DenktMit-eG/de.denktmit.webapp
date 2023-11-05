@@ -27,7 +27,7 @@ class WebappUserDetails private constructor(
     constructor(user: User, vararg authorities: String = arrayOf("ROLE_USER")) : this(
         username = user.mail,
         password = user.password,
-        enabled = user.enabled,
+        enabled = !user.disabled,
         authorities = AuthorityUtils.createAuthorityList(*authorities)
     )
 

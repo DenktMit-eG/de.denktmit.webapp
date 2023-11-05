@@ -12,7 +12,7 @@ class UserRepositoryIT : AbstractTestBase() {
 
     @Test
     fun testFindAll() {
-        assertThat(repo.findAll()).hasSize(2)
+        assertThat(repo.findAll()).hasSize(5)
     }
 
 }

@@ -26,7 +26,7 @@ Maven wrapper provided within this repository. Just run
 inside the root repository of this project
 
 ### Build and run the application
-Basically you will have to ensure, that you service dependencies are 
+Basically you will have to ensure, that you service dependencies are [README.md](README.md)
 available. Start them with docker-compose and then build with maven
 and start the application
 
@@ -60,7 +60,7 @@ everything and start anew.
 ENV_FILE="$(pwd)/.env-dev"
 source ${ENV_FILE}
 # Tear down docker containers and remove volumes
-COMPOSE_PROFILES=dev,it docker compose -f docker-compose.dev.yaml down
+COMPOSE_PROFILES=dev,it,e2e docker compose -f docker-compose.dev.yaml down
 # Remove the persistent docker volumes
 docker volume rm ${COMPOSE_PROJECT_NAME}_db-dev-data ${COMPOSE_PROJECT_NAME}_db-it-data
 ```

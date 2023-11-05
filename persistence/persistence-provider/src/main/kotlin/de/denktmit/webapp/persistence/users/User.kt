@@ -1,8 +1,12 @@
 package de.denktmit.webapp.persistence.users
 
+import de.denktmit.webapp.persistence.Constants.FAR_FUTURE
 import jakarta.persistence.*
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotNull
+import java.time.Instant
+
+
 
 @Entity
 @Table(name = "users")
@@ -30,7 +34,16 @@ data class User(
 
     @Column
     @NotNull
-    val enabled: Boolean = false,
+    val disabled: Boolean = true,
+
+    @Column
+    val lockedUntil: Instant? = null,
+
+    @Column
+    val accountValidUntil: Instant = FAR_FUTURE,
+
+    @Column
+    val credentialsValidUntil: Instant = FAR_FUTURE,
 
     @Column(length = 15)
     @Enumerated(EnumType.STRING)
