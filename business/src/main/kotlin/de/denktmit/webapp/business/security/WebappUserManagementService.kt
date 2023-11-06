@@ -21,7 +21,6 @@ class WebappUserManagementService(
     override fun loadUserByUsername(name: String): UserDetails {
         return userRepository.findByMail(name)?.let { user ->
             val now = Instant.now()
-            val lockedUntil = user.lockedUntil
             val roles = if (config.adminUsers.contains(user.mail)) {
                 "ROLE_ADMIN"
             } else {
@@ -29,7 +28,7 @@ class WebappUserManagementService(
             }
             SpringUser.builder()
                 .accountExpired(now.isAfter(user.accountValidUntil))
-                .accountLocked(lockedUntil != null && now.isBefore(lockedUntil))
+                .accountLocked(now.isBefore(user.lockedUntil))
                 .authorities(roles)
                 .credentialsExpired(now.isAfter(user.credentialsValidUntil))
                 .disabled(user.disabled)

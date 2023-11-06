@@ -34,9 +34,9 @@ CREATE TABLE users
 (
     user_id                 bigint       NOT NULL,                                   -- Unique user ID
     mail                    varchar(255) NOT NULL,                                   -- User's email
-    password                varchar(500)     NOT NULL,                                   -- Password (hashed or encrypted)
+    password                varchar(500)     NOT NULL,                               -- Password (hashed or encrypted)
     disabled                BOOL CHECK (disabled IN (TRUE, FALSE)),                  -- User's enabled status
-    locked_until            timestamptz,                                             -- Expiry date of user locking
+    locked_until            timestamptz  NOT NULL,                                   -- Expiry date of user locking
     account_valid_until     timestamptz  NOT NULL,                                   -- Expiry date of user account
     credentials_valid_until timestamptz  NOT NULL,                                   -- Expiry date of user credentials
     role                    varchar(15)  NOT NULL CHECK (role IN ('USER', 'ADMIN')), -- User's role

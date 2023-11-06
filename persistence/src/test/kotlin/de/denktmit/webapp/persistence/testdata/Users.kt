@@ -1,7 +1,9 @@
 package de.denktmit.webapp.persistence.testdata
 
 import de.denktmit.webapp.persistence.Constants.FAR_FUTURE
+import de.denktmit.webapp.persistence.Constants.FAR_PAST
 import de.denktmit.webapp.persistence.users.User
+import de.denktmit.webapp.persistence.users.UserRepository
 import de.denktmit.webapp.persistence.users.UserRole
 import java.time.Instant
 
@@ -12,13 +14,13 @@ object Users {
         mail: String = "j.unit@denktmit.de",
         password: String = "very-secret",
         disabled: Boolean = false,
-        lockedUntil: Instant? = null,
+        lockedUntil: Instant = FAR_PAST,
         accountValidUntil: Instant = FAR_FUTURE,
         credentialsValidUntil: Instant = FAR_FUTURE,
         role: UserRole = UserRole.ADMIN
     ): User {
         return User(
-            userId = userId,
+            id = userId,
             mail = mail,
             password = password,
             disabled = disabled,
@@ -34,8 +36,8 @@ object Users {
         mail = "user1@example.com",
         password = "hashed_password_1",
         disabled = false,
-        accountValidUntil = Instant.parse("9999-12-31T23:59:59.999999Z"),
-        credentialsValidUntil = Instant.parse("9999-12-31T23:59:59.999999Z"),
+        accountValidUntil = FAR_FUTURE,
+        credentialsValidUntil = FAR_FUTURE,
         role = UserRole.USER
     )
 
@@ -44,8 +46,8 @@ object Users {
         mail = "admin2@example.com",
         password = "hashed_password_2",
         disabled = false,
-        accountValidUntil = Instant.parse("9999-12-31T23:59:59.999999Z"),
-        credentialsValidUntil = Instant.parse("9999-12-31T23:59:59.999999Z"),
+        accountValidUntil = FAR_FUTURE,
+        credentialsValidUntil = FAR_FUTURE,
         role = UserRole.ADMIN
     )
 
@@ -54,9 +56,9 @@ object Users {
         mail = "locked_user3@example.com",
         password = "hashed_password_3",
         disabled = true,
-        lockedUntil = Instant.parse("1970-01-01T00:00:00Z"),
-        accountValidUntil = Instant.parse("9999-12-31T23:59:59.999999Z"),
-        credentialsValidUntil = Instant.parse("9999-12-31T23:59:59.999999Z"),
+        lockedUntil = FAR_PAST,
+        accountValidUntil = FAR_FUTURE,
+        credentialsValidUntil = FAR_FUTURE,
         role = UserRole.USER
     )
 
@@ -65,8 +67,8 @@ object Users {
         mail = "account_expired_user4@example.com",
         password = "hashed_password_4",
         disabled = true,
-        accountValidUntil = Instant.parse("1970-01-01T00:00:00Z"),
-        credentialsValidUntil = Instant.parse("9999-12-31T23:59:59.999999Z"),
+        accountValidUntil = FAR_PAST,
+        credentialsValidUntil = FAR_FUTURE,
         role = UserRole.USER
     )
 
@@ -75,11 +77,20 @@ object Users {
         mail = "credentials_expired_user5@example.com",
         password = "hashed_password_5",
         disabled = true,
-        accountValidUntil = Instant.parse("9999-12-31T23:59:59.999999Z"),
-        credentialsValidUntil = Instant.parse("1970-01-01T00:00:00Z"),
+        accountValidUntil = FAR_FUTURE,
+        credentialsValidUntil = FAR_PAST,
         role = UserRole.USER
     )
 
-    val allUsers = listOf(johndoe, janesmith, alicejohnson, paulhiggins, petergabriel)
+    val all = listOf(johndoe, janesmith, alicejohnson, paulhiggins, petergabriel)
+
+    open class RepoStub(
+        data: MutableList<User> = all.toMutableList()
+    ): CrudRepositoryStub<User, Long>(data), UserRepository {
+
+        override fun findByMail(mail: String): User? {
+            return findAll().find { it.mail == mail }
+        }
+    }
 
 }

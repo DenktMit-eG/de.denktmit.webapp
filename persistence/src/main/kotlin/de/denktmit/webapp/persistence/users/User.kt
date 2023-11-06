@@ -1,12 +1,14 @@
 package de.denktmit.webapp.persistence.users
 
 import de.denktmit.webapp.persistence.Constants.FAR_FUTURE
+import de.denktmit.webapp.persistence.Constants.FAR_PAST
+import de.denktmit.webapp.persistence.HasIdOfType
 import jakarta.persistence.*
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotNull
 import org.hibernate.annotations.NaturalId
 import java.time.Instant
-
+import java.util.*
 
 
 @Entity
@@ -15,7 +17,8 @@ data class User(
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    val userId: Long = 0,
+    @Column(name = "user_id")
+    override val id: Long = 0,
 
     @NaturalId
     @Column(length = 255)
@@ -31,7 +34,7 @@ data class User(
     val disabled: Boolean = true,
 
     @Column
-    val lockedUntil: Instant? = null,
+    val lockedUntil: Instant = FAR_PAST,
 
     @Column
     val accountValidUntil: Instant = FAR_FUTURE,
@@ -43,4 +46,4 @@ data class User(
     @Enumerated(EnumType.STRING)
     @NotNull
     val role: UserRole = UserRole.USER,
-)
+): HasIdOfType<Long>

@@ -21,7 +21,7 @@ Notice, that instead of installing Maven, you can also make use of the
 Maven wrapper provided within this repository. Just run
 
 ```bash
-./mwnw clean install
+./mvnw clean install
 ```
 
 inside the root repository of this project
@@ -71,7 +71,21 @@ Make sure, your service dependencies are running. Then you can just run
 the build with
 
 ```bash
-./mvwn clean install
+./mvnw clean install
+```
+
+#### Prepare the database with testdata
+The pom.xml file of the persistence module defines Flyway executions to
+fill the dev and it databases with testdata.
+
+Fill dev database with testdata
+```bash
+./mvnw flyway:migrate@fill-dev -f ./persistence/pom.xml
+```
+
+Fill integration test database with testdata
+```bash
+./mvnw flyway:migrate@fill-it -f ./persistence/pom.xml
 ```
 
 #### Start the application

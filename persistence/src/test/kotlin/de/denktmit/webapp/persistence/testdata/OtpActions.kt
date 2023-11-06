@@ -2,6 +2,7 @@ package de.denktmit.webapp.persistence.testdata
 
 import de.denktmit.webapp.persistence.Constants.FAR_FUTURE
 import de.denktmit.webapp.persistence.otp.OtpAction
+import de.denktmit.webapp.persistence.otp.OtpRepository
 import de.denktmit.webapp.persistence.users.User
 import java.time.Instant
 import java.util.*
@@ -17,7 +18,7 @@ object OtpActions {
         validUntil: Instant = FAR_FUTURE
     ): OtpAction {
         return OtpAction(
-            otpActionId = otpActionId,
+            id = otpActionId,
             target = target.java.canonicalName,
             action = action,
             identifier = identifier,
@@ -41,6 +42,10 @@ object OtpActions {
         FAR_FUTURE
     )
 
-    val allOtpActions = listOf(facade00, decade00)
+    val all = listOf(facade00, decade00)
+
+    open class RepoStub(
+        data: MutableList<OtpAction> = all.toMutableList()
+    ): CrudRepositoryStub<OtpAction, UUID>(data), OtpRepository
 
 }

@@ -13,7 +13,7 @@ class OtpActionRepositoryIT : AbstractTestBase() {
 
     @Test
     fun testFindAll() {
-        assertThat(repo.findAll()).hasSize(OtpActions.allOtpActions.size)
+        assertThat(repo.findAll()).hasSize(OtpActions.all.size)
     }
 
 }
