@@ -1,6 +1,7 @@
-# DenktMit eG - Webapp simple
-This is the default development base for DenktMit eG Webapps in simple configuration,
-meaning no separate Maven modules for the different layers.
+# DenktMit eG - Webapp
+This is the default development base for DenktMit eG Webapps. It is set up
+as three-tier architecture with a persistence, a business and web layer 
+for server-side HTML, as well as JSON and XML rendering
 
 ## Local development
 Please not, that any paths used in this documentation are relative to this
