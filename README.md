@@ -4,7 +4,7 @@ as three-tier architecture with a persistence, a business and web layer
 for server-side HTML, as well as JSON and XML rendering
 
 ## Local development
-Please not, that any paths used in this documentation are relative to this
+Please note, that any paths used in this documentation are relative to this
 projects root directory
 
 ### Requirements
@@ -80,12 +80,12 @@ fill the dev and it databases with testdata.
 
 Fill dev database with testdata
 ```bash
-./mvnw flyway:migrate@fill-dev -f ./persistence/pom.xml
+./mvnw flyway:migrate@fill-dev -Dflyway.configFiles=../.flyway.dev.conf -f ./persistence/pom.xml
 ```
 
-Fill integration test database with testdata
+Fill integration test database with testdata (done automatically in maven build)
 ```bash
-./mvnw flyway:migrate@fill-it -f ./persistence/pom.xml
+./mvnw flyway:migrate@fill-it -Dflyway.configFiles=../.flyway.it.conf -f ./persistence/pom.xml
 ```
 
 #### Start the application
@@ -106,3 +106,10 @@ And to stop it again issue an
 ```bash
 COMPOSE_PROFILES=e2e docker compose -f docker-compose.dev.yaml down
 ```
+
+## Secrets
+Credentials for your docker dev environment are in **.env**.
+Optionally, if you use the flyway maven goals to load test data into your db, adjust
+**.flyway.dev.conf** and **.flyway.it.conf**. 
+
+**Do not commit your dotfliels .env and .flyway.*.conf!**

@@ -1,4 +1,7 @@
 spring:
+  config:
+    import: optional:file:../.env[.properties]
+
   logging:
     group:
       db: 'org.hibernate,org.springframework.data.jpa,org.springframework.jdbc'
@@ -6,7 +9,7 @@ spring:
       db: DEBUG
 
   datasource:
-    url: jdbc:postgresql://localhost:35432/webapp
+    url: ${DB_IT_URL}:${DB_IT_PORT}/${DB_IT_NAME}
     username: db-it-user
     password: db-it-pass
     hikari:
@@ -46,4 +49,3 @@ spring:
           #  port: '1025'
           #  class: javax.net.ssl.SSLSocketFactor
           #  fallback: 'false'
-

@@ -8,11 +8,11 @@ services:
     hostname: db-dev
     restart: unless-stopped
     environment:
-      - POSTGRES_USER=db-dev-user
-      - POSTGRES_PASSWORD=db-dev-pass
-      - POSTGRES_DB=webapp
+      - POSTGRES_USER=${DB_DEV_USER}
+      - POSTGRES_PASSWORD=${DB_DEV_PASS}
+      - POSTGRES_DB=${DB_DEV_NAME}
     ports:
-      - "25432:5432"
+      - "${DB_DEV_PORT}:5432"
     volumes:
       - db-dev-data:/var/lib/postgresql/data
 
@@ -24,11 +24,11 @@ services:
     hostname: db-it
     restart: unless-stopped
     environment:
-      - POSTGRES_USER=db-it-user
-      - POSTGRES_PASSWORD=db-it-pass
-      - POSTGRES_DB=webapp
+      - POSTGRES_USER=${DB_IT_USER}
+      - POSTGRES_PASSWORD=${DB_IT_PASS}
+      - POSTGRES_DB=${DB_IT_NAME}
     ports:
-      - "35432:5432"
+      - "${DB_IT_PORT}:5432"
     volumes:
       - db-it-data:/var/lib/postgresql/data
 
