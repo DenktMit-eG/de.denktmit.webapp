@@ -108,8 +108,9 @@ COMPOSE_PROFILES=e2e docker compose -f docker-compose.dev.yaml down
 ```
 
 ## Secrets
-Credentials for your docker dev environment are in **.env**.
-Optionally, if you use the flyway maven goals to load test data into your db, adjust
-**.flyway.dev.conf** and **.flyway.it.conf**. 
+Credentials for your docker dev environment and app config are in **.env**.
 
-**Do not commit your dotfliels .env and .flyway.*.conf!**
+Optionally, if you use the flyway maven goals to load test data into your db, adjust
+**.flyway.dev.conf** and **.flyway.it.conf**. If you don't use the flyway maven goal directly, **.flyway.dev.conf** and **.flyway.it.conf** are obsolete. 
+
+**Do not commit your dotfiles .env and .flyway.*.conf!**
