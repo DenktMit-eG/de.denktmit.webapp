@@ -1,6 +1,7 @@
 package it
 
-import de.denktmit.webapp.business.user.UserRepository
+import de.denktmit.webapp.persistence.testdata.Users
+import de.denktmit.webapp.persistence.users.UserRepository
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -12,7 +13,7 @@ class UserRepositoryIT : AbstractTestBase() {
 
     @Test
     fun testFindAll() {
-        assertThat(repo.findAll()).hasSize(5)
+        assertThat(repo.findAll()).hasSize(Users.allUsers.size)
     }
 
 }

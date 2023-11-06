@@ -7,8 +7,8 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 
 
-@EntityScan("de.denktmit.webapp.persistence.*")
-@EnableJpaRepositories("de.denktmit.webapp.business.*")
 @EnableAutoConfiguration
 @EnableConfigurationProperties(BusinessContextConfigProperties::class)
-class TestContext
+@EnableJpaRepositories("de.denktmit.webapp.persistence.*")
+@EntityScan("de.denktmit.webapp.persistence.*")
+class BusinessTestContext

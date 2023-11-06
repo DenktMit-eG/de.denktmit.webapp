@@ -1,6 +1,7 @@
 package it
 
-import de.denktmit.webapp.business.security.OtpRepository
+import de.denktmit.webapp.persistence.otp.OtpRepository
+import de.denktmit.webapp.persistence.testdata.OtpActions
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -12,7 +13,7 @@ class OtpActionRepositoryIT : AbstractTestBase() {
 
     @Test
     fun testFindAll() {
-        assertThat(repo.findAll()).hasSize(2)
+        assertThat(repo.findAll()).hasSize(OtpActions.allOtpActions.size)
     }
 
 }

@@ -1,6 +1,7 @@
 package de.denktmit.webapp.business.user
 
 import de.denktmit.webapp.common.DataTable
+import de.denktmit.webapp.persistence.users.UserRepository
 import org.springframework.stereotype.Service
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter

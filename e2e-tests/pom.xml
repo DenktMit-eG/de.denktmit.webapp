@@ -37,33 +37,6 @@
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-maven-plugin</artifactId>
             </plugin>
-            <plugin>
-                <groupId>org.flywaydb</groupId>
-                <artifactId>flyway-maven-plugin</artifactId>
-                <configuration>
-                    <url>jdbc:postgresql://localhost:35432/webapp?loggerLevel=OFF</url>
-                    <user>db-it-user</user>
-                    <password>db-it-pass</password>
-                    <schemas>
-                        <schema>public</schema>
-                    </schemas>
-                    <locations>
-                        <location>classpath:db/migration</location>
-                    </locations>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>de.denktmit.webapp</groupId>
-                        <artifactId>persistence-it-data</artifactId>
-                        <version>${project.parent.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>de.denktmit.webapp</groupId>
-                        <artifactId>persistence-provider</artifactId>
-                        <version>${project.parent.version}</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
         </plugins>
     </build>
 

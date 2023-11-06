@@ -1,4 +1,4 @@
-package de.denktmit.webapp.business.user
+package de.denktmit.webapp.persistence.users
 
 import de.denktmit.webapp.persistence.users.User
 import org.springframework.data.repository.CrudRepository

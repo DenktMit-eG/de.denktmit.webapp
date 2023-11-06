@@ -9,7 +9,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
 
 
 @ExtendWith(SpringExtension::class)
-@SpringBootTest(classes = [BusinessTestContext::class])
+@SpringBootTest(classes = [PersistenceTestContext::class])
 @ContextConfiguration(initializers = [PostgresTestContextInitializer::class])
 @TestPropertySource(locations = ["classpath:application-test.properties"])
 abstract class AbstractTestBase
