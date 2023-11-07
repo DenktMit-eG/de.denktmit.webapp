@@ -81,29 +81,8 @@
                 <artifactId>flyway-maven-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>fill-dev</id>
+                        <id>fill-db</id>
                         <configuration>
-                            <url>jdbc:postgresql://localhost:25432/webapp?loggerLevel=OFF</url>
-                            <user>db-dev-user</user>
-                            <password>db-dev-pass</password>
-                            <schemas>
-                                <schema>public</schema>
-                            </schemas>
-                            <locations>
-                                <location>classpath:db/migration</location>
-                                <location>filesystem:src/test/resources/db/migration</location>
-                            </locations>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>fill-it</id>
-                        <configuration>
-                            <url>jdbc:postgresql://localhost:35432/webapp?loggerLevel=OFF</url>
-                            <user>db-it-user</user>
-                            <password>db-it-pass</password>
-                            <schemas>
-                                <schema>public</schema>
-                            </schemas>
                             <locations>
                                 <location>classpath:db/migration</location>
                                 <location>filesystem:src/test/resources/db/migration</location>

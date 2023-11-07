@@ -1,4 +1,7 @@
 spring:
+  config:
+    import: optional:file:../.env[.properties]
+
   logging:
     group:
       db: 'org.hibernate,org.springframework.data.jpa,org.springframework.jdbc'
@@ -6,9 +9,9 @@ spring:
       db: DEBUG
 
   datasource:
-    url: jdbc:postgresql://localhost:25432/webapp
-    username: db-dev-user
-    password: db-dev-pass
+    url: ${DB_DEV_URL}:${DB_DEV_PORT}/${DB_DEV_NAME}
+    username: ${DB_DEV_USER}
+    password: ${DB_DEV_PASS}
     hikari:
       connectionTimeout: 20000
       maximumPoolSize: 5
