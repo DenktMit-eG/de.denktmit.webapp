@@ -1,0 +1,7 @@
+.bg-color\:white {
+    background-color: white;
+}
+
+.bg-color\:petrol {
+    background-color: var(--color-petrol);
+}

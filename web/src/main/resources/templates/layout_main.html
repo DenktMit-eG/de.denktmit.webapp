@@ -1,130 +1,38 @@
-<!doctype html>
-<html class="no-js" lang="de">
+<!DOCTYPE html>
+<html th:fragment="layout (sidebar, maincontent)" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8">
-    <title>DenktMit eG - Ihre Gefährten für IT-Projekte</title>
-    <link rel="icon" href="/img/favicon.svg">
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <meta property="og:title" content="">
-    <meta property="og:type" content="">
-    <meta property="og:url" content="">
-    <meta property="og:image" content="">
-
-    <link rel="manifest" href="/misc/site.webmanifest">
-    <link rel="apple-touch-icon" href="icon.png">
-    <!-- Place favicon.ico in the root directory -->
-
-    <link rel="stylesheet" href="/css/reset.css">
-    <link rel="stylesheet" href="/css/denktmit.css">
-    <link rel="stylesheet" href="/css/typographie.css">
-
-    <meta name="theme-color" content="#fafafa">
+    <meta http-equiv="content-language" content="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page with Sidebar</title>
+    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/css/typographie.css" />
+    <link rel="stylesheet" href="/css/utility.css" />
 </head>
-
 <body>
-<header>
-    <nav>
-        <img src="/img/logo.svg" alt="Das DenktMit eG Signet mit Firmenname"/>
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/">Über unns</a></li>
-            <li><a href="/">Was wir tun</a></li>
-            <li><a href="/">Expertise</a></li>
-            <li><a href="/">Team</a></li>
-            <li><a href="/">Karriere</a></li>
-            <li><a href="/">Blog</a></li>
-            <li><a href="/">Kontakt</a></li>
-        </ul>
-    </nav>
-    <hgroup>
-        <h1>Ihre Gefährten für IT-Projekte</h1>
-        <p>DenktMit ist das flexible Experten-Netzwerk erfahrener IT-Spezialisten.<br>Gefährten - mehr als nur Berater.
-        </p>
-    </hgroup>
-</header>
-<main>
-    <article>
-        <aside>
-            <a href="">Über Uns</a>
-        </aside>
-        <section>
-            <h2>Wir leben Software</h2>
-            <p>
-                DenktMit ist Ihr weitsichtiger Wegbereiter und zuverlässiger Wegbegleiter in der digitalen
-                Transformation.
-
-                Ihre Herausforderungen sind unsere Mission. Beratung und Softwareentwicklung sind nachhaltig angelegt.
-                Wir geben
-                unser Know-how an Sie weiter, stärken Ihre Eigen-Expertise und verringert so Ihre Abhängigkeiten. Damit
-                stärken
-                Sie ihre Innovationskraft.
-
-                Wir bringen Sie zurück in den "Driver's Seat" ihrer Digitalisierungsstrategie.
-            </p>
-        </section>
-        <section>
-            <h3>Leistungsspektrum</h3>
-            <p>
-                Als Team bieten wir die gesamte Bandbreite von IT-Beratung und State-of-the-Art Softwareentwicklung. Bei
-                uns
-                kann nicht jeder alles, aber alle zusammen können sehr viel. Und wenn wir einmal etwas nicht können,
-                sagen wir
-                es auch offen.
-            </p>
-            <a href="">Mehr</a>
-        </section>
-        <section>
-            <h3>Tailor-made Teams</h3>
-            <p>
-                Komplexes IT-Projekt vor der Brust? Wir stellen dafür maßgeschneiderte Teams bereit - skalierbar für
-                jede
-                Anforderung.
-            </p>
-            <a href="">Mehr</a>
-        </section>
-        <section>
-            <h3>Referenzen</h3>
-            <p>
-                Auf diese Projekte aus unserem breiten Spektrum sind wir besonders stolz. Hier spiegelt sich Know-how,
-                Erfahrung und Leistungsfähigkeit unserer Teammitglieder wider.
-            </p>
-            <a href="">Mehr</a>
-        </section>
-    </article>
-
-    <article>
-        <div class="bg-color:white" style="width: 50%">
-            <h2 style="max-inline-size: 20ch; margin-left: auto">Feedback, dass uns antreibt</h2>
-        </div>
-        <div class="bg-color:white" style="width: 50%">
-            <figure>
-                <blockquote>
-                    <p>
-                        Die Experten von DenktMit sind eine langjährige und zuverlässige Unterstützung für unsere
-                        Infrastruktur-,
-                        Plattform- und Software-Teams. Wir verlassen uns gerne auf ihre Fähigkeiten sowohl bei der
-                        Konzeption, als
-                        auch der Implementierung von Produkten für unsere vielfältigen technischen Herausforderungen.
-                        Durch den
-                        Zugriff auf das DenktMit-Expertennetzwerk bringt jeder Berater zusätzlich ein immenses Wissen in
-                        die Projekte
-                        ein.
-                    </p>
-                </blockquote>
-                <hr>
-                <figcaption><strong>Michael Cornel</strong>, Leiter Entwicklung & Operations Software Plattformen,
-                    German Edge
-                    Cloud
-                </figcaption>
-            </figure>
-        </div>
-    </article>
-</main>
-<footer>
-
-</footer>
-
+   <div class="side-wrapper">
+       <aside class="sidebar" >
+           <div class="sidebar-content-wrapper" th:replace="${sidebar}">
+               <h2>EveryLayout</h2>
+               <ul>
+                   <li>Elements</li>
+                   <li>Cluster</li>
+                   <li>Sidebar</li>
+               </ul>
+           </div>
+       </aside>
+       <div class="content">
+           <div class="center" th:replace="${maincontent}">
+               <h1>The Center</h1>
+               <p>
+                   Tech' giants' whimsical usage of defunct elements aside, we mostly moved  away from using presentational
+                   markup in the 2000s. By making styling the  responsibility of a separate technology—CSS—we were able to
+                   manage style  and structure separately. Consequently, a change in art direction would no longer mean
+                   reconstituting our content.
+               </p>
+           </div>
+       </div>
+   </div>
 </body>
 </html>

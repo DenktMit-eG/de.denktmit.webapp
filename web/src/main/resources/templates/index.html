@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html th:replace="~{layout_main :: layout(~{::sidebar}, ~{::fantasy})}" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-language" content="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sidebar</title>
+    <link rel="stylesheet" href="/css/reset.css"/>
+    <link rel="stylesheet" href="/css/styles.css"/>
+    <link rel="stylesheet" href="/css/typographie.css"/>
+    <link rel="stylesheet" href="/css/utility.css"/>
+</head>
+<body>
+<div class="side-wrapper">
+    <aside class="sidebar" th:fragment="sidebar">
+        <div class="sidebar-content-wrapper">
+            <h2>EveryLayout</h2>
+            <ul>
+                <li>Elements</li>
+                <li>Cluster</li>
+                <li>Sidebar</li>
+            </ul>
+            <ul>
+                <li>Best Practises</li>
+                <li>Configuration</li>
+                <li>Enhancement</li>
+            </ul>
+            <ul>
+                <li>Contact</li>
+                <li>Email</li>
+                <li>Website</li>
+            </ul>
+        </div>
+    </aside>
+    <div class="content" id="45">
+        <div class="center">
+
+                <h1>The Center</h1>
+                <h2>The problem</h2>
+                <p>
+                    Tech' giants' whimsical usage of defunct elements aside, we mostly moved away from using
+                    presentational
+                    markup in the 2000s. By making styling the responsibility of a separate technology—CSS—we were able
+                    to
+                    manage style and structure separately. Consequently, a change in art direction would no longer mean
+                    reconstituting our content.
+                </p>
+
+                <div class="frame">
+                    <img src="/img/every-layout-art.jpg" alt="art"/>
+                </div>
+
+                <p class="pfau">
+                    The Frame is mostly useful for cropping media (videos and images) to a desired aspect ratio. Once
+                    you start
+                    controlling the aspect ratio, you can of course tailor it to the current circumstances. For example,
+                    you
+                    might want to give images a different aspect ratio depending on the viewport orientation.
+                </p>
+                <fantasy>
+                <h2>The Solution</h2>
+                <p>
+                    This source (an image file such as a PNG, JPEG, or SVG) has certain characteristics outside
+                    your control as a writer of CSS. Aspect ratio is one such characteristic, and is determined when
+                    the image is originally created and cropped.
+                </p>
+                </fantasy>
+
+                <div class="grid">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+
+                <h2>Use Cases #</h2>
+                <p>
+                    The Frame is mostly useful for cropping media (videos and images) to a desired aspect ratio. Once
+                    you start
+                    controlling the aspect ratio, you can of course tailor it to the current circumstances. For example,
+                    you
+                    might want to give images a different aspect ratio depending on the viewport orientation.
+                </p>
+
+                <div class="frame">
+                    <img src="/img/modern-art-layout.jpg" alt="art"/>
+                </div>
+
+        </div>
+
+
+    </div>
+</div>
+</body>
+</html>
