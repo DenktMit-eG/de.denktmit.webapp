@@ -46,6 +46,7 @@ class WebappSecurityConfig(
                     .requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
                     // Landing page or other public pages
                     .requestMatchers("/").permitAll()
+                    .requestMatchers("/error").permitAll()
                     // Admin-specific rules
                     .requestMatchers("/admin/**").hasRole("ADMIN")
                     // All other pages

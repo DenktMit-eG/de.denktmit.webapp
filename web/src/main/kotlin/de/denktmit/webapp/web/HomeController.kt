@@ -10,7 +10,7 @@ class HomeController {
 
     @GetMapping
     fun getHome(): String {
-        return "layout_main"
+        return "index"
     }
 
 }
