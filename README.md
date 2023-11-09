@@ -37,20 +37,20 @@ provides single goto requirement for the build dependencies. Just make
 sure to have it started before building the project
 
 ```bash
-COMPOSE_PROFILES=dev,it docker compose -f docker-compose.dev.yaml up -d
+COMPOSE_PROFILES=dev,it docker compose --env-file .env-dev -f docker-compose.dev.yaml up -d
 ```
 
 Once you are done with it, you can just stop it, so it does not use up
 your system resources
 
 ```bash
-COMPOSE_PROFILES=dev,it docker compose -f docker-compose.dev.yaml stop
+COMPOSE_PROFILES=dev,it docker compose  --env-file .env-dev -f docker-compose.dev.yaml stop
 ```
 
 and restart it, when you need it again
 
 ```bash
-COMPOSE_PROFILES=dev,it docker compose -f docker-compose.dev.yaml --profile dev start
+COMPOSE_PROFILES=dev,it docker compose  --env-file .env-dev -f docker-compose.dev.yaml --profile dev start
 ```
 
 In case you need a fresh start, you can tell docker-compose to tear down
@@ -61,7 +61,7 @@ everything and start anew.
 ENV_FILE="$(pwd)/.env-dev"
 source ${ENV_FILE}
 # Tear down docker containers and remove volumes
-COMPOSE_PROFILES=dev,it,e2e docker compose -f docker-compose.dev.yaml down
+COMPOSE_PROFILES=dev,it,e2e docker compose  --env-file .env-dev -f docker-compose.dev.yaml down
 # Remove the persistent docker volumes
 docker volume rm ${COMPOSE_PROJECT_NAME}_db-dev-data ${COMPOSE_PROJECT_NAME}_db-it-data
 ```
@@ -98,13 +98,13 @@ Selenium Hub and a set of browsers.
 To start Selenium hub within existing docker webapp context type
 
 ```bash
-COMPOSE_PROFILES=e2e docker compose -f docker-compose.dev.yaml up -d
+COMPOSE_PROFILES=e2e docker compose --env-file .env-dev -f docker-compose.dev.yaml up -d
 ```
 
 And to stop it again issue an
 
 ```bash
-COMPOSE_PROFILES=e2e docker compose -f docker-compose.dev.yaml down
+COMPOSE_PROFILES=e2e docker compose  --env-file .env-dev -f docker-compose.dev.yaml down
 ```
 
 ## Secrets
