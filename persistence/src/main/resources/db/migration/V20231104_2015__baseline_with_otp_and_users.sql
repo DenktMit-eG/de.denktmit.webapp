@@ -1,13 +1,3 @@
--- Define a sequence to generate unique values for OTP IDs.
--- The sequence starts with 10050 and increments by 50 for each new value.
--- It has no minimum or maximum value, and it uses a cache of 1.
-CREATE SEQUENCE hibernate_sequence
-    START WITH 10050
-    INCREMENT BY 50
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
 -- Create a table to store OTP (One-Time Password) information.
 -- Each OTP has a unique ID (otp_id), an action, and an expiration timestamp (valid_until).
 CREATE TABLE otp_actions
@@ -26,6 +16,12 @@ COMMENT ON COLUMN otp_actions.target IS 'The actions target descriptor, e.g. ''U
 COMMENT ON COLUMN otp_actions.action IS 'The action descriptor, e.g. ''activate''';
 COMMENT ON COLUMN otp_actions.identifier IS 'The actions target identifier, most likely a database id';
 COMMENT ON COLUMN otp_actions.valid_until IS 'Timestamp when the OTP expires';
+
+-- Define a sequence to generate unique values for OTP IDs.
+-- The sequence starts with 10050 and increments by 50 for each new value.
+-- It has no minimum or maximum value, and it uses a cache of 1.
+CREATE SEQUENCE users_seq START WITH 10050 INCREMENT BY 50;
+COMMENT ON SEQUENCE users_seq IS 'Sequence for Hibernate to derive user_id for users table';
 
 -- Create a table to store user information.
 -- Each user has a unique ID (user_id), email (mail), password, first name, last name,

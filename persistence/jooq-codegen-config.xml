@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<configuration xmlns="http://www.jooq.org/xsd/jooq-codegen-3.18.0.xsd"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:schemaLocation="http://www.jooq.org/xsd/jooq-codegen-3.18.0.xsd ">
+    <logging>INFO</logging>
+    <onError>FAIL</onError>
+
+    <generator>
+        <name>org.jooq.codegen.KotlinGenerator</name>
+
+        <database>
+            <name>org.jooq.meta.postgres.PostgresDatabase</name>
+
+            <inputSchema>public</inputSchema>
+            <includes>.*</includes>
+            <excludes>databasechangelog.*|flyway_schema_history</excludes>
+
+            <includeCheckConstraints>true</includeCheckConstraints>
+            <includeDomains>true</includeDomains>
+            <includeEmbeddables>true</includeEmbeddables>
+            <includeForeignKeys>true</includeForeignKeys>
+            <includeIndexes>false</includeIndexes>
+            <includeInvisibleColumns>true</includeInvisibleColumns>
+            <includePackageConstants>true</includePackageConstants>
+            <includePackageRoutines>true</includePackageRoutines>
+            <includePackageUDTs>true</includePackageUDTs>
+            <includePackages>true</includePackages>
+            <includePrimaryKeys>true</includePrimaryKeys>
+            <includeRoutines>true</includeRoutines>
+            <includeSequences>true</includeSequences>
+            <includeSystemCheckConstraints>false</includeSystemCheckConstraints>
+            <includeSystemIndexes>false</includeSystemIndexes>
+            <includeSystemSequences>false</includeSystemSequences>
+            <includeSystemTables>false</includeSystemTables>
+            <includeTables>true</includeTables>
+            <includeUDTs>true</includeUDTs>
+            <includeUniqueKeys>true</includeUniqueKeys>
+
+            <recordTimestampFields>last_modified_date</recordTimestampFields>
+            <recordVersionFields>record_version</recordVersionFields>
+
+            <forcedTypes>
+                <forcedType>
+                    <name>INSTANT</name>
+                    <includeTypes>
+                        (?i:TIMESTAMP\ WITH\ TIME\ ZONE)
+                    </includeTypes>
+                </forcedType>
+            </forcedTypes>
+        </database>
+
+        <strategy>
+            <matchers>
+                <tables>
+                    <table>
+                        <tableClass>
+                            <transform>PASCAL</transform>
+                            <expression>$0_TABLE</expression>
+                        </tableClass>
+                    </table>
+                </tables>
+            </matchers>
+        </strategy>
+
+        <generate>
+            <javadoc>true</javadoc>
+            <javaTimeTypes>true</javaTimeTypes>
+            <jpaAnnotations>true</jpaAnnotations>
+            <pojos>false</pojos>
+            <records>true</records>
+            <interfaces>true</interfaces>
+            <validationAnnotations>true</validationAnnotations>
+        </generate>
+
+        <target>
+            <directory>src/main/kotlin</directory>
+            <packageName>de.denktmit.webapp.jooq.generated</packageName>
+        </target>
+    </generator>
+</configuration>
