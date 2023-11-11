@@ -42,8 +42,4 @@ data class User(
     @Column
     val credentialsValidUntil: Instant = FAR_FUTURE,
 
-    @Column(length = 15)
-    @Enumerated(EnumType.STRING)
-    @NotNull
-    val role: UserRole = UserRole.USER,
 ): HasIdOfType<Long>

@@ -14,7 +14,7 @@ class UserService(
     private val f: DateTimeFormatter = DateTimeFormatter.ISO_DATE_TIME
 
     fun userData(): DataTable {
-        val meta = DataTable.Meta.create("ID", "E-Mail", "Disabled", "Locked Until", "Account Valid Until", "Credentials Valid Until", "Role")
+        val meta = DataTable.Meta.create("ID", "E-Mail", "Disabled", "Locked Until", "Account Valid Until", "Credentials Valid Until")
         val rows = this.userRepository.findAll().map { entry ->
             meta.createRow(
                 entry.id,
@@ -23,7 +23,6 @@ class UserService(
                 f.format(entry.lockedUntil.atZone(ZoneId.systemDefault())),
                 f.format(entry.accountValidUntil.atZone(ZoneId.systemDefault())),
                 f.format(entry.credentialsValidUntil.atZone(ZoneId.systemDefault())),
-                entry.role
             )
         }
         return DataTable.create(meta, rows)

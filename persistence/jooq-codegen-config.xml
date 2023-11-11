@@ -70,6 +70,8 @@
             <records>true</records>
             <interfaces>true</interfaces>
             <validationAnnotations>true</validationAnnotations>
+            <kotlinNotNullRecordAttributes>false</kotlinNotNullRecordAttributes>
+            <kotlinNotNullInterfaceAttributes>false</kotlinNotNullInterfaceAttributes>
         </generate>
 
         <target>

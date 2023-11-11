@@ -5,7 +5,6 @@ package de.denktmit.webapp.jooq.generated.tables
 
 
 import de.denktmit.webapp.jooq.generated.Public
-import de.denktmit.webapp.jooq.generated.keys.USERS_MAIL_KEY
 import de.denktmit.webapp.jooq.generated.keys.USERS_PKEY
 import de.denktmit.webapp.jooq.generated.tables.records.UsersRecord
 
@@ -20,7 +19,7 @@ import org.jooq.ForeignKey
 import org.jooq.Name
 import org.jooq.Record
 import org.jooq.Records
-import org.jooq.Row8
+import org.jooq.Row7
 import org.jooq.Schema
 import org.jooq.SelectField
 import org.jooq.Table
@@ -67,15 +66,15 @@ open class UsersTable(
     override fun getRecordType(): Class<UsersRecord> = UsersRecord::class.java
 
     /**
-     * The column <code>public.users.user_id</code>. Unique identifier for the
+     * The column <code>public.users.user_id</code>. Unique primary key for the
      * user
      */
-    val USER_ID: TableField<UsersRecord, Long?> = createField(DSL.name("user_id"), SQLDataType.BIGINT.nullable(false), this, "Unique identifier for the user")
+    val USER_ID: TableField<UsersRecord, Long?> = createField(DSL.name("user_id"), SQLDataType.BIGINT.nullable(false), this, "Unique primary key for the user")
 
     /**
-     * The column <code>public.users.mail</code>. User's email address
+     * The column <code>public.users.mail</code>. User's unique email address
      */
-    val MAIL: TableField<UsersRecord, String?> = createField(DSL.name("mail"), SQLDataType.VARCHAR(255).nullable(false), this, "User's email address")
+    val MAIL: TableField<UsersRecord, String?> = createField(DSL.name("mail"), SQLDataType.VARCHAR(255).nullable(false), this, "User's unique email address")
 
     /**
      * The column <code>public.users.password</code>. User's hashed or encrypted
@@ -107,12 +106,6 @@ open class UsersTable(
      */
     val CREDENTIALS_VALID_UNTIL: TableField<UsersRecord, Instant?> = createField(DSL.name("credentials_valid_until"), SQLDataType.INSTANT.nullable(false), this, "User's credentials expiry date, e.g. to enforce password change after some time")
 
-    /**
-     * The column <code>public.users.role</code>. User's role, can be 'USER' or
-     * 'ADMIN'
-     */
-    val ROLE: TableField<UsersRecord, String?> = createField(DSL.name("role"), SQLDataType.VARCHAR(15).nullable(false), this, "User's role, can be 'USER' or 'ADMIN'")
-
     private constructor(alias: Name, aliased: Table<UsersRecord>?): this(alias, null, null, aliased, null)
     private constructor(alias: Name, aliased: Table<UsersRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, aliased, parameters)
 
@@ -134,10 +127,8 @@ open class UsersTable(
     constructor(child: Table<out Record>, key: ForeignKey<out Record, UsersRecord>): this(Internal.createPathAlias(child, key), child, key, USERS, null)
     override fun getSchema(): Schema? = if (aliased()) null else Public.PUBLIC
     override fun getPrimaryKey(): UniqueKey<UsersRecord> = USERS_PKEY
-    override fun getUniqueKeys(): List<UniqueKey<UsersRecord>> = listOf(USERS_MAIL_KEY)
     override fun getChecks(): List<Check<UsersRecord>> = listOf(
-        Internal.createCheck(this, DSL.name("users_disabled_check"), "((disabled = ANY (ARRAY[true, false])))", true),
-        Internal.createCheck(this, DSL.name("users_role_check"), "(((role)::text = ANY ((ARRAY['USER'::character varying, 'ADMIN'::character varying])::text[])))", true)
+        Internal.createCheck(this, DSL.name("users_disabled_check"), "((disabled = ANY (ARRAY[true, false])))", true)
     )
     override fun `as`(alias: String): UsersTable = UsersTable(DSL.name(alias), this)
     override fun `as`(alias: Name): UsersTable = UsersTable(alias, this)
@@ -159,18 +150,18 @@ open class UsersTable(
     override fun rename(name: Table<*>): UsersTable = UsersTable(name.getQualifiedName(), null)
 
     // -------------------------------------------------------------------------
-    // Row8 type methods
+    // Row7 type methods
     // -------------------------------------------------------------------------
-    override fun fieldsRow(): Row8<Long?, String?, String?, Boolean?, Instant?, Instant?, Instant?, String?> = super.fieldsRow() as Row8<Long?, String?, String?, Boolean?, Instant?, Instant?, Instant?, String?>
+    override fun fieldsRow(): Row7<Long?, String?, String?, Boolean?, Instant?, Instant?, Instant?> = super.fieldsRow() as Row7<Long?, String?, String?, Boolean?, Instant?, Instant?, Instant?>
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    fun <U> mapping(from: (Long?, String?, String?, Boolean?, Instant?, Instant?, Instant?, String?) -> U): SelectField<U> = convertFrom(Records.mapping(from))
+    fun <U> mapping(from: (Long?, String?, String?, Boolean?, Instant?, Instant?, Instant?) -> U): SelectField<U> = convertFrom(Records.mapping(from))
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    fun <U> mapping(toType: Class<U>, from: (Long?, String?, String?, Boolean?, Instant?, Instant?, Instant?, String?) -> U): SelectField<U> = convertFrom(toType, Records.mapping(from))
+    fun <U> mapping(toType: Class<U>, from: (Long?, String?, String?, Boolean?, Instant?, Instant?, Instant?) -> U): SelectField<U> = convertFrom(toType, Records.mapping(from))
 }

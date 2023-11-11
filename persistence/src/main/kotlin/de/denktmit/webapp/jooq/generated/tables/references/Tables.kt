@@ -4,10 +4,34 @@
 package de.denktmit.webapp.jooq.generated.tables.references
 
 
+import de.denktmit.webapp.jooq.generated.tables.AuthoritiesTable
+import de.denktmit.webapp.jooq.generated.tables.GroupAuthoritiesTable
+import de.denktmit.webapp.jooq.generated.tables.GroupMembersTable
+import de.denktmit.webapp.jooq.generated.tables.GroupsTable
 import de.denktmit.webapp.jooq.generated.tables.OtpActionsTable
 import de.denktmit.webapp.jooq.generated.tables.UsersTable
 
 
+
+/**
+ * The table <code>public.authorities</code>.
+ */
+val AUTHORITIES: AuthoritiesTable = AuthoritiesTable.AUTHORITIES
+
+/**
+ * The table <code>public.group_authorities</code>.
+ */
+val GROUP_AUTHORITIES: GroupAuthoritiesTable = GroupAuthoritiesTable.GROUP_AUTHORITIES
+
+/**
+ * The table <code>public.group_members</code>.
+ */
+val GROUP_MEMBERS: GroupMembersTable = GroupMembersTable.GROUP_MEMBERS
+
+/**
+ * The table <code>public.groups</code>.
+ */
+val GROUPS: GroupsTable = GroupsTable.GROUPS
 
 /**
  * The table <code>public.otp_actions</code>.

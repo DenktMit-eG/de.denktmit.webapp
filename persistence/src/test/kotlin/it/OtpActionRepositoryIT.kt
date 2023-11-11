@@ -3,6 +3,7 @@ package it
 import de.denktmit.webapp.jooq.generated.tables.references.OTP_ACTIONS
 import de.denktmit.webapp.persistence.otp.OtpAction
 import de.denktmit.webapp.persistence.otp.OtpRepository
+import de.denktmit.webapp.persistence.setBindParameterValues
 import de.denktmit.webapp.persistence.testdata.OtpActions
 import jakarta.persistence.EntityManager
 import org.assertj.core.api.Assertions.assertThat
@@ -34,12 +35,6 @@ class OtpActionRepositoryIT : AbstractTestBase() {
         assertThat(actions).containsExactlyInAnyOrder(*OtpActions.all.toTypedArray())
     }
 
-    private fun JpaQuery.setBindParameterValues(jooqQuery: JooqQuery): JpaQuery {
-        val values = jooqQuery.bindValues
-        for (i in values.indices) {
-            setParameter(i + 1, values[i])
-        }
-        return this
-    }
+
 
 }

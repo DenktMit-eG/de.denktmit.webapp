@@ -66,14 +66,6 @@ COMPOSE_PROFILES=dev,it,e2e docker compose  --env-file .env-dev -f docker-compos
 docker volume rm ${COMPOSE_PROJECT_NAME}_db-dev-data ${COMPOSE_PROJECT_NAME}_db-it-data
 ```
 
-#### Build the application
-Make sure, your service dependencies are running. Then you can just run
-the build with
-
-```bash
-./mvnw clean install
-```
-
 #### Prepare the database with testdata
 The pom.xml file of the persistence module defines Flyway executions to
 fill the dev and it databases with testdata.
@@ -86,6 +78,14 @@ Fill dev database with testdata
 Fill integration test database with testdata (done automatically in maven build)
 ```bash
 ./mvnw flyway:migrate@fill-it -Dflyway.configFiles=../.flyway.it.conf -f ./persistence/pom.xml
+```
+
+#### Build the application
+Make sure, your service dependencies are running. Then you can just run
+the build with
+
+```bash
+./mvnw clean install
 ```
 
 #### Start the application

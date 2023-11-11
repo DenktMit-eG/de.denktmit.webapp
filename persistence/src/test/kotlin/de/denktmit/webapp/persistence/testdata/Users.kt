@@ -4,7 +4,6 @@ import de.denktmit.webapp.persistence.Constants.FAR_FUTURE
 import de.denktmit.webapp.persistence.Constants.FAR_PAST
 import de.denktmit.webapp.persistence.users.User
 import de.denktmit.webapp.persistence.users.UserRepository
-import de.denktmit.webapp.persistence.users.UserRole
 import java.time.Instant
 
 object Users {
@@ -17,7 +16,6 @@ object Users {
         lockedUntil: Instant = FAR_PAST,
         accountValidUntil: Instant = FAR_FUTURE,
         credentialsValidUntil: Instant = FAR_FUTURE,
-        role: UserRole = UserRole.ADMIN
     ): User {
         return User(
             id = userId,
@@ -27,59 +25,53 @@ object Users {
             lockedUntil = lockedUntil,
             accountValidUntil = accountValidUntil,
             credentialsValidUntil = credentialsValidUntil,
-            role = role
         )
     }
 
     val johndoe = createUser(
         userId = -100,
-        mail = "user1@example.com",
-        password = "hashed_password_1",
+        mail = "user1.johndoe@example.com",
+        password = "{noop}johndoe",
         disabled = false,
         accountValidUntil = FAR_FUTURE,
         credentialsValidUntil = FAR_FUTURE,
-        role = UserRole.USER
     )
 
     val janesmith = createUser(
         userId = -200,
-        mail = "admin2@example.com",
-        password = "hashed_password_2",
+        mail = "admin2.janesmith@example.com",
+        password = "{noop}janesmith",
         disabled = false,
         accountValidUntil = FAR_FUTURE,
         credentialsValidUntil = FAR_FUTURE,
-        role = UserRole.ADMIN
     )
 
     val alicejohnson = createUser(
         userId = -300,
-        mail = "locked_user3@example.com",
-        password = "hashed_password_3",
+        mail = "locked_user.alicejohnson@example.com",
+        password = "{noop}alicejohnson",
         disabled = true,
         lockedUntil = FAR_PAST,
         accountValidUntil = FAR_FUTURE,
         credentialsValidUntil = FAR_FUTURE,
-        role = UserRole.USER
     )
 
     val paulhiggins = createUser(
         userId = -400,
-        mail = "account_expired_user4@example.com",
-        password = "hashed_password_4",
+        mail = "account_expired_user4.paulhiggins@example.com",
+        password = "{noop}paulhiggins",
         disabled = true,
         accountValidUntil = FAR_PAST,
         credentialsValidUntil = FAR_FUTURE,
-        role = UserRole.USER
     )
 
     val petergabriel = createUser(
         userId = -500,
-        mail = "credentials_expired_user5@example.com",
-        password = "hashed_password_5",
+        mail = "creds_expired_user5.petergabriel@example.com",
+        password = "{noop}petergabriel",
         disabled = true,
         accountValidUntil = FAR_FUTURE,
         credentialsValidUntil = FAR_PAST,
-        role = UserRole.USER
     )
 
     val all = listOf(johndoe, janesmith, alicejohnson, paulhiggins, petergabriel)

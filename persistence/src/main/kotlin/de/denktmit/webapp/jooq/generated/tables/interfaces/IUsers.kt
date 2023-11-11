@@ -8,7 +8,6 @@ import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
 import jakarta.persistence.Table
-import jakarta.persistence.UniqueConstraint
 import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Size
 
@@ -23,10 +22,7 @@ import java.time.Instant
 @Entity
 @Table(
     name = "users",
-    schema = "public",
-    uniqueConstraints = [
-        UniqueConstraint(name = "users_mail_key", columnNames = [ "mail" ])
-    ]
+    schema = "public"
 )
 interface IUsers : Serializable {
     @get:Id
@@ -52,10 +48,6 @@ interface IUsers : Serializable {
     @get:Column(name = "credentials_valid_until", nullable = false)
     @get:NotNull
     var credentialsValidUntil: Instant?
-    @get:Column(name = "role", nullable = false, length = 15)
-    @get:NotNull
-    @get:Size(max = 15)
-    var role: String?
 
     // -------------------------------------------------------------------------
     // FROM and INTO

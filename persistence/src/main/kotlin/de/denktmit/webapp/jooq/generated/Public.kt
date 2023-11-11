@@ -4,7 +4,13 @@
 package de.denktmit.webapp.jooq.generated
 
 
+import de.denktmit.webapp.jooq.generated.sequences.AUTHORITIES_SEQ
+import de.denktmit.webapp.jooq.generated.sequences.GROUPS_SEQ
 import de.denktmit.webapp.jooq.generated.sequences.USERS_SEQ
+import de.denktmit.webapp.jooq.generated.tables.AuthoritiesTable
+import de.denktmit.webapp.jooq.generated.tables.GroupAuthoritiesTable
+import de.denktmit.webapp.jooq.generated.tables.GroupMembersTable
+import de.denktmit.webapp.jooq.generated.tables.GroupsTable
 import de.denktmit.webapp.jooq.generated.tables.OtpActionsTable
 import de.denktmit.webapp.jooq.generated.tables.UsersTable
 
@@ -30,6 +36,26 @@ open class Public : SchemaImpl("public", DefaultCatalog.DEFAULT_CATALOG) {
     }
 
     /**
+     * The table <code>public.authorities</code>.
+     */
+    val AUTHORITIES: AuthoritiesTable get() = AuthoritiesTable.AUTHORITIES
+
+    /**
+     * The table <code>public.group_authorities</code>.
+     */
+    val GROUP_AUTHORITIES: GroupAuthoritiesTable get() = GroupAuthoritiesTable.GROUP_AUTHORITIES
+
+    /**
+     * The table <code>public.group_members</code>.
+     */
+    val GROUP_MEMBERS: GroupMembersTable get() = GroupMembersTable.GROUP_MEMBERS
+
+    /**
+     * The table <code>public.groups</code>.
+     */
+    val GROUPS: GroupsTable get() = GroupsTable.GROUPS
+
+    /**
      * The table <code>public.otp_actions</code>.
      */
     val OTP_ACTIONS: OtpActionsTable get() = OtpActionsTable.OTP_ACTIONS
@@ -42,10 +68,16 @@ open class Public : SchemaImpl("public", DefaultCatalog.DEFAULT_CATALOG) {
     override fun getCatalog(): Catalog = DefaultCatalog.DEFAULT_CATALOG
 
     override fun getSequences(): List<Sequence<*>> = listOf(
+        AUTHORITIES_SEQ,
+        GROUPS_SEQ,
         USERS_SEQ
     )
 
     override fun getTables(): List<Table<*>> = listOf(
+        AuthoritiesTable.AUTHORITIES,
+        GroupAuthoritiesTable.GROUP_AUTHORITIES,
+        GroupMembersTable.GROUP_MEMBERS,
+        GroupsTable.GROUPS,
         OtpActionsTable.OTP_ACTIONS,
         UsersTable.USERS
     )
