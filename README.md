@@ -1,7 +1,46 @@
-# DenktMit eG - Webapp
+# DenktMit eG - Webapp - Spring Boot 3.1+ development base
 This is the default development base for DenktMit eG Webapps. It is set up
 as three-tier architecture with a persistence, a business and web layer 
 for server-side HTML, as well as JSON and XML rendering
+
+## Already included and Roadmap
+**This repository already provides**
+
+* Robust's Maven setup, which allows developers to get started right away.
+* Includes Maven Flyway configuration for database filling
+* Externalization of credentials via .env files with default to .env-local
+* Profile-oriented Docker-compose setup to provide external dependencies 
+  for local integration tests
+* Reusable integration test data that allows simple unit instead of 
+  integration tests above the persistence layer
+* Modular Spring configuration setup
+* Preconfigured Spring security setup for RBAC
+* UserDetailService for RBAC
+* SpringContext hanger for integration tests and first persistence integration 
+  tests
+* JaCoCo CodeCoverage reporting, separated by unit and integration tests as 
+  well as aggregated
+* Asciidoc Setup for documentation close to the code
+* Selenium Hub prepared for E2E tests
+* Documentation
+
+**We have already implemented the following features several times in different 
+projects, so that they will also find their way into this repository in the 
+future**
+
+* E2E tests via JBehave or Gauge, which perform black-box integration tests 
+  using the Selenium Hub
+* Creation of deliverable test containers for E2E testing in the field. See 
+[also my blog article on testcontainers](https://denktmit.de/blog/2021/11/21/release-and-ship-your-e2e-tests-as-containers-alongside-your-product/)
+* Provision of [every HTML/CSS layout basics](https://every-layout.dev/)
+* Complete RBAC management in the UI
+* OAuth2 / OpenID Connect integration with Keycloak, switchable via Spring 
+  Config Flag
+* CI Build Samples for ConcourseCI, Github, Gitlab and Jetbrains Space
+* Integration of fully tested own JavaScripts via Webjar module
+* HATEOAS enabled REST API implementing [JSON Hypertext Application language](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-11)
+* OpenAPI for REST
+* A second UI layer but in Wicket 10 with plenty of Kotlin Goodies
 
 ## Local development
 Please note, that any paths used in this documentation are relative to this
