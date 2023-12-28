@@ -7,9 +7,10 @@ import jakarta.persistence.*
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotNull
 import org.hibernate.annotations.NaturalId
+import org.hibernate.annotations.TimeZoneStorage
+import org.hibernate.annotations.TimeZoneStorageType
 import java.time.Instant
 import java.util.*
-
 
 @Entity
 @Table(name = "users")
@@ -23,23 +24,39 @@ data class User(
     @NaturalId
     @Column(length = 255)
     @NotBlank
-    val mail: String = "",
+    val mail: String,
 
     @Column(length = 500)
     @NotBlank
-    val password: String = "",
+    val password: String,
 
     @Column
     @NotNull
-    val disabled: Boolean = true,
+    val disabled: Boolean,
 
     @Column
-    val lockedUntil: Instant = FAR_PAST,
+    @TimeZoneStorage(TimeZoneStorageType.NATIVE)
+    val lockedUntil: Instant,
 
     @Column
-    val accountValidUntil: Instant = FAR_FUTURE,
+    val accountValidUntil: Instant,
 
     @Column
-    val credentialsValidUntil: Instant = FAR_FUTURE,
+    val credentialsValidUntil: Instant,
 
-): HasIdOfType<Long>
+): HasIdOfType<Long> {
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is User) return false
+
+        if (id != other.id) return false
+        return mail == other.mail
+    }
+
+    override fun hashCode(): Int {
+        var result = id.hashCode()
+        result = 31 * result + mail.hashCode()
+        return result
+    }
+}

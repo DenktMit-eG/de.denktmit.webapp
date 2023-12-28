@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter
 
 @Service
 class UserService(
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
 ): UserRepository by userRepository {
 
     private val f: DateTimeFormatter = DateTimeFormatter.ISO_DATE_TIME
@@ -27,5 +27,7 @@ class UserService(
         }
         return DataTable.create(meta, rows)
     }
+
+
 
 }

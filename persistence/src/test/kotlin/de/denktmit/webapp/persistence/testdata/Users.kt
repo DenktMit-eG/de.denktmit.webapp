@@ -51,7 +51,7 @@ object Users {
         mail = "locked_user.alicejohnson@example.com",
         password = "{noop}alicejohnson",
         disabled = true,
-        lockedUntil = FAR_PAST,
+        lockedUntil = FAR_FUTURE,
         accountValidUntil = FAR_FUTURE,
         credentialsValidUntil = FAR_FUTURE,
     )
@@ -80,7 +80,7 @@ object Users {
         data: MutableList<User> = all.toMutableList()
     ): CrudRepositoryStub<User, Long>(data), UserRepository {
 
-        override fun findByMail(mail: String): User? {
+        override fun findOneByMail(mail: String): User? {
             return findAll().find { it.mail == mail }
         }
     }

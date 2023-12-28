@@ -17,7 +17,7 @@ import org.jooq.ForeignKey
 import org.jooq.Name
 import org.jooq.Record
 import org.jooq.Records
-import org.jooq.Row5
+import org.jooq.Row4
 import org.jooq.Schema
 import org.jooq.SelectField
 import org.jooq.Table
@@ -64,28 +64,22 @@ open class OtpActionsTable(
     override fun getRecordType(): Class<OtpActionsRecord> = OtpActionsRecord::class.java
 
     /**
-     * The column <code>public.otp_actions.otp_action_id</code>. Unique
-     * identifier for the OTP
+     * The column <code>public.otp_actions.action_id</code>. Unique identifier
+     * for the OTP
      */
-    val OTP_ACTION_ID: TableField<OtpActionsRecord, UUID?> = createField(DSL.name("otp_action_id"), SQLDataType.UUID.nullable(false), this, "Unique identifier for the OTP")
+    val ACTION_ID: TableField<OtpActionsRecord, UUID?> = createField(DSL.name("action_id"), SQLDataType.UUID.nullable(false), this, "Unique identifier for the OTP")
 
     /**
-     * The column <code>public.otp_actions.target</code>. The actions target
-     * descriptor, e.g. 'User'
+     * The column <code>public.otp_actions.user_id</code>. The user to execute
+     * this OTP guarded action for
      */
-    val TARGET: TableField<OtpActionsRecord, String?> = createField(DSL.name("target"), SQLDataType.VARCHAR(255).nullable(false), this, "The actions target descriptor, e.g. 'User'")
+    val USER_ID: TableField<OtpActionsRecord, Long?> = createField(DSL.name("user_id"), SQLDataType.BIGINT.nullable(false), this, "The user to execute this OTP guarded action for")
 
     /**
      * The column <code>public.otp_actions.action</code>. The action descriptor,
      * e.g. 'activate'
      */
     val ACTION: TableField<OtpActionsRecord, String?> = createField(DSL.name("action"), SQLDataType.VARCHAR(25).nullable(false), this, "The action descriptor, e.g. 'activate'")
-
-    /**
-     * The column <code>public.otp_actions.identifier</code>. The actions target
-     * identifier, most likely a database id
-     */
-    val IDENTIFIER: TableField<OtpActionsRecord, Long?> = createField(DSL.name("identifier"), SQLDataType.BIGINT.nullable(false), this, "The actions target identifier, most likely a database id")
 
     /**
      * The column <code>public.otp_actions.valid_until</code>. Timestamp when
@@ -134,18 +128,18 @@ open class OtpActionsTable(
     override fun rename(name: Table<*>): OtpActionsTable = OtpActionsTable(name.getQualifiedName(), null)
 
     // -------------------------------------------------------------------------
-    // Row5 type methods
+    // Row4 type methods
     // -------------------------------------------------------------------------
-    override fun fieldsRow(): Row5<UUID?, String?, String?, Long?, Instant?> = super.fieldsRow() as Row5<UUID?, String?, String?, Long?, Instant?>
+    override fun fieldsRow(): Row4<UUID?, Long?, String?, Instant?> = super.fieldsRow() as Row4<UUID?, Long?, String?, Instant?>
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    fun <U> mapping(from: (UUID?, String?, String?, Long?, Instant?) -> U): SelectField<U> = convertFrom(Records.mapping(from))
+    fun <U> mapping(from: (UUID?, Long?, String?, Instant?) -> U): SelectField<U> = convertFrom(Records.mapping(from))
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    fun <U> mapping(toType: Class<U>, from: (UUID?, String?, String?, Long?, Instant?) -> U): SelectField<U> = convertFrom(toType, Records.mapping(from))
+    fun <U> mapping(toType: Class<U>, from: (UUID?, Long?, String?, Instant?) -> U): SelectField<U> = convertFrom(toType, Records.mapping(from))
 }

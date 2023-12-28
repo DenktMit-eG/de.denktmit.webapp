@@ -9,19 +9,21 @@ COMMENT ON SEQUENCE users_seq IS 'Sequence for Hibernate to derive user_id for u
 -- an enabled status, and a role (either 'USER' or 'ADMIN').
 CREATE TABLE users
 (
-    user_id                 bigint       NOT NULL PRIMARY KEY,      -- Define user_id as the primary key
-    mail                    varchar(255) NOT NULL,                  -- User's email
-    password                varchar(500) NOT NULL,                  -- Password (hashed or encrypted)
-    disabled                BOOL CHECK (disabled IN (TRUE, FALSE)), -- User's enabled status
-    locked_until            timestamptz  NOT NULL,                  -- Expiry date of user locking
-    account_valid_until     timestamptz  NOT NULL,                  -- Expiry date of user account
-    credentials_valid_until timestamptz  NOT NULL                   -- Expiry date of user credentials
+    user_id                 bigint       NOT NULL PRIMARY KEY, -- Define user_id as the primary key
+    mail                    varchar(255) NOT NULL,             -- User's email
+    mail_verified           BOOL         NOT NULL,             -- Flag to track, if users e-mail been verified
+    password                varchar(500) NOT NULL,             -- Password (hashed or encrypted)
+    disabled                BOOL         NOT NULL,             -- User's enabled status
+    locked_until            timestamp  NOT NULL,             -- Expiry date of user locking
+    account_valid_until     timestamp  NOT NULL,             -- Expiry date of user account
+    credentials_valid_until timestamp  NOT NULL              -- Expiry date of user credentials
 );
 CREATE UNIQUE INDEX uq_users_mail ON users (LOWER(mail));
 COMMENT ON INDEX uq_users_mail IS 'Case insensitive unique index for User''s e-mail';
 
 COMMENT ON COLUMN users.user_id IS 'Unique primary key for the user';
 COMMENT ON COLUMN users.mail IS 'User''s unique email address';
+COMMENT ON COLUMN users.mail_verified IS 'Flag to track, if User''s e-mail been verified';
 COMMENT ON COLUMN users.password IS 'User''s hashed or encrypted password';
 COMMENT ON COLUMN users.disabled IS 'User''s disabled status (true or false) based on administrative actions';
 COMMENT ON COLUMN users.locked_until IS 'User''s locked status (true or false) based on temporary circumstances, e.g. failed logins';
@@ -109,28 +111,33 @@ ALTER TABLE group_members
 -- Each OTP has a unique ID (otp_id), an action, and an expiration timestamp (valid_until).
 CREATE TABLE otp_actions
 (
-    otp_action_id uuid         NOT NULL, -- Unique OTP action ID
-    target        varchar(255) NOT NULL, -- Description of the OTP action
-    action        varchar(25)  NOT NULL, -- Description of the OTP action
-    identifier    bigint       NOT NULL, -- Description of the OTP action
-    valid_until   timestamptz  NOT NULL, -- Expiration timestamp
-    PRIMARY KEY (otp_action_id)          -- Define otp_id as the primary key
+    action_id   uuid        NOT NULL, -- Unique OTP action ID
+    user_id     bigint      NOT NULL, -- The user to execute this OTP guarded action for
+    action      varchar(25) NOT NULL, -- Description of the OTP action
+    valid_until timestamptz NOT NULL, -- Expiration timestamp
+    PRIMARY KEY (action_id)           -- Define otp_id as the primary key
 );
 
+CREATE UNIQUE INDEX uq_user_otp_actions ON otp_actions (user_id, UPPER(TRIM(action)));
+COMMENT ON INDEX uq_user_otp_actions IS 'Allow only unique user and action name (upper cased, trimmed) tuples';
+
 -- Add comments to the columns in the 'otp' table.
-COMMENT ON COLUMN otp_actions.otp_action_id IS 'Unique identifier for the OTP';
-COMMENT ON COLUMN otp_actions.target IS 'The actions target descriptor, e.g. ''User''';
+COMMENT ON COLUMN otp_actions.action_id IS 'Unique identifier for the OTP';
+COMMENT ON COLUMN otp_actions.user_id IS 'The user to execute this OTP guarded action for';
 COMMENT ON COLUMN otp_actions.action IS 'The action descriptor, e.g. ''activate''';
-COMMENT ON COLUMN otp_actions.identifier IS 'The actions target identifier, most likely a database id';
 COMMENT ON COLUMN otp_actions.valid_until IS 'Timestamp when the OTP expires';
 
 
 -- Fill default RBAC mappings
 INSERT INTO groups (group_id, group_name)
-VALUES (10001, 'administrators'), (10002, 'users');
+VALUES (10001, 'administrators'),
+       (10002, 'users');
 
 INSERT INTO authorities (authority_id, authority)
-VALUES (10001, 'ADMIN'), (10002, 'USER');
+VALUES (10001, 'ADMIN'),
+       (10002, 'USER');
 
 INSERT INTO group_authorities (group_id, authority_id)
-VALUES (10001, 10001), (10001, 10002), (10002, 10001);
+VALUES (10001, 10001),
+       (10001, 10002),
+       (10002, 10001);

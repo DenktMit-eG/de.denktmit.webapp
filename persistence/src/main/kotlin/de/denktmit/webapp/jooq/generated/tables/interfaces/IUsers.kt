@@ -12,7 +12,7 @@ import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Size
 
 import java.io.Serializable
-import java.time.Instant
+import java.time.LocalDateTime
 
 
 /**
@@ -33,21 +33,25 @@ interface IUsers : Serializable {
     @get:NotNull
     @get:Size(max = 255)
     var mail: String?
+    @get:Column(name = "mail_verified", nullable = false)
+    @get:NotNull
+    var mailVerified: Boolean?
     @get:Column(name = "password", nullable = false, length = 500)
     @get:NotNull
     @get:Size(max = 500)
     var password: String?
-    @get:Column(name = "disabled")
+    @get:Column(name = "disabled", nullable = false)
+    @get:NotNull
     var disabled: Boolean?
-    @get:Column(name = "locked_until", nullable = false)
+    @get:Column(name = "locked_until", nullable = false, precision = 6)
     @get:NotNull
-    var lockedUntil: Instant?
-    @get:Column(name = "account_valid_until", nullable = false)
+    var lockedUntil: LocalDateTime?
+    @get:Column(name = "account_valid_until", nullable = false, precision = 6)
     @get:NotNull
-    var accountValidUntil: Instant?
-    @get:Column(name = "credentials_valid_until", nullable = false)
+    var accountValidUntil: LocalDateTime?
+    @get:Column(name = "credentials_valid_until", nullable = false, precision = 6)
     @get:NotNull
-    var credentialsValidUntil: Instant?
+    var credentialsValidUntil: LocalDateTime?
 
     // -------------------------------------------------------------------------
     // FROM and INTO

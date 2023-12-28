@@ -10,10 +10,9 @@ import org.assertj.core.api.Assertions.assertThat
 import org.jooq.util.postgres.PostgresDSL
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
-import jakarta.persistence.Query as JpaQuery
-import org.jooq.Query as JooqQuery
 
-class OtpActionRepositoryIT : AbstractTestBase() {
+@IntegrationTestConfiguration
+class OtpActionRepositoryIT {
 
     @Autowired
     lateinit var repo: OtpRepository
@@ -27,7 +26,7 @@ class OtpActionRepositoryIT : AbstractTestBase() {
     }
 
     @Test
-    fun testFindAllWithJooq() {
+    fun testFindAllWithJooq() {0
         val jooqQuery = PostgresDSL.select(*OTP_ACTIONS.fields()).from(OTP_ACTIONS)
         val queryString: String = jooqQuery.sql
         val jpaQuery = em.createNativeQuery(queryString, OtpAction::class.java).setBindParameterValues(jooqQuery)

@@ -7,9 +7,10 @@ import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.TestPropertySource
 import org.springframework.test.context.junit.jupiter.SpringExtension
 
-
+@Retention(AnnotationRetention.RUNTIME)
+@Target(AnnotationTarget.CLASS)
 @ExtendWith(SpringExtension::class)
 @SpringBootTest(classes = [PersistenceTestContext::class])
 @ContextConfiguration(initializers = [PostgresTestContextInitializer::class])
 @TestPropertySource(locations = ["classpath:application-test.properties"])
-abstract class AbstractTestBase
+annotation class IntegrationTestConfiguration

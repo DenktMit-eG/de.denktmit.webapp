@@ -27,20 +27,16 @@ import java.util.UUID
 )
 interface IOtpActions : Serializable {
     @get:Id
-    @get:Column(name = "otp_action_id", nullable = false)
+    @get:Column(name = "action_id", nullable = false)
     @get:NotNull
-    var otpActionId: UUID?
-    @get:Column(name = "target", nullable = false, length = 255)
+    var actionId: UUID?
+    @get:Column(name = "user_id", nullable = false)
     @get:NotNull
-    @get:Size(max = 255)
-    var target: String?
+    var userId: Long?
     @get:Column(name = "action", nullable = false, length = 25)
     @get:NotNull
     @get:Size(max = 25)
     var action: String?
-    @get:Column(name = "identifier", nullable = false)
-    @get:NotNull
-    var identifier: Long?
     @get:Column(name = "valid_until", nullable = false)
     @get:NotNull
     var validUntil: Instant?

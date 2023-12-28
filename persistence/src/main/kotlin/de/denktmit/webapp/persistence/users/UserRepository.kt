@@ -4,6 +4,6 @@ import org.springframework.data.repository.CrudRepository
 
 interface UserRepository: CrudRepository<User, Long> {
 
-    fun findByMail(mail: String): User?
+    fun findOneByMail(mail: String): User?
 
 }
