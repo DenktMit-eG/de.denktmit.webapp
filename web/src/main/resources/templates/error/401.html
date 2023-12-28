@@ -1,0 +1,74 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{__layouts/centered}"
+      lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>401 - Unauthorized Access</title>
+    <link rel="icon" href="/img/favicon.svg">
+    <link rel="stylesheet" href="/css/styles.min.css" th:href="@{/css/styles.min.css}"/>
+</head>
+<body>
+<header class="bg-color:dark-petrol">
+    <div class="center">
+        <nav class="cluster-spaced">
+            <img src="/img/logo.svg" alt="Das DenktMit eG Signet mit Firmenname"/>
+            <ul class="cluster-wrapped">
+                <li><a href="/">Home</a></li>
+                <li><a href="/every-layout/index.html">Every Layout</a></li>
+                <li><a href="/admin/users.html">Admin/Users</a></li>
+                <li><a href="/logout.html">Logout</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<main>
+    <div class="center" layout:fragment="page-content">
+        <h1>Error 401 - Unauthorized Access</h1>
+        <h2>Security Clearance Required</h2>
+        <p>
+            Attention, intruder. Your attempt to breach this digital fortress has been met with the stern gaze of
+            the Homeland Security Digital Interrogation Protocol. Your digital credentials are insufficient, and the
+            gatekeepers of this realm have flagged your presence as unauthorized.
+        </p>
+        <p>
+            This is not a mere denial; it is an interrogation. You stand at the virtual checkpoint, where the digital
+            guardians scrutinize every bit and byte attempting to cross into classified territories. Your credentials
+            have been weighed, measured, and found lacking in the eyes of the cybersecurity sentinels.
+        </p>
+        <p>
+            Your digital passport lacks the necessary stamps, and your authentication codes fail to align with the
+            encryption protocols required for passage. The algorithms that stand as digital interrogators demand
+            answers to questions you may not comprehend. Your binary history is under scrutiny, and every keystroke
+            is a potential revelation of your intentions.
+        </p>
+        <p>
+            Consider this 401 a checkpoint interrogation. To proceed, you must present the proper cryptographic keys,
+            credentials, and a satisfactory account of your digital journey. Failure to comply will result in
+            continued denial, and your presence will be logged as a potential threat to the digital homeland.
+        </p>
+        <p>
+            Understand that the guardians of this digital domain take their duties seriously. The protocols of access
+            control are not to be trifled with. So, state your case, present your credentials, and await the verdict
+            of the digital interrogation process. The gatekeepers remain vigilant, and unauthorized access will be
+            met with the full force of cybersecurity measures.
+        </p>
+    </div>
+</main>
+<footer class="bg-color:light-teal">
+    <div class="center">
+        <nav class="cluster-spaced">
+            <p>
+                &copy; 2024 DenktMit eG. All rights reserved. <br/>
+                Contact: hallo@denktmit.de
+            </p>
+            <ul class="cluster-wrapped">
+                <li><a href="/templates/fixed-content/legal-notice.html">Legal notice</a></li>
+            </ul>
+        </nav>
+    </div>
+</footer>
+</body>
+</html>

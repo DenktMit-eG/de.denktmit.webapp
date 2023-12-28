@@ -20,4 +20,23 @@ data class Authority(
     @NotBlank
     val authority: String = "",
 
-): HasIdOfType<Long>
+    ) : HasIdOfType<Long> {
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Authority
+
+        return authority == other.authority
+    }
+
+    override fun hashCode(): Int {
+        return authority.hashCode()
+    }
+
+    override fun toString(): String {
+        return "Authority(authority='$authority')"
+    }
+
+}

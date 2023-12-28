@@ -2,7 +2,7 @@ package de.denktmit.webapp.persistence.testdata
 
 import de.denktmit.webapp.persistence.Constants.FAR_FUTURE
 import de.denktmit.webapp.persistence.Constants.FAR_PAST
-import de.denktmit.webapp.persistence.users.User
+import de.denktmit.webapp.persistence.users.UserEntity
 import de.denktmit.webapp.persistence.users.UserRepository
 import java.time.Instant
 
@@ -11,15 +11,17 @@ object Users {
     fun createUser(
         userId: Long = 0,
         mail: String = "j.unit@denktmit.de",
+        mailVerified: Boolean = true,
         password: String = "very-secret",
         disabled: Boolean = false,
         lockedUntil: Instant = FAR_PAST,
         accountValidUntil: Instant = FAR_FUTURE,
         credentialsValidUntil: Instant = FAR_FUTURE,
-    ): User {
-        return User(
+    ): UserEntity {
+        return UserEntity(
             id = userId,
             mail = mail,
+            mailVerified = mailVerified,
             password = password,
             disabled = disabled,
             lockedUntil = lockedUntil,
@@ -31,6 +33,7 @@ object Users {
     val johndoe = createUser(
         userId = -100,
         mail = "user1.johndoe@example.com",
+        mailVerified = true,
         password = "{noop}johndoe",
         disabled = false,
         accountValidUntil = FAR_FUTURE,
@@ -40,6 +43,7 @@ object Users {
     val janesmith = createUser(
         userId = -200,
         mail = "admin2.janesmith@example.com",
+        mailVerified = true,
         password = "{noop}janesmith",
         disabled = false,
         accountValidUntil = FAR_FUTURE,
@@ -49,9 +53,10 @@ object Users {
     val alicejohnson = createUser(
         userId = -300,
         mail = "locked_user.alicejohnson@example.com",
+        mailVerified = true,
         password = "{noop}alicejohnson",
         disabled = true,
-        lockedUntil = FAR_PAST,
+        lockedUntil = FAR_FUTURE,
         accountValidUntil = FAR_FUTURE,
         credentialsValidUntil = FAR_FUTURE,
     )
@@ -59,6 +64,7 @@ object Users {
     val paulhiggins = createUser(
         userId = -400,
         mail = "account_expired_user4.paulhiggins@example.com",
+        mailVerified = false,
         password = "{noop}paulhiggins",
         disabled = true,
         accountValidUntil = FAR_PAST,
@@ -68,8 +74,9 @@ object Users {
     val petergabriel = createUser(
         userId = -500,
         mail = "creds_expired_user5.petergabriel@example.com",
+        mailVerified = false,
         password = "{noop}petergabriel",
-        disabled = true,
+        disabled = false,
         accountValidUntil = FAR_FUTURE,
         credentialsValidUntil = FAR_PAST,
     )
@@ -77,12 +84,17 @@ object Users {
     val all = listOf(johndoe, janesmith, alicejohnson, paulhiggins, petergabriel)
 
     open class RepoStub(
-        data: MutableList<User> = all.toMutableList()
-    ): CrudRepositoryStub<User, Long>(data), UserRepository {
+        val data: MutableList<UserEntity> = all.toMutableList()
+    ): CrudRepositoryStub<UserEntity, Long>(data), UserRepository {
 
-        override fun findByMail(mail: String): User? {
+        override fun findOneByMail(mail: String): UserEntity? {
             return findAll().find { it.mail == mail }
         }
+
+        override fun existsByMail(mail: String): Boolean {
+            return findOneByMail(mail) != null
+        }
+
     }
 
 }

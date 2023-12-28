@@ -1,0 +1,10 @@
+Hallo [( ${name} )],
+
+Sie haben sich erfolgreich auf unserer Seite registriert am [( ${#dates.format(registrationDate)} )].
+
+Bitte verifizieren Sie Ihre E-Mail durch Aufrufen der Website [( ${tokenUrl} )]
+
+Ihr Verifizierungstoken ist gültig bis [( ${#temporals.formatISO(tokenValidUntil)} )] und kann nur einmal genutzt werden.
+
+Mit freundlichen Grüßen
+    Die DenktMit eG

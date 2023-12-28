@@ -1,0 +1,30 @@
+form {
+    margin-block-start: .5em;
+}
+
+form label, form label input, form label select {
+    display: block;
+}
+
+input[type="reset"], input[type="submit"] {
+    margin-block-start: .5em;
+    padding: .3em .5em;
+    border-radius: .2em;
+    cursor: pointer;
+}
+
+input[type="submit"] {
+    background-color: #ecfff4;
+}
+
+input[type="submit"]:hover {
+    background-color: aquamarine;
+}
+
+input[type="reset"] {
+    background-color: mistyrose;
+}
+
+input[type="reset"]:hover {
+    background-color: #ff6478
+}

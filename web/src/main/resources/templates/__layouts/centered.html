@@ -1,0 +1,97 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity"
+      lang="en">
+<head>
+    <link rel="icon" href="/img/favicon.svg">
+    <link rel="manifest" href="/misc/site.webmanifest">
+    <link rel="stylesheet" href="/css/styles.min.css" th:href="@{/css/styles.min.css}"/>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="theme-color" content="#fafafa">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:image" content="">
+    <meta property="og:title" content="">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Webapp</title>
+    <th:block layout:fragment="html-head-additions"></th:block>
+</head>
+<body>
+<header class="bg-color:dark-petrol">
+    <div class="center" layout:fragment="page-header">
+        <nav class="cluster-spaced">
+            <a href="/" th:href="@{/}"><img src="/img/logo.svg" alt="Das DenktMit eG Signet mit Firmenname"/></a>
+            <ul class="cluster-wrapped">
+                <li><a href="/" th:href="@{/}" th:text="#{menus.main.home}">Home</a></li>
+                <li><a href="/every-layout/index.html" th:href="@{/every-layout}" th:text="#{menus.main.everylayout}">Every Layout</a></li>
+                <li sec:authorize="hasRole('ROLE_ADMIN')">
+                    <a href="/admin/users.html" th:href="@{/admin/users}" th:text="#{menus.main.admin}">Admin/Users</a>
+                </li>
+                <th:block sec:authorize="!isAuthenticated()">
+                    <li><a href="/registration.html" th:href="@{/registration}" th:text="#{menus.main.registration}">Registration</a></li>
+                    <li><a th:href="@{/login}">Login</a></li>
+                </th:block>
+                <th:block sec:authorize="isAuthenticated()">
+                    <li><a href="/me" th:href="@{/me}" th:text="#{menus.main.me}">My account</a></li>
+                    <a th:href="@{/logout}">Logout</a>
+                </th:block>
+            </ul>
+        </nav>
+    </div>
+</header>
+<main>
+    <div class="center" layout:fragment="page-content">
+        <hgroup>
+            <h1>Ihre Gefährten für IT-Projekte</h1>
+            <p>DenktMit ist das flexible Experten-Netzwerk erfahrener IT-Spezialisten.<br>Gefährten - mehr als nur
+                Berater.</p>
+        </hgroup>
+        <article>
+            <h2>DenktMit Webapp Landingpage</h2>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vel ligula vel justo feugiat elementum.
+                Nulla
+                facilisi. Vivamus eget urna nec velit bibendum cursus.
+            </p>
+            <p>
+                Sed tincidunt justo a consectetur ultrices. In hac habitasse platea dictumst. Integer id orci vel neque
+                feugiat lacinia. Sed auctor, felis nec suscipit fermentum, sem augue convallis lectus, non feugiat
+                ligula
+                urna vel libero.
+            </p>
+            <p>
+                Ut suscipit pharetra purus, vel fringilla nunc aliquet vel. Duis in dapibus ex. Nunc fermentum quam id
+                quam
+                eleifend, ac gravida sem ultrices. In at odio nec justo commodo condimentum. Sed vel odio vitae purus
+                hendrerit sodales vel nec justo.
+            </p>
+            <p>
+                Vestibulum bibendum libero vel nisi consectetur, a ultricies metus blandit. Donec consequat mauris eu
+                posuere sagittis.
+            </p>
+        </article>
+    </div>
+</main>
+<footer class="bg-color:light-teal">
+    <div class="center">
+        <nav class="cluster-spaced">
+            <p>
+                &copy; 2024 DenktMit eG. All rights reserved. <br/>
+                Contact: hallo@denktmit.de
+            </p>
+            <ul class="cluster-wrapped">
+                <li>
+                    <a href="/templates/fixed-content/legal-notice.html"
+                       th:with="i18nPath=#{links.fixedpages.legalnotice}"
+                       th:href="@{${i18nPath}}" th:text="#{menus.main.legalnotice}">Legal notice</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</footer>
+<th:block layout:fragment="page-scripts"></th:block>
+</body>
+</html>

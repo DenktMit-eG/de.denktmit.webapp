@@ -11,6 +11,7 @@ import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
 import jakarta.persistence.Table
+import jakarta.persistence.UniqueConstraint
 import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Size
 
@@ -31,36 +32,38 @@ import org.jooq.impl.UpdatableRecordImpl
 @Entity
 @Table(
     name = "otp_actions",
-    schema = "public"
+    schema = "public",
+    uniqueConstraints = [
+        UniqueConstraint(name = "otp_actions_token_key", columnNames = [ "token" ])
+    ]
 )
-open class OtpActionsRecord() : UpdatableRecordImpl<OtpActionsRecord>(OtpActionsTable.OTP_ACTIONS), Record5<UUID?, String?, String?, Long?, Instant?>, IOtpActions {
+open class OtpActionsRecord() : UpdatableRecordImpl<OtpActionsRecord>(OtpActionsTable.OTP_ACTIONS), Record5<Long?, UUID?, Long?, String?, Instant?>, IOtpActions {
 
     @get:Id
-    @get:Column(name = "otp_action_id", nullable = false)
+    @get:Column(name = "action_id", nullable = false)
     @get:NotNull
-    open override var otpActionId: UUID?
+    open override var actionId: Long?
         set(value): Unit = set(0, value)
-        get(): UUID? = get(0) as UUID?
+        get(): Long? = get(0) as Long?
 
-    @get:Column(name = "target", nullable = false, length = 255)
+    @get:Column(name = "token", nullable = false)
     @get:NotNull
-    @get:Size(max = 255)
-    open override var target: String?
+    open override var token: UUID?
         set(value): Unit = set(1, value)
-        get(): String? = get(1) as String?
+        get(): UUID? = get(1) as UUID?
+
+    @get:Column(name = "user_id", nullable = false)
+    @get:NotNull
+    open override var userId: Long?
+        set(value): Unit = set(2, value)
+        get(): Long? = get(2) as Long?
 
     @get:Column(name = "action", nullable = false, length = 25)
     @get:NotNull
     @get:Size(max = 25)
     open override var action: String?
-        set(value): Unit = set(2, value)
-        get(): String? = get(2) as String?
-
-    @get:Column(name = "identifier", nullable = false)
-    @get:NotNull
-    open override var identifier: Long?
         set(value): Unit = set(3, value)
-        get(): Long? = get(3) as Long?
+        get(): String? = get(3) as String?
 
     @get:Column(name = "valid_until", nullable = false)
     @get:NotNull
@@ -72,46 +75,46 @@ open class OtpActionsRecord() : UpdatableRecordImpl<OtpActionsRecord>(OtpActions
     // Primary key information
     // -------------------------------------------------------------------------
 
-    override fun key(): Record1<UUID?> = super.key() as Record1<UUID?>
+    override fun key(): Record1<Long?> = super.key() as Record1<Long?>
 
     // -------------------------------------------------------------------------
     // Record5 type implementation
     // -------------------------------------------------------------------------
 
-    override fun fieldsRow(): Row5<UUID?, String?, String?, Long?, Instant?> = super.fieldsRow() as Row5<UUID?, String?, String?, Long?, Instant?>
-    override fun valuesRow(): Row5<UUID?, String?, String?, Long?, Instant?> = super.valuesRow() as Row5<UUID?, String?, String?, Long?, Instant?>
-    override fun field1(): Field<UUID?> = OtpActionsTable.OTP_ACTIONS.OTP_ACTION_ID
-    override fun field2(): Field<String?> = OtpActionsTable.OTP_ACTIONS.TARGET
-    override fun field3(): Field<String?> = OtpActionsTable.OTP_ACTIONS.ACTION
-    override fun field4(): Field<Long?> = OtpActionsTable.OTP_ACTIONS.IDENTIFIER
+    override fun fieldsRow(): Row5<Long?, UUID?, Long?, String?, Instant?> = super.fieldsRow() as Row5<Long?, UUID?, Long?, String?, Instant?>
+    override fun valuesRow(): Row5<Long?, UUID?, Long?, String?, Instant?> = super.valuesRow() as Row5<Long?, UUID?, Long?, String?, Instant?>
+    override fun field1(): Field<Long?> = OtpActionsTable.OTP_ACTIONS.ACTION_ID
+    override fun field2(): Field<UUID?> = OtpActionsTable.OTP_ACTIONS.TOKEN
+    override fun field3(): Field<Long?> = OtpActionsTable.OTP_ACTIONS.USER_ID
+    override fun field4(): Field<String?> = OtpActionsTable.OTP_ACTIONS.ACTION
     override fun field5(): Field<Instant?> = OtpActionsTable.OTP_ACTIONS.VALID_UNTIL
-    override fun component1(): UUID? = otpActionId
-    override fun component2(): String? = target
-    override fun component3(): String? = action
-    override fun component4(): Long? = identifier
+    override fun component1(): Long? = actionId
+    override fun component2(): UUID? = token
+    override fun component3(): Long? = userId
+    override fun component4(): String? = action
     override fun component5(): Instant? = validUntil
-    override fun value1(): UUID? = otpActionId
-    override fun value2(): String? = target
-    override fun value3(): String? = action
-    override fun value4(): Long? = identifier
+    override fun value1(): Long? = actionId
+    override fun value2(): UUID? = token
+    override fun value3(): Long? = userId
+    override fun value4(): String? = action
     override fun value5(): Instant? = validUntil
 
-    override fun value1(value: UUID?): OtpActionsRecord {
+    override fun value1(value: Long?): OtpActionsRecord {
         set(0, value)
         return this
     }
 
-    override fun value2(value: String?): OtpActionsRecord {
+    override fun value2(value: UUID?): OtpActionsRecord {
         set(1, value)
         return this
     }
 
-    override fun value3(value: String?): OtpActionsRecord {
+    override fun value3(value: Long?): OtpActionsRecord {
         set(2, value)
         return this
     }
 
-    override fun value4(value: Long?): OtpActionsRecord {
+    override fun value4(value: String?): OtpActionsRecord {
         set(3, value)
         return this
     }
@@ -121,7 +124,7 @@ open class OtpActionsRecord() : UpdatableRecordImpl<OtpActionsRecord>(OtpActions
         return this
     }
 
-    override fun values(value1: UUID?, value2: String?, value3: String?, value4: Long?, value5: Instant?): OtpActionsRecord {
+    override fun values(value1: Long?, value2: UUID?, value3: Long?, value4: String?, value5: Instant?): OtpActionsRecord {
         this.value1(value1)
         this.value2(value2)
         this.value3(value3)
@@ -135,10 +138,10 @@ open class OtpActionsRecord() : UpdatableRecordImpl<OtpActionsRecord>(OtpActions
     // -------------------------------------------------------------------------
 
     override fun from(from: IOtpActions) {
-        otpActionId = from.otpActionId
-        target = from.target
+        actionId = from.actionId
+        token = from.token
+        userId = from.userId
         action = from.action
-        identifier = from.identifier
         validUntil = from.validUntil
         resetChangedOnNotNull()
     }
@@ -151,11 +154,11 @@ open class OtpActionsRecord() : UpdatableRecordImpl<OtpActionsRecord>(OtpActions
     /**
      * Create a detached, initialised OtpActionsRecord
      */
-    constructor(otpActionId: UUID? = null, target: String? = null, action: String? = null, identifier: Long? = null, validUntil: Instant? = null): this() {
-        this.otpActionId = otpActionId
-        this.target = target
+    constructor(actionId: Long? = null, token: UUID? = null, userId: Long? = null, action: String? = null, validUntil: Instant? = null): this() {
+        this.actionId = actionId
+        this.token = token
+        this.userId = userId
         this.action = action
-        this.identifier = identifier
         this.validUntil = validUntil
         resetChangedOnNotNull()
     }

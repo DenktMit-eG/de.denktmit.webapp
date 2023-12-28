@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.5</version>
+        <version>3.2.1</version>
         <relativePath></relativePath>
         <!-- lookup parent from repository -->
     </parent>
@@ -42,15 +42,17 @@
         <revision>0.0.1</revision>
         <sha1></sha1>
         <skip.reports.jacoco>false</skip.reports.jacoco>
-        <skip.reports.jacoco>false</skip.reports.jacoco>
         <!--suppress UnresolvedMavenProperty -->
         <skip.tests.all>${skipTests}</skip.tests.all>
         <skip.tests.e2e>${skip.tests.all}</skip.tests.e2e>
         <skip.tests.it>${skip.tests.all}</skip.tests.it>
         <skip.tests.unit>${skip.tests.all}</skip.tests.unit>
+        <version.com.github.eirslett.frontend-maven-plugin>1.15.0</version.com.github.eirslett.frontend-maven-plugin>
         <version.com.github.ekryd.sortpom.sortpom-maven-plugin>3.3.0</version.com.github.ekryd.sortpom.sortpom-maven-plugin>
         <version.com.google.cloud.tools.jib-maven-plugin>3.4.0</version.com.google.cloud.tools.jib-maven-plugin>
+        <version.com.ninja-squad.springmockk>4.0.2</version.com.ninja-squad.springmockk>
         <version.io.hypersistence.hypersistence-utils-hibernate-62>3.6.0</version.io.hypersistence.hypersistence-utils-hibernate-62>
+        <version.nl.jqno.equalsverifier.equalsverifier>3.15.6</version.nl.jqno.equalsverifier.equalsverifier>
         <version.org.asciidoctor.asciidoctor-maven-plugin>2.2.4</version.org.asciidoctor.asciidoctor-maven-plugin>
         <version.org.codehaus.mojo.flatten-maven-plugin>1.5.0</version.org.codehaus.mojo.flatten-maven-plugin>
         <version.org.codehaus.mojo.properties-maven-plugin>1.2.1</version.org.codehaus.mojo.properties-maven-plugin>
@@ -101,12 +103,29 @@
                 <type>test-jar</type>
                 <scope>test</scope>
             </dependency>
+            <dependency>
+                <groupId>com.ninja-squad</groupId>
+                <artifactId>springmockk</artifactId>
+                <version>${version.com.ninja-squad.springmockk}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>nl.jqno.equalsverifier</groupId>
+                <artifactId>equalsverifier</artifactId>
+                <version>${version.nl.jqno.equalsverifier.equalsverifier}</version>
+                <scope>test</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
     <build>
         <pluginManagement>
             <plugins>
+                <plugin>
+                    <groupId>com.github.eirslett</groupId>
+                    <artifactId>frontend-maven-plugin</artifactId>
+                    <version>${version.com.github.eirslett.frontend-maven-plugin}</version>
+                </plugin>
                 <plugin>
                     <groupId>com.github.ekryd.sortpom</groupId>
                     <artifactId>sortpom-maven-plugin</artifactId>
@@ -234,6 +253,9 @@
                     <version>${version.org.jacoco.jacoco-maven-plugin}</version>
                     <configuration>
                         <skip>${skip.reports.jacoco}</skip>
+                        <excludes>
+                            <exclude>de/denktmit/webapp/jooq/generated/**</exclude>
+                        </excludes>
                     </configuration>
                     <executions>
                         <execution>

@@ -23,6 +23,11 @@ val AUTHORITIES_SEQ: Sequence<Long> = Internal.createSequence("authorities_seq",
 val GROUPS_SEQ: Sequence<Long> = Internal.createSequence("groups_seq", Public.PUBLIC, SQLDataType.BIGINT.nullable(false), 10100, 50, null, null, false, null)
 
 /**
+ * The sequence <code>public.otp_actions_seq</code>
+ */
+val OTP_ACTIONS_SEQ: Sequence<Long> = Internal.createSequence("otp_actions_seq", Public.PUBLIC, SQLDataType.BIGINT.nullable(false), 10050, 50, null, null, false, null)
+
+/**
  * The sequence <code>public.users_seq</code>
  */
 val USERS_SEQ: Sequence<Long> = Internal.createSequence("users_seq", Public.PUBLIC, SQLDataType.BIGINT.nullable(false), 10050, 50, null, null, false, null)

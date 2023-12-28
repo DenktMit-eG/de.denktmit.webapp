@@ -1,0 +1,7 @@
+.center {
+    box-sizing: content-box;
+    display: flex;
+    flex-direction: column;
+    margin-inline: auto;
+    max-inline-size: var(--measure);
+}

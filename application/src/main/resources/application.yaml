@@ -24,6 +24,9 @@ spring:
   jpa:
     properties:
       hibernate:
+        format_sql: false
+        type:
+          preferred_instant_jdbc_type: TIMESTAMP_WITH_TIMEZONE
         dialect: org.hibernate.dialect.PostgreSQLDialect
         tmp:
           use_jdbc_metadata_defaults: false
@@ -38,8 +41,8 @@ spring:
   # Java Mail config
   mail:
     host: localhost
-    username: <login user to smtp server>
-    password: <login password to smtp server>
+    #username: <login user to smtp server>
+    #password: <login password to smtp server>
     port: '1025'
     properties:
       mail:
@@ -54,6 +57,15 @@ spring:
           #  class: javax.net.ssl.SSLSocketFactor
           #  fallback: 'false'
 
+  messages:
+    basename: messages,mailMessages
+
+  thymeleaf:
+    template-resolver-order: 2
+
+  web:
+    locale: en
+
 business:
   adminUsers:
     - admin.user@denktmit.de
@@ -61,3 +73,7 @@ business:
     - denktmit.de
   mail:
     sender: "mailbot@denktmit.de"
+
+web:
+  hostname: localhost
+  port: 8080

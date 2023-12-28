@@ -1,0 +1,31 @@
+* {
+    font-family: Calibri, serif;
+    font-size: var(--font-size-base);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    text-transform: capitalize;
+    color: var(--color-dark-petrol);
+}
+
+h1,
+h2 {
+    text-transform: uppercase;
+}
+
+h1 {
+    font-size: var(--font-size-big);
+    margin-block-start: var(--s-2);
+    margin-block-end: var(--s-1);
+}
+
+h2 {
+    font-size: var(--font-size-biggish);
+    margin-block-start: var(--s-3);
+    margin-block-end: var(--s-2);
+}

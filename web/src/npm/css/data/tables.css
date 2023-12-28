@@ -1,0 +1,70 @@
+table {
+    width: 100%;
+    max-width: 100%;
+    border-collapse: collapse;
+    page-break-inside: auto;
+}
+
+table th, td {
+    font-size: var(--s-1);
+}
+
+thead {
+    display:table-header-group
+}
+
+tfoot {
+    display:table-footer-group
+}
+
+tbody:before {
+    line-height:0.2em;
+    content:"\200C";
+    display:block;
+}
+
+tr {
+    page-break-inside:avoid;
+    page-break-after:auto
+}
+
+th {
+    border-bottom: .2em solid black;
+    word-wrap: normal;
+    overflow-wrap: break-word;
+}
+
+td {
+    text-align: left;
+    padding-inline: 1ch;
+    padding-block: .2em;
+    word-wrap: break-word;
+    overflow-wrap: anywhere;
+    font-size: var(--font-size-small);
+}
+
+tbody tr:nth-child(even) {
+    background-color: aliceblue;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: ghostwhite;
+}
+
+tbody tr:has(> td.selected), tbody tr:hover {
+    background-color: cornsilk;
+}
+
+tbody tr:has(> td.selected):hover {
+    background-color: mistyrose;
+}
+
+tbody td.selected, tbody td:hover {
+    background-color: #fdc53d;
+    border: thin dotted black;
+}
+
+tbody td.selected:hover {
+    background-color: #ff6478;
+    border: thin dotted black;
+}

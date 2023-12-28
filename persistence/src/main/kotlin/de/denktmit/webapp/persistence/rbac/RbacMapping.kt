@@ -1,9 +1,9 @@
 package de.denktmit.webapp.persistence.rbac
 
-import de.denktmit.webapp.persistence.users.User
+import de.denktmit.webapp.persistence.users.UserEntity
 
 data class RbacMapping(
-    val user: User,
+    val user: UserEntity,
     val groups: Set<Group>,
     val authorities: Set<Authority>,
 )

@@ -1,0 +1,101 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{__layouts/centered}"
+      lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Home</title>
+    <link rel="icon" href="/img/favicon.svg">
+    <link rel="stylesheet" href="/css/styles.min.css" th:href="@{/css/styles.min.css}"/>
+</head>
+<body>
+<header class="bg-color:dark-petrol">
+    <div class="center">
+        <nav class="cluster-spaced">
+            <img src="/img/logo.svg" alt="Das DenktMit eG Signet mit Firmenname"/>
+            <ul class="cluster-wrapped">
+                <li><a href="/">Home</a></li>
+                <li><a href="/every-layout/index.html">Every Layout</a></li>
+                <li><a href="/admin/users.html">Admin/Users</a></li>
+                <li><a href="/logout.html">Logout</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<main>
+    <div class="center" layout:fragment="page-content">
+        <hgroup>
+            <h1 th:text="#{pages.user.me.title}">My account</h1>
+            <p th:text="#{pages.user.me.titledesc(${#authentication.principal.username})}">This is your user account
+                page. Yor are logged in as john.doe@example.com</p>
+        </hgroup>
+
+        <th:block th:if="${changePasswordResult != null}">
+            <p th:if="${#strings.equals(changePasswordResult, 'true')}"
+               th:text="#{pages.user.me.form.changepassword.success}"
+               class="flash-message success">Password successfully changed</p>
+            <p th:unless="${#strings.equals(changePasswordResult, 'true')}"
+               th:text="#{pages.user.me.form.changepassword.failure}"
+               class="flash-message failure">Password change failed</p>
+        </th:block>
+
+        <th:block th:if="${emailValidationResult} != null">
+            <p th:if="${#strings.equals(emailValidationResult, 'true')}"
+               th:text="#{pages.user.me.mailvalidation.success}"
+               class="flash-message success">Your email address has been successfully validated. You are now fully
+                registered to our webservice. Nice to have you here.</p>
+            <p th:unless="${#strings.equals(emailValidationResult, 'true')}"
+               th:text="#{pages.user.me.mailvalidation.failure}"
+               class="flash-message failure">Your e-mail address could not be validated. Your validation token may be
+                out of date or you may have already validated your e-mail. Please request a new validation token if
+                necessary.</p>
+        </th:block>
+
+        <form action="#" th:action="@{/me}" th:object="${passwordUpdateForm}" method="post">
+            <h2 th:text="#{pages.user.me.form.changepassword.title}">Change password</h2>
+            <label th:for="oldPassword" th:class="${#fields.hasErrors('oldPassword')}? fieldError">
+                <span th:text="#{pages.user.me.form.changepassword.oldPassword}">Old password</span>:
+                <input th:type="password" th:field="*{oldPassword}"/>
+                <p th:if="${#fields.hasErrors('oldPassword')}"
+                   th:text="${#strings.listJoin(#fields.errors('oldPassword'), ', ')}"
+                   class="form-field-error"
+                   id="oldPassword-error">oldPassword validation error message(s).</p>
+            </label>
+            <label th:for="password" th:class="${#fields.hasErrors('password')}? fieldError">
+                <span th:text="#{shared.namings.password}">Password</span>:
+                <input th:type="password" th:field="*{password}"/>
+                <p th:if="${#fields.hasErrors('password')}"
+                   th:text="${#strings.listJoin(#fields.errors('password'), ', ')}"
+                   class="form-field-error"
+                   id="password-error">password validation error message(s).</p>
+            </label>
+            <label th:for="passwordRepeated" th:class="${#fields.hasErrors('passwordRepeated')}? fieldError">
+                <span th:text="#{shared.namings.passwordRepeat}">Repeat password</span>:
+                <input th:type="password" th:field="*{passwordRepeated}"/>
+                <p th:if="${#fields.hasErrors('passwordRepeated')}"
+                   th:text="${#strings.listJoin(#fields.errors('passwordRepeated'), ', ')}"
+                   class="form-field-error"
+                   id="passwordRepeated-error">passwordRepeated validation error message(s).</p>
+            </label>
+            <input type="reset" id="reset" name="reset" value="Reset"/>
+            <input type="submit" id="create" name="create" value="Change"/>
+        </form>
+    </div>
+</main>
+<footer class="bg-color:light-teal">
+    <div class="center">
+        <nav class="cluster-spaced">
+            <p>
+                &copy; 2024 DenktMit eG. All rights reserved. <br/>
+                Contact: hallo@denktmit.de
+            </p>
+            <ul class="cluster-wrapped">
+                <li><a href="/templates/fixed-content/legal-notice.html">Legal notice</a></li>
+            </ul>
+        </nav>
+    </div>
+</footer>
+</body>
+</html>

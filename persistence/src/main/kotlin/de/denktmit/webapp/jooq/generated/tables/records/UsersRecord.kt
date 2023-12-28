@@ -18,8 +18,8 @@ import java.time.Instant
 
 import org.jooq.Field
 import org.jooq.Record1
-import org.jooq.Record7
-import org.jooq.Row7
+import org.jooq.Record8
+import org.jooq.Row8
 import org.jooq.impl.UpdatableRecordImpl
 
 
@@ -32,7 +32,7 @@ import org.jooq.impl.UpdatableRecordImpl
     name = "users",
     schema = "public"
 )
-open class UsersRecord() : UpdatableRecordImpl<UsersRecord>(UsersTable.USERS), Record7<Long?, String?, String?, Boolean?, Instant?, Instant?, Instant?>, IUsers {
+open class UsersRecord() : UpdatableRecordImpl<UsersRecord>(UsersTable.USERS), Record8<Long?, String?, Boolean?, String?, Boolean?, Instant?, Instant?, Instant?>, IUsers {
 
     @get:Id
     @get:Column(name = "user_id", nullable = false)
@@ -48,35 +48,42 @@ open class UsersRecord() : UpdatableRecordImpl<UsersRecord>(UsersTable.USERS), R
         set(value): Unit = set(1, value)
         get(): String? = get(1) as String?
 
+    @get:Column(name = "mail_verified", nullable = false)
+    @get:NotNull
+    open override var mailVerified: Boolean?
+        set(value): Unit = set(2, value)
+        get(): Boolean? = get(2) as Boolean?
+
     @get:Column(name = "password", nullable = false, length = 500)
     @get:NotNull
     @get:Size(max = 500)
     open override var password: String?
-        set(value): Unit = set(2, value)
-        get(): String? = get(2) as String?
-
-    @get:Column(name = "disabled")
-    open override var disabled: Boolean?
         set(value): Unit = set(3, value)
-        get(): Boolean? = get(3) as Boolean?
+        get(): String? = get(3) as String?
+
+    @get:Column(name = "disabled", nullable = false)
+    @get:NotNull
+    open override var disabled: Boolean?
+        set(value): Unit = set(4, value)
+        get(): Boolean? = get(4) as Boolean?
 
     @get:Column(name = "locked_until", nullable = false)
     @get:NotNull
     open override var lockedUntil: Instant?
-        set(value): Unit = set(4, value)
-        get(): Instant? = get(4) as Instant?
+        set(value): Unit = set(5, value)
+        get(): Instant? = get(5) as Instant?
 
     @get:Column(name = "account_valid_until", nullable = false)
     @get:NotNull
     open override var accountValidUntil: Instant?
-        set(value): Unit = set(5, value)
-        get(): Instant? = get(5) as Instant?
+        set(value): Unit = set(6, value)
+        get(): Instant? = get(6) as Instant?
 
     @get:Column(name = "credentials_valid_until", nullable = false)
     @get:NotNull
     open override var credentialsValidUntil: Instant?
-        set(value): Unit = set(6, value)
-        get(): Instant? = get(6) as Instant?
+        set(value): Unit = set(7, value)
+        get(): Instant? = get(7) as Instant?
 
     // -------------------------------------------------------------------------
     // Primary key information
@@ -85,32 +92,35 @@ open class UsersRecord() : UpdatableRecordImpl<UsersRecord>(UsersTable.USERS), R
     override fun key(): Record1<Long?> = super.key() as Record1<Long?>
 
     // -------------------------------------------------------------------------
-    // Record7 type implementation
+    // Record8 type implementation
     // -------------------------------------------------------------------------
 
-    override fun fieldsRow(): Row7<Long?, String?, String?, Boolean?, Instant?, Instant?, Instant?> = super.fieldsRow() as Row7<Long?, String?, String?, Boolean?, Instant?, Instant?, Instant?>
-    override fun valuesRow(): Row7<Long?, String?, String?, Boolean?, Instant?, Instant?, Instant?> = super.valuesRow() as Row7<Long?, String?, String?, Boolean?, Instant?, Instant?, Instant?>
+    override fun fieldsRow(): Row8<Long?, String?, Boolean?, String?, Boolean?, Instant?, Instant?, Instant?> = super.fieldsRow() as Row8<Long?, String?, Boolean?, String?, Boolean?, Instant?, Instant?, Instant?>
+    override fun valuesRow(): Row8<Long?, String?, Boolean?, String?, Boolean?, Instant?, Instant?, Instant?> = super.valuesRow() as Row8<Long?, String?, Boolean?, String?, Boolean?, Instant?, Instant?, Instant?>
     override fun field1(): Field<Long?> = UsersTable.USERS.USER_ID
     override fun field2(): Field<String?> = UsersTable.USERS.MAIL
-    override fun field3(): Field<String?> = UsersTable.USERS.PASSWORD
-    override fun field4(): Field<Boolean?> = UsersTable.USERS.DISABLED
-    override fun field5(): Field<Instant?> = UsersTable.USERS.LOCKED_UNTIL
-    override fun field6(): Field<Instant?> = UsersTable.USERS.ACCOUNT_VALID_UNTIL
-    override fun field7(): Field<Instant?> = UsersTable.USERS.CREDENTIALS_VALID_UNTIL
+    override fun field3(): Field<Boolean?> = UsersTable.USERS.MAIL_VERIFIED
+    override fun field4(): Field<String?> = UsersTable.USERS.PASSWORD
+    override fun field5(): Field<Boolean?> = UsersTable.USERS.DISABLED
+    override fun field6(): Field<Instant?> = UsersTable.USERS.LOCKED_UNTIL
+    override fun field7(): Field<Instant?> = UsersTable.USERS.ACCOUNT_VALID_UNTIL
+    override fun field8(): Field<Instant?> = UsersTable.USERS.CREDENTIALS_VALID_UNTIL
     override fun component1(): Long? = userId
     override fun component2(): String? = mail
-    override fun component3(): String? = password
-    override fun component4(): Boolean? = disabled
-    override fun component5(): Instant? = lockedUntil
-    override fun component6(): Instant? = accountValidUntil
-    override fun component7(): Instant? = credentialsValidUntil
+    override fun component3(): Boolean? = mailVerified
+    override fun component4(): String? = password
+    override fun component5(): Boolean? = disabled
+    override fun component6(): Instant? = lockedUntil
+    override fun component7(): Instant? = accountValidUntil
+    override fun component8(): Instant? = credentialsValidUntil
     override fun value1(): Long? = userId
     override fun value2(): String? = mail
-    override fun value3(): String? = password
-    override fun value4(): Boolean? = disabled
-    override fun value5(): Instant? = lockedUntil
-    override fun value6(): Instant? = accountValidUntil
-    override fun value7(): Instant? = credentialsValidUntil
+    override fun value3(): Boolean? = mailVerified
+    override fun value4(): String? = password
+    override fun value5(): Boolean? = disabled
+    override fun value6(): Instant? = lockedUntil
+    override fun value7(): Instant? = accountValidUntil
+    override fun value8(): Instant? = credentialsValidUntil
 
     override fun value1(value: Long?): UsersRecord {
         set(0, value)
@@ -122,17 +132,17 @@ open class UsersRecord() : UpdatableRecordImpl<UsersRecord>(UsersTable.USERS), R
         return this
     }
 
-    override fun value3(value: String?): UsersRecord {
+    override fun value3(value: Boolean?): UsersRecord {
         set(2, value)
         return this
     }
 
-    override fun value4(value: Boolean?): UsersRecord {
+    override fun value4(value: String?): UsersRecord {
         set(3, value)
         return this
     }
 
-    override fun value5(value: Instant?): UsersRecord {
+    override fun value5(value: Boolean?): UsersRecord {
         set(4, value)
         return this
     }
@@ -147,7 +157,12 @@ open class UsersRecord() : UpdatableRecordImpl<UsersRecord>(UsersTable.USERS), R
         return this
     }
 
-    override fun values(value1: Long?, value2: String?, value3: String?, value4: Boolean?, value5: Instant?, value6: Instant?, value7: Instant?): UsersRecord {
+    override fun value8(value: Instant?): UsersRecord {
+        set(7, value)
+        return this
+    }
+
+    override fun values(value1: Long?, value2: String?, value3: Boolean?, value4: String?, value5: Boolean?, value6: Instant?, value7: Instant?, value8: Instant?): UsersRecord {
         this.value1(value1)
         this.value2(value2)
         this.value3(value3)
@@ -155,6 +170,7 @@ open class UsersRecord() : UpdatableRecordImpl<UsersRecord>(UsersTable.USERS), R
         this.value5(value5)
         this.value6(value6)
         this.value7(value7)
+        this.value8(value8)
         return this
     }
 
@@ -165,6 +181,7 @@ open class UsersRecord() : UpdatableRecordImpl<UsersRecord>(UsersTable.USERS), R
     override fun from(from: IUsers) {
         userId = from.userId
         mail = from.mail
+        mailVerified = from.mailVerified
         password = from.password
         disabled = from.disabled
         lockedUntil = from.lockedUntil
@@ -181,9 +198,10 @@ open class UsersRecord() : UpdatableRecordImpl<UsersRecord>(UsersTable.USERS), R
     /**
      * Create a detached, initialised UsersRecord
      */
-    constructor(userId: Long? = null, mail: String? = null, password: String? = null, disabled: Boolean? = null, lockedUntil: Instant? = null, accountValidUntil: Instant? = null, credentialsValidUntil: Instant? = null): this() {
+    constructor(userId: Long? = null, mail: String? = null, mailVerified: Boolean? = null, password: String? = null, disabled: Boolean? = null, lockedUntil: Instant? = null, accountValidUntil: Instant? = null, credentialsValidUntil: Instant? = null): this() {
         this.userId = userId
         this.mail = mail
+        this.mailVerified = mailVerified
         this.password = password
         this.disabled = disabled
         this.lockedUntil = lockedUntil

@@ -6,6 +6,7 @@ package de.denktmit.webapp.jooq.generated
 
 import de.denktmit.webapp.jooq.generated.sequences.AUTHORITIES_SEQ
 import de.denktmit.webapp.jooq.generated.sequences.GROUPS_SEQ
+import de.denktmit.webapp.jooq.generated.sequences.OTP_ACTIONS_SEQ
 import de.denktmit.webapp.jooq.generated.sequences.USERS_SEQ
 import de.denktmit.webapp.jooq.generated.tables.AuthoritiesTable
 import de.denktmit.webapp.jooq.generated.tables.GroupAuthoritiesTable
@@ -70,6 +71,7 @@ open class Public : SchemaImpl("public", DefaultCatalog.DEFAULT_CATALOG) {
     override fun getSequences(): List<Sequence<*>> = listOf(
         AUTHORITIES_SEQ,
         GROUPS_SEQ,
+        OTP_ACTIONS_SEQ,
         USERS_SEQ
     )
 

@@ -19,7 +19,7 @@
             <includeDomains>true</includeDomains>
             <includeEmbeddables>true</includeEmbeddables>
             <includeForeignKeys>true</includeForeignKeys>
-            <includeIndexes>false</includeIndexes>
+            <includeIndexes>true</includeIndexes>
             <includeInvisibleColumns>true</includeInvisibleColumns>
             <includePackageConstants>true</includePackageConstants>
             <includePackageRoutines>true</includePackageRoutines>

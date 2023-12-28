@@ -1,7 +1,6 @@
 package de.denktmit.webapp.persistence.rbac
 
 import de.denktmit.webapp.persistence.HasIdOfType
-import de.denktmit.webapp.persistence.users.User
 import jakarta.persistence.*
 import jakarta.validation.constraints.NotBlank
 import org.hibernate.annotations.NaturalId
@@ -30,7 +29,6 @@ import org.hibernate.annotations.NaturalId
 @Entity
 @Table(name = "groups")
 data class Group(
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "group_id")
@@ -40,5 +38,26 @@ data class Group(
     @Column(length = 50)
     @NotBlank
     val groupName: String = "",
+) : HasIdOfType<Long> {
 
-    ) : HasIdOfType<Long>
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Group
+
+        return groupName == other.groupName
+    }
+
+    override fun hashCode(): Int {
+        return groupName.hashCode()
+    }
+
+    override fun toString(): String {
+        return "Group(groupName='$groupName')"
+    }
+
+}
+
+const val GROUP_NAME_ADMINS = "admins"
+const val GROUP_NAME_USERS = "users"
