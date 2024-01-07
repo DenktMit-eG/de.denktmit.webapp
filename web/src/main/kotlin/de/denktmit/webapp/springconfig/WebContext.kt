@@ -7,7 +7,7 @@ import org.springframework.web.servlet.config.annotation.ContentNegotiationConfi
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 
 @SpringBootConfiguration
-@ComponentScan("de.denktmit.webapp.web", "de.denktmit.webapp.admin")
+@ComponentScan("de.denktmit.webapp.web")
 class WebContext : WebMvcConfigurer {
 
     override fun configureContentNegotiation(configurer: ContentNegotiationConfigurer) {

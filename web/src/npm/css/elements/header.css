@@ -1,0 +1,7 @@
+header nav img {
+    height: 3em;
+}
+
+header nav li {
+    display: inline-block;
+}

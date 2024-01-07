@@ -1,0 +1,11 @@
+.bg-color\:white {
+    background-color: white;
+}
+
+.bg-color\:light-green {
+    background-color: var(--color-light-green);
+}
+
+.bg-color\:dark-petrol {
+    background-color: var(--color-dark-petrol);
+}

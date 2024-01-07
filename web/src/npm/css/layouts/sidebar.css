@@ -1,0 +1,54 @@
+.content {
+    flex-basis: 0;
+    flex-grow: 999;
+    min-inline-size: 60%; /* percentage of horizontal break point */
+}
+
+.side-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sidebar-gap);
+    min-height: 100vh;
+}
+
+.sidebar {
+    flex-grow: 1;
+    flex-basis: 15rem; /* desired with of sidebar by default */
+    border-right: 3px solid black;
+}
+
+.sidebar-content-wrapper {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.sidebar-content-wrapper > h2 {
+    padding: 1rem 2rem;
+    font-size: 2.8rem;
+    text-decoration: underline;
+}
+
+.sidebar-content-wrapper > ul {
+    display: flex;
+    flex-direction: column;
+    margin: auto 0;
+    font-size: 1.2em;
+}
+
+.sidebar-content-wrapper > ul > li:first-child {
+    text-decoration: underline;
+    text-transform: capitalize;
+    font-weight: bolder;
+    font-size: 1.7em;
+    cursor: auto !important;
+}
+
+.sidebar-content-wrapper > ul > li {
+    font-weight: bold;
+    padding: 0 2rem;
+    cursor: pointer;
+    font-size: 1.2em;
+}

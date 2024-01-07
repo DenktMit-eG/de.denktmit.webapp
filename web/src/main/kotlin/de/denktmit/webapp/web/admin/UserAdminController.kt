@@ -1,4 +1,4 @@
-package de.denktmit.webapp.admin
+package de.denktmit.webapp.web.admin
 
 import de.denktmit.webapp.business.user.UserService
 import org.springframework.stereotype.Controller
@@ -16,7 +16,7 @@ class UserAdminController(
     ): String {
         val dataTable = userService.userData()
         model.addAttribute("dataTable", dataTable)
-        return "layout_data_table"
+        return "admin/users"
     }
 
 }

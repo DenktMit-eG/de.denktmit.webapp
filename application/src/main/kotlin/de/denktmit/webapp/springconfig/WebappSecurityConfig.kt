@@ -31,6 +31,7 @@ class WebappSecurityConfig(
             .csrf(CsrfConfigurer<HttpSecurity>::disable)
             .anonymous { it
                 .principal(securityProperties.anonymousPrincipal)
+                .authorities("ROLE_ANON")
             }
             .authorizeHttpRequests { authorize ->
                 authorize.anyRequest().permitAll()
@@ -44,6 +45,8 @@ class WebappSecurityConfig(
                     // Allow access to static resources. Not that everything under /static/folder will be served
                     // from path /folder.
                     .requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
+                    // Registration part is available for anonymous users
+                    .requestMatchers("/registration").hasRole("ANON")
                     // Landing page or other public pages
                     .requestMatchers("/").permitAll()
                     .requestMatchers("/error").permitAll()
@@ -51,6 +54,10 @@ class WebappSecurityConfig(
                     .requestMatchers("/admin/**").hasRole("ADMIN")
                     // All other pages
                     .anyRequest().authenticated()
+            }
+            .anonymous { it
+                .principal(securityProperties.anonymousPrincipal)
+                .authorities("ROLE_ANON")
             }
 
 
