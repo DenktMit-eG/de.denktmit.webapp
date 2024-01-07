@@ -19,9 +19,8 @@
     --color-petrol: #13343d;
     --color-pink: #ff6478;
     --color-yellow: #fdc53d;
-    --measure-double: calc(var(--measure) * 2);
     --measure-half: calc(var(--measure) / 2);
-    --measure: 60ch;
+    --measure: 80ch;
     --sidebar-gap: 1.5rem;
     --xImg: 16;
     --yImg: 9;
@@ -29,7 +28,7 @@
 
 * {
     box-sizing: border-box;
-    max-inline-size: var(--measure-double);
+    max-inline-size: var(--measure);
     overflow-wrap: break-word;
 }
 

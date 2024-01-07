@@ -14,7 +14,8 @@ class UserRepositoryIT {
 
     @Test
     fun testFindAll() {
-        assertThat(repo.findAll()).containsExactlyInAnyOrder(*Users.all.toTypedArray())
+        val users = repo.findAll()
+        assertThat(users).containsExactlyInAnyOrder(*Users.all.toTypedArray())
     }
 
 }

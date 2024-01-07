@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta http-equiv="content-language" content="en">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sidebar</title>
-    <link rel="stylesheet" href="/css/styles.min.css"/>
+    <link rel="stylesheet" href="/css/styles.min.css" th:href="@{/css/styles.min.css}"/>
 </head>
 <body>
 <div class="side-wrapper">
     <aside class="sidebar">
-        <div class="sidebar-content-wrapper" th:fragment="sidebar">
+        <div class="sidebar-content-wrapper" th:fragment="sidebar" th:abbr="">
             <h2>EveryLayout</h2>
             <ul>
                 <li>Elements</li>

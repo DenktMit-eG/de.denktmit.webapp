@@ -7,7 +7,7 @@
     "build": "NODE_ENV=production npm run postcss",
     "dev": "NODE_ENV=development concurrently 'npm run start' 'npm run postcss:watch'",
     "postcss": "postcss src/npm/css/index.css -o src/main/resources/static/css/styles.min.css",
-    "postcss:watch": "onchange 'src/npm/css/*.css' -- npm run postcss",
+    "postcss:watch": "onchange 'src/npm/css/**/*.css' -- npm run postcss",
     "start": "nodemon --ext js,html,css server.js"
   },
   "devDependencies": {

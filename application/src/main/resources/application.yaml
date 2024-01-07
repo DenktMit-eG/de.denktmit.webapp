@@ -25,7 +25,7 @@ spring:
     properties:
       hibernate:
         type:
-          preferred_instant_jdbc_type=TIMESTAMP_WITH_TIMEZONE:
+          preferred_instant_jdbc_type: TIMESTAMP_WITH_TIMEZONE
         dialect: org.hibernate.dialect.PostgreSQLDialect
         tmp:
           use_jdbc_metadata_defaults: false

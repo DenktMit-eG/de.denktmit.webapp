@@ -6,6 +6,14 @@
     background-color: var(--color-light-green);
 }
 
+.bg-color\:light-teal {
+    background-color: var(--color-light-teal);
+}
+
+.bg-color\:petrol {
+    background-color: var(--color-petrol);
+}
+
 .bg-color\:dark-petrol {
     background-color: var(--color-dark-petrol);
 }

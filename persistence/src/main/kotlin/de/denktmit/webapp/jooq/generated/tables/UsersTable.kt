@@ -8,7 +8,7 @@ import de.denktmit.webapp.jooq.generated.Public
 import de.denktmit.webapp.jooq.generated.keys.USERS_PKEY
 import de.denktmit.webapp.jooq.generated.tables.records.UsersRecord
 
-import java.time.LocalDateTime
+import java.time.Instant
 import java.util.function.Function
 
 import org.jooq.Field
@@ -95,19 +95,19 @@ open class UsersTable(
      * The column <code>public.users.locked_until</code>. User's locked status
      * (true or false) based on temporary circumstances, e.g. failed logins
      */
-    val LOCKED_UNTIL: TableField<UsersRecord, LocalDateTime?> = createField(DSL.name("locked_until"), SQLDataType.LOCALDATETIME(6).nullable(false), this, "User's locked status (true or false) based on temporary circumstances, e.g. failed logins")
+    val LOCKED_UNTIL: TableField<UsersRecord, Instant?> = createField(DSL.name("locked_until"), SQLDataType.INSTANT.nullable(false), this, "User's locked status (true or false) based on temporary circumstances, e.g. failed logins")
 
     /**
      * The column <code>public.users.account_valid_until</code>. User's account
      * expiry date, e.g. for paid time-limited access
      */
-    val ACCOUNT_VALID_UNTIL: TableField<UsersRecord, LocalDateTime?> = createField(DSL.name("account_valid_until"), SQLDataType.LOCALDATETIME(6).nullable(false), this, "User's account expiry date, e.g. for paid time-limited access")
+    val ACCOUNT_VALID_UNTIL: TableField<UsersRecord, Instant?> = createField(DSL.name("account_valid_until"), SQLDataType.INSTANT.nullable(false), this, "User's account expiry date, e.g. for paid time-limited access")
 
     /**
      * The column <code>public.users.credentials_valid_until</code>. User's
      * credentials expiry date, e.g. to enforce password change after some time
      */
-    val CREDENTIALS_VALID_UNTIL: TableField<UsersRecord, LocalDateTime?> = createField(DSL.name("credentials_valid_until"), SQLDataType.LOCALDATETIME(6).nullable(false), this, "User's credentials expiry date, e.g. to enforce password change after some time")
+    val CREDENTIALS_VALID_UNTIL: TableField<UsersRecord, Instant?> = createField(DSL.name("credentials_valid_until"), SQLDataType.INSTANT.nullable(false), this, "User's credentials expiry date, e.g. to enforce password change after some time")
 
     private constructor(alias: Name, aliased: Table<UsersRecord>?): this(alias, null, null, aliased, null)
     private constructor(alias: Name, aliased: Table<UsersRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, aliased, parameters)
@@ -152,16 +152,16 @@ open class UsersTable(
     // -------------------------------------------------------------------------
     // Row8 type methods
     // -------------------------------------------------------------------------
-    override fun fieldsRow(): Row8<Long?, String?, Boolean?, String?, Boolean?, LocalDateTime?, LocalDateTime?, LocalDateTime?> = super.fieldsRow() as Row8<Long?, String?, Boolean?, String?, Boolean?, LocalDateTime?, LocalDateTime?, LocalDateTime?>
+    override fun fieldsRow(): Row8<Long?, String?, Boolean?, String?, Boolean?, Instant?, Instant?, Instant?> = super.fieldsRow() as Row8<Long?, String?, Boolean?, String?, Boolean?, Instant?, Instant?, Instant?>
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    fun <U> mapping(from: (Long?, String?, Boolean?, String?, Boolean?, LocalDateTime?, LocalDateTime?, LocalDateTime?) -> U): SelectField<U> = convertFrom(Records.mapping(from))
+    fun <U> mapping(from: (Long?, String?, Boolean?, String?, Boolean?, Instant?, Instant?, Instant?) -> U): SelectField<U> = convertFrom(Records.mapping(from))
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    fun <U> mapping(toType: Class<U>, from: (Long?, String?, Boolean?, String?, Boolean?, LocalDateTime?, LocalDateTime?, LocalDateTime?) -> U): SelectField<U> = convertFrom(toType, Records.mapping(from))
+    fun <U> mapping(toType: Class<U>, from: (Long?, String?, Boolean?, String?, Boolean?, Instant?, Instant?, Instant?) -> U): SelectField<U> = convertFrom(toType, Records.mapping(from))
 }

@@ -1,8 +1,8 @@
 <!doctype html>
-<html lang="de">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Home - DenktMit eG - Webapp</title>
+    <title>Webapp - Home</title>
     <link rel="icon" href="/img/favicon.svg">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,7 +12,7 @@
     <meta property="og:image" content="">
     <link rel="manifest" href="/misc/site.webmanifest">
     <link rel="apple-touch-icon" href="icon.png">
-    <link rel="stylesheet" href="/css/styles.min.css"/>
+    <link rel="stylesheet" href="/css/styles.min.css" th:href="@{/css/styles.min.css}"/>
     <meta name="theme-color" content="#fafafa">
 </head>
 <body class="bg-color:light-green">
@@ -20,9 +20,9 @@
     <nav class="cluster-spaced">
         <img src="/img/logo.svg" alt="Das DenktMit eG Signet mit Firmenname"/>
         <ul class="cluster-wrapped">
-            <li><a href="/">Home</a></li>
-            <li><a href="/">Über uns</a></li>
-            <li><a href="/">Was wir tun</a></li>
+            <li><a href="/" th:href="@{/}" th:text="#{menus.main.home}">Home</a></li>
+            <li><a href="/admin/users.html" th:href="@{/admin/users}" th:text="#{menus.main.admin}">Admin/Users</a></li>
+            <li><a href="/every-layout/index.html">Was wir tun</a></li>
             <li><a href="/">Expertise</a></li>
             <li><a href="/">Team</a></li>
             <li><a href="/">Karriere</a></li>
@@ -58,7 +58,7 @@
         </p>
     </article>
 </main>
-<footer>
+<footer class="bg-color:light-teal">
     <p>&copy; 2024 DenktMit eG. All rights reserved.</p>
     <p>Contact: hallo@denktmit.de</p>
 </footer>

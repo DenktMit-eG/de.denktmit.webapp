@@ -12,7 +12,7 @@ import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Size
 
 import java.io.Serializable
-import java.time.LocalDateTime
+import java.time.Instant
 
 
 /**
@@ -43,15 +43,15 @@ interface IUsers : Serializable {
     @get:Column(name = "disabled", nullable = false)
     @get:NotNull
     var disabled: Boolean?
-    @get:Column(name = "locked_until", nullable = false, precision = 6)
+    @get:Column(name = "locked_until", nullable = false)
     @get:NotNull
-    var lockedUntil: LocalDateTime?
-    @get:Column(name = "account_valid_until", nullable = false, precision = 6)
+    var lockedUntil: Instant?
+    @get:Column(name = "account_valid_until", nullable = false)
     @get:NotNull
-    var accountValidUntil: LocalDateTime?
-    @get:Column(name = "credentials_valid_until", nullable = false, precision = 6)
+    var accountValidUntil: Instant?
+    @get:Column(name = "credentials_valid_until", nullable = false)
     @get:NotNull
-    var credentialsValidUntil: LocalDateTime?
+    var credentialsValidUntil: Instant?
 
     // -------------------------------------------------------------------------
     // FROM and INTO

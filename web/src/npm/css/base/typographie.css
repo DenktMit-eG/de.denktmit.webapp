@@ -9,7 +9,7 @@ h3,
 h4,
 h5,
 h6 {
-    text-transform: uppercase;
+    text-transform: capitalize;
     color: var(--color-dark-petrol);
 }
 
@@ -27,12 +27,17 @@ h4 {
 
 h3 {
     font-size: var(--s3);
+    margin-block-end: var(--s-3);
 }
 
 h2 {
+    text-transform: uppercase;
     font-size: var(--s4);
+    margin-block-end: var(--s-2);
 }
 
 h1 {
+    text-transform: uppercase;
     font-size: var(--s5);
+    margin-block-end: var(--s-1);
 }

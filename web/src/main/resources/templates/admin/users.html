@@ -1,67 +1,85 @@
 <!doctype html>
-<html class="no-js" lang="de">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="utf-8">
-    <title>DenktMit eG - Ihre Gefährten für IT-Projekte</title>
+    <title>Webapp - Home</title>
     <link rel="icon" href="/img/favicon.svg">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <meta property="og:title" content="">
     <meta property="og:type" content="">
     <meta property="og:url" content="">
     <meta property="og:image" content="">
-
     <link rel="manifest" href="/misc/site.webmanifest">
     <link rel="apple-touch-icon" href="icon.png">
-    <!-- Place favicon.ico in the root directory -->
-
-    <link rel="stylesheet" href="/css/styles.min.css"/>
-
+    <link rel="stylesheet" href="/css/styles.min.css" th:href="@{/css/styles.min.css}"/>
     <meta name="theme-color" content="#fafafa">
 </head>
-
 <body>
-<header>
-    <nav>
-        <img src="/img/logo.svg" alt="Das DenktMit eG Signet mit Firmenname"/>
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/">Über uns</a></li>
-            <li><a href="/">Was wir tun</a></li>
-            <li><a href="/">Expertise</a></li>
-            <li><a href="/">Team</a></li>
-            <li><a href="/">Karriere</a></li>
-            <li><a href="/">Blog</a></li>
-            <li><a href="/">Kontakt</a></li>
-        </ul>
-    </nav>
-    <hgroup>
-        <h1>Ihre Gefährten für IT-Projekte</h1>
-        <p>DenktMit ist das flexible Experten-Netzwerk erfahrener IT-Spezialisten.<br>Gefährten - mehr als nur Berater.
-        </p>
-    </hgroup>
+<header class="bg-color:dark-petrol">
+    <div class="center">
+        <nav class="cluster-spaced">
+            <img src="/img/logo.svg" alt="Das DenktMit eG Signet mit Firmenname"/>
+            <ul class="cluster-wrapped">
+                <li><a href="/" th:href="@{/}" th:text="#{menus.main.home}">Home</a></li>
+                <li><a href="/admin/users.html" th:href="@{/admin/users}" th:text="#{menus.main.admin}">Admin/Users</a></li>
+                <li><a href="/every-layout/index.html" th:href="@{/every-layout}" th:text="#{menus.main.everylayout}">Every Layout</a></li>
+                <li><a href="/legal-notice.html" th:href="@{/legal-notice}" th:text="#{menus.main.legalnotice}">Legal notice</a></li>
+            </ul>
+        </nav>
+    </div>
 </header>
 <main>
-    <article>
-        <table class="table" id="data-table" th:object="${dataTable}">
-            <thead>
-            <tr>
-                <th th:each="columnName : ${dataTable.meta.columnNames}" th:text="${columnName}"></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="row, stat : ${dataTable.takeRows(null)}">
-                <td th:each="cell: ${row.iterator()}" th:text="${cell}">
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </article>
+    <div class="center">
+        <article>
+            <hgroup>
+                <h1 th:text="#{pages.admin.users.title}">Admin/Users</h1>
+                <p th:text="#{pages.admin.users.titledesc}">Manage your application users</p>
+            </hgroup>
+            <table class="table" id="data-table" th:replace="~{__fragments/datatable :: frag_data_table(${dataTable})}">
+                <thead>
+                <tr>
+                    <th>E-Mail</th>
+                    <th>Disabled</th>
+                    <th>Locked Until</th>
+                    <th>Account Valid Until</th>
+                    <th>Credentials Valid Until</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="selected">user1.johndoe@example.com</td>
+                    <td>false</td>
+                    <td>Wed, 1 Jan 1000 00:00:00 GMT</td>
+                    <td>Wed, 1 Jan 3000 00:00:00 GMT</td>
+                    <td>Wed, 1 Jan 3000 00:00:00 GMT</td>
+                </tr>
+                <tr>
+                    <td>admin2.janesmith@example.com</td>
+                    <td>false</td>
+                    <td>Wed, 1 Jan 1000 00:00:00 GMT</td>
+                    <td>Wed, 1 Jan 3000 00:00:00 GMT</td>
+                    <td>Wed, 1 Jan 3000 00:00:00 GMT</td>
+                </tr>
+                <tr>
+                    <td>creds_expired_user5.petergabriel@example.com</td>
+                    <td>true</td>
+                    <td>Wed, 1 Jan 1000 00:00:00 GMT</td>
+                    <td>Wed, 1 Jan 3000 00:00:00 GMT</td>
+                    <td>Wed, 1 Jan 1000 00:00:00 GMT</td>
+                </tr>
+                </tbody>
+            </table>
+        </article>
+    </div>
 </main>
-<footer>
-
+<footer class="bg-color:light-teal">
+    <div class="center">
+        <p>
+            &copy; 2024 DenktMit eG. All rights reserved. <br/>
+            Contact: hallo@denktmit.de
+        </p>
+    </div>
 </footer>
-
 </body>
 </html>

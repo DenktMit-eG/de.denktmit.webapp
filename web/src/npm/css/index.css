@@ -12,6 +12,9 @@
 @import url('layouts/sidebar.css');
 @import url('layouts/switcher.css');
 
+/** css for data elements */
+@import url('data/tables.css');
+
 /** element specific styling */
 @import url('elements/footer.css');
 @import url('elements/header.css');

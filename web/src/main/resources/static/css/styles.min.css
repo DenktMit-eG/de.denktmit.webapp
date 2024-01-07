@@ -87,16 +87,15 @@ textarea:not([rows]) {
     --color-petrol: #13343d;
     --color-pink: #ff6478;
     --color-yellow: #fdc53d;
-    --measure-double: calc(var(--measure) * 2);
     --measure-half: calc(var(--measure) / 2);
-    --measure: 60ch;
+    --measure: 80ch;
     --sidebar-gap: 1.5rem;
     --xImg: 16;
     --yImg: 9;
 }
 * {
     box-sizing: border-box;
-    max-inline-size: var(--measure-double);
+    max-inline-size: var(--measure);
     overflow-wrap: break-word;
 }
 html,
@@ -124,6 +123,12 @@ header, main, footer {
 .bg-color\:light-green {
     background-color: var(--color-light-green);
 }
+.bg-color\:light-teal {
+    background-color: var(--color-light-teal);
+}
+.bg-color\:petrol {
+    background-color: var(--color-petrol);
+}
 .bg-color\:dark-petrol {
     background-color: var(--color-dark-petrol);
 }
@@ -137,7 +142,7 @@ h3,
 h4,
 h5,
 h6 {
-    text-transform: uppercase;
+    text-transform: capitalize;
     color: var(--color-dark-petrol);
 }
 h6 {
@@ -151,12 +156,17 @@ h4 {
 }
 h3 {
     font-size: var(--s3);
+    margin-block-end: var(--s-3);
 }
 h2 {
+    text-transform: uppercase;
     font-size: var(--s4);
+    margin-block-end: var(--s-2);
 }
 h1 {
+    text-transform: uppercase;
     font-size: var(--s5);
+    margin-block-end: var(--s-1);
 }
 /** generic layout css */
 .center {
@@ -165,21 +175,6 @@ h1 {
     max-inline-size: var(--measure);
     display: flex;
     flex-direction: column;
-}
-.center > h1 {
-    font-size: 6rem;
-    text-transform: capitalize;
-    padding: 0 0 1.5rem 0;
-}
-.center > h2 {
-    font-size: 3rem;
-    font-weight: bolder;
-    text-transform: capitalize;
-    padding: 0 0 .5rem 0;
-}
-.center > p {
-    font-size: 1.5rem;
-    padding: 0 0 3rem 0;
 }
 .cluster-spaced {
     align-items: center;
@@ -283,12 +278,68 @@ h1 {
 .switcher > :nth-last-child(n+ 4) ~ * {
     flex-basis: 100%;
 }
+/** css for data elements */
+table {
+    width: 100%;
+    max-width: 100%;
+    border-collapse: collapse;
+    page-break-inside: auto;
+}
+table th, td {
+    font-size: var(--s-1);
+}
+thead {
+    display:table-header-group
+}
+tfoot {
+    display:table-footer-group
+}
+tbody:before {
+    line-height:0.2em;
+    content:"\200C";
+    display:block;
+}
+tr {
+    page-break-inside:avoid;
+    page-break-after:auto
+}
+th {
+    border-bottom: .2em solid black;
+    word-wrap: break-word;
+    overflow-wrap: anywhere;
+}
+td {
+    text-align: left;
+    padding-inline: 1ch;
+    padding-block: .2em;
+    word-wrap: break-word;
+    overflow-wrap: anywhere;
+}
+tbody tr:nth-child(even) {
+    background-color: aliceblue;
+}
+tbody tr:nth-child(odd) {
+    background-color: ghostwhite;
+}
+tbody tr:has(> td.selected), tbody tr:hover {
+    background-color: cornsilk;
+}
+tbody tr:has(> td.selected):hover {
+    background-color: mistyrose;
+}
+tbody td.selected, tbody td:hover {
+    background-color: #fdc53d;
+    border: thin dotted black;
+}
+tbody td.selected:hover {
+    background-color: #ff6478;
+    border: thin dotted black;
+}
 /** element specific styling */
 footer {
     margin-top: auto;
     padding-inline: 0.5em;
     padding-block: 0.5em;
-    background-color: var(--color-pink);
 }
 header nav img {
     height: 3em;

@@ -14,9 +14,9 @@ CREATE TABLE users
     mail_verified           BOOL         NOT NULL,             -- Flag to track, if users e-mail been verified
     password                varchar(500) NOT NULL,             -- Password (hashed or encrypted)
     disabled                BOOL         NOT NULL,             -- User's enabled status
-    locked_until            timestamp  NOT NULL,             -- Expiry date of user locking
-    account_valid_until     timestamp  NOT NULL,             -- Expiry date of user account
-    credentials_valid_until timestamp  NOT NULL              -- Expiry date of user credentials
+    locked_until            timestamptz  NOT NULL,             -- Expiry date of user locking
+    account_valid_until     timestamptz  NOT NULL,             -- Expiry date of user account
+    credentials_valid_until timestamptz  NOT NULL              -- Expiry date of user credentials
 );
 CREATE UNIQUE INDEX uq_users_mail ON users (LOWER(mail));
 COMMENT ON INDEX uq_users_mail IS 'Case insensitive unique index for User''s e-mail';

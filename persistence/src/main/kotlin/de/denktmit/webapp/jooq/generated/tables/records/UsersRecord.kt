@@ -14,7 +14,7 @@ import jakarta.persistence.Table
 import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Size
 
-import java.time.LocalDateTime
+import java.time.Instant
 
 import org.jooq.Field
 import org.jooq.Record1
@@ -32,7 +32,7 @@ import org.jooq.impl.UpdatableRecordImpl
     name = "users",
     schema = "public"
 )
-open class UsersRecord() : UpdatableRecordImpl<UsersRecord>(UsersTable.USERS), Record8<Long?, String?, Boolean?, String?, Boolean?, LocalDateTime?, LocalDateTime?, LocalDateTime?>, IUsers {
+open class UsersRecord() : UpdatableRecordImpl<UsersRecord>(UsersTable.USERS), Record8<Long?, String?, Boolean?, String?, Boolean?, Instant?, Instant?, Instant?>, IUsers {
 
     @get:Id
     @get:Column(name = "user_id", nullable = false)
@@ -67,23 +67,23 @@ open class UsersRecord() : UpdatableRecordImpl<UsersRecord>(UsersTable.USERS), R
         set(value): Unit = set(4, value)
         get(): Boolean? = get(4) as Boolean?
 
-    @get:Column(name = "locked_until", nullable = false, precision = 6)
+    @get:Column(name = "locked_until", nullable = false)
     @get:NotNull
-    open override var lockedUntil: LocalDateTime?
+    open override var lockedUntil: Instant?
         set(value): Unit = set(5, value)
-        get(): LocalDateTime? = get(5) as LocalDateTime?
+        get(): Instant? = get(5) as Instant?
 
-    @get:Column(name = "account_valid_until", nullable = false, precision = 6)
+    @get:Column(name = "account_valid_until", nullable = false)
     @get:NotNull
-    open override var accountValidUntil: LocalDateTime?
+    open override var accountValidUntil: Instant?
         set(value): Unit = set(6, value)
-        get(): LocalDateTime? = get(6) as LocalDateTime?
+        get(): Instant? = get(6) as Instant?
 
-    @get:Column(name = "credentials_valid_until", nullable = false, precision = 6)
+    @get:Column(name = "credentials_valid_until", nullable = false)
     @get:NotNull
-    open override var credentialsValidUntil: LocalDateTime?
+    open override var credentialsValidUntil: Instant?
         set(value): Unit = set(7, value)
-        get(): LocalDateTime? = get(7) as LocalDateTime?
+        get(): Instant? = get(7) as Instant?
 
     // -------------------------------------------------------------------------
     // Primary key information
@@ -95,32 +95,32 @@ open class UsersRecord() : UpdatableRecordImpl<UsersRecord>(UsersTable.USERS), R
     // Record8 type implementation
     // -------------------------------------------------------------------------
 
-    override fun fieldsRow(): Row8<Long?, String?, Boolean?, String?, Boolean?, LocalDateTime?, LocalDateTime?, LocalDateTime?> = super.fieldsRow() as Row8<Long?, String?, Boolean?, String?, Boolean?, LocalDateTime?, LocalDateTime?, LocalDateTime?>
-    override fun valuesRow(): Row8<Long?, String?, Boolean?, String?, Boolean?, LocalDateTime?, LocalDateTime?, LocalDateTime?> = super.valuesRow() as Row8<Long?, String?, Boolean?, String?, Boolean?, LocalDateTime?, LocalDateTime?, LocalDateTime?>
+    override fun fieldsRow(): Row8<Long?, String?, Boolean?, String?, Boolean?, Instant?, Instant?, Instant?> = super.fieldsRow() as Row8<Long?, String?, Boolean?, String?, Boolean?, Instant?, Instant?, Instant?>
+    override fun valuesRow(): Row8<Long?, String?, Boolean?, String?, Boolean?, Instant?, Instant?, Instant?> = super.valuesRow() as Row8<Long?, String?, Boolean?, String?, Boolean?, Instant?, Instant?, Instant?>
     override fun field1(): Field<Long?> = UsersTable.USERS.USER_ID
     override fun field2(): Field<String?> = UsersTable.USERS.MAIL
     override fun field3(): Field<Boolean?> = UsersTable.USERS.MAIL_VERIFIED
     override fun field4(): Field<String?> = UsersTable.USERS.PASSWORD
     override fun field5(): Field<Boolean?> = UsersTable.USERS.DISABLED
-    override fun field6(): Field<LocalDateTime?> = UsersTable.USERS.LOCKED_UNTIL
-    override fun field7(): Field<LocalDateTime?> = UsersTable.USERS.ACCOUNT_VALID_UNTIL
-    override fun field8(): Field<LocalDateTime?> = UsersTable.USERS.CREDENTIALS_VALID_UNTIL
+    override fun field6(): Field<Instant?> = UsersTable.USERS.LOCKED_UNTIL
+    override fun field7(): Field<Instant?> = UsersTable.USERS.ACCOUNT_VALID_UNTIL
+    override fun field8(): Field<Instant?> = UsersTable.USERS.CREDENTIALS_VALID_UNTIL
     override fun component1(): Long? = userId
     override fun component2(): String? = mail
     override fun component3(): Boolean? = mailVerified
     override fun component4(): String? = password
     override fun component5(): Boolean? = disabled
-    override fun component6(): LocalDateTime? = lockedUntil
-    override fun component7(): LocalDateTime? = accountValidUntil
-    override fun component8(): LocalDateTime? = credentialsValidUntil
+    override fun component6(): Instant? = lockedUntil
+    override fun component7(): Instant? = accountValidUntil
+    override fun component8(): Instant? = credentialsValidUntil
     override fun value1(): Long? = userId
     override fun value2(): String? = mail
     override fun value3(): Boolean? = mailVerified
     override fun value4(): String? = password
     override fun value5(): Boolean? = disabled
-    override fun value6(): LocalDateTime? = lockedUntil
-    override fun value7(): LocalDateTime? = accountValidUntil
-    override fun value8(): LocalDateTime? = credentialsValidUntil
+    override fun value6(): Instant? = lockedUntil
+    override fun value7(): Instant? = accountValidUntil
+    override fun value8(): Instant? = credentialsValidUntil
 
     override fun value1(value: Long?): UsersRecord {
         set(0, value)
@@ -147,22 +147,22 @@ open class UsersRecord() : UpdatableRecordImpl<UsersRecord>(UsersTable.USERS), R
         return this
     }
 
-    override fun value6(value: LocalDateTime?): UsersRecord {
+    override fun value6(value: Instant?): UsersRecord {
         set(5, value)
         return this
     }
 
-    override fun value7(value: LocalDateTime?): UsersRecord {
+    override fun value7(value: Instant?): UsersRecord {
         set(6, value)
         return this
     }
 
-    override fun value8(value: LocalDateTime?): UsersRecord {
+    override fun value8(value: Instant?): UsersRecord {
         set(7, value)
         return this
     }
 
-    override fun values(value1: Long?, value2: String?, value3: Boolean?, value4: String?, value5: Boolean?, value6: LocalDateTime?, value7: LocalDateTime?, value8: LocalDateTime?): UsersRecord {
+    override fun values(value1: Long?, value2: String?, value3: Boolean?, value4: String?, value5: Boolean?, value6: Instant?, value7: Instant?, value8: Instant?): UsersRecord {
         this.value1(value1)
         this.value2(value2)
         this.value3(value3)
@@ -198,7 +198,7 @@ open class UsersRecord() : UpdatableRecordImpl<UsersRecord>(UsersTable.USERS), R
     /**
      * Create a detached, initialised UsersRecord
      */
-    constructor(userId: Long? = null, mail: String? = null, mailVerified: Boolean? = null, password: String? = null, disabled: Boolean? = null, lockedUntil: LocalDateTime? = null, accountValidUntil: LocalDateTime? = null, credentialsValidUntil: LocalDateTime? = null): this() {
+    constructor(userId: Long? = null, mail: String? = null, mailVerified: Boolean? = null, password: String? = null, disabled: Boolean? = null, lockedUntil: Instant? = null, accountValidUntil: Instant? = null, credentialsValidUntil: Instant? = null): this() {
         this.userId = userId
         this.mail = mail
         this.mailVerified = mailVerified
