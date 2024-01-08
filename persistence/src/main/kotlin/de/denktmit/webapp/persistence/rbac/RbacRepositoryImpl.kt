@@ -58,11 +58,19 @@ class RbacRepositoryImpl(
         authRecords: Array<Record2<Long?, String?>>
     ): RbacMapping {
         val user = userRecord.into(User::class.java)
-        val groups = groupRecords.map {
-            it.into(Group::class.java)
+        val groups = groupRecords.mapNotNull { record ->
+            if (record.component1() != null && record.component2() != null) {
+                record.into(Group::class.java)
+            } else {
+                null
+            }
         }.toSet()
-        val auths = authRecords.map {
-            it.into(Authority::class.java)
+        val auths = authRecords.mapNotNull { record ->
+            if (record.component1() != null && record.component2() != null) {
+                record.into(Authority::class.java)
+            } else {
+                null
+            }
         }.toSet()
         return RbacMapping(user, groups, auths)
     }

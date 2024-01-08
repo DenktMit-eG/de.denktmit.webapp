@@ -12,12 +12,28 @@ class WipeableCharSequence(private val data: CharArray): CharSequence, MemoryWip
     }
 
     override fun subSequence(startIndex: Int, endIndex: Int): CharSequence {
-        return String(data, startIndex, endIndex - startIndex)
+        return WipeableCharSequence(data.slice(startIndex until endIndex).toCharArray())
     }
 
     override fun wipe() {
         Arrays.fill(data, '\u0000')
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is WipeableCharSequence) return false
+
+        return data.contentEquals(other.data)
+    }
+
+    override fun hashCode(): Int {
+        return data.contentHashCode()
+    }
+
+    override fun toString(): String {
+        return data.concatToString()
+    }
+
 
 }
 

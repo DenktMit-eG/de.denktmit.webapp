@@ -37,7 +37,7 @@ class WebappUserManagementService(
             } else {
                 auths.map { authority -> "ROLE_${authority.authority}" }.toTypedArray()
             }
-            SpringUser.builder()
+            val userDetailsBuilder = SpringUser.builder()
                 .accountExpired(now.isAfter(user.accountValidUntil))
                 .accountLocked(now.isBefore(user.lockedUntil))
                 .authorities(*roles)
@@ -45,7 +45,7 @@ class WebappUserManagementService(
                 .disabled(user.disabled)
                 .password(user.password.trimEnd())
                 .username(user.mail)
-                .build()
+            userDetailsBuilder.build()
         }?: throw UsernameNotFoundException("Username or password is wrong for $name")
     }
 

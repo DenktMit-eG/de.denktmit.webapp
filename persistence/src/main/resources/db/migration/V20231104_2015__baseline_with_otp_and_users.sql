@@ -9,14 +9,14 @@ COMMENT ON SEQUENCE users_seq IS 'Sequence for Hibernate to derive user_id for u
 -- an enabled status, and a role (either 'USER' or 'ADMIN').
 CREATE TABLE users
 (
-    user_id                 bigint       NOT NULL PRIMARY KEY, -- Define user_id as the primary key
-    mail                    varchar(255) NOT NULL,             -- User's email
-    mail_verified           BOOL         NOT NULL,             -- Flag to track, if users e-mail been verified
-    password                varchar(500) NOT NULL,             -- Password (hashed or encrypted)
-    disabled                BOOL         NOT NULL,             -- User's enabled status
-    locked_until            timestamptz  NOT NULL,             -- Expiry date of user locking
-    account_valid_until     timestamptz  NOT NULL,             -- Expiry date of user account
-    credentials_valid_until timestamptz  NOT NULL              -- Expiry date of user credentials
+    user_id                 bigint       NOT NULL PRIMARY KEY,              -- Define user_id as the primary key
+    mail                    varchar(255) NOT NULL CHECK (TRIM(mail) <> ''), -- User's email, must not be empty string
+    mail_verified           bool         NOT NULL,                          -- Flag to track, if users e-mail been verified
+    password                varchar(500) NOT NULL,                          -- Password (hashed or encrypted)
+    disabled                bool         NOT NULL,                          -- User's enabled status
+    locked_until            timestamptz  NOT NULL,                          -- Expiry date of user locking
+    account_valid_until     timestamptz  NOT NULL,                          -- Expiry date of user account
+    credentials_valid_until timestamptz  NOT NULL                           -- Expiry date of user credentials
 );
 CREATE UNIQUE INDEX uq_users_mail ON users (LOWER(mail));
 COMMENT ON INDEX uq_users_mail IS 'Case insensitive unique index for User''s e-mail';
@@ -140,4 +140,4 @@ VALUES (10001, 'ADMIN'),
 INSERT INTO group_authorities (group_id, authority_id)
 VALUES (10001, 10001),
        (10001, 10002),
-       (10002, 10001);
+       (10002, 10002);
