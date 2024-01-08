@@ -1,37 +1,61 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{__layouts/sidebar}"
+      lang="en">
 <head>
-    <meta http-equiv="content-language" content="en">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page with Sidebar</title>
+    <link rel="apple-touch-icon" href="icon.png">
+    <link rel="icon" href="/img/favicon.svg">
+    <link rel="manifest" href="/misc/site.webmanifest">
     <link rel="stylesheet" href="/css/styles.min.css" th:href="@{/css/styles.min.css}"/>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="theme-color" content="#fafafa">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:image" content="">
+    <meta property="og:title" content="">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Webapp</title>
 </head>
 <body>
-<div class="side-wrapper">
+<header class="bg-color:dark-petrol">
+    <div class="center">
+        <nav class="cluster-spaced">
+            <img src="/img/logo.svg" alt="Das DenktMit eG Signet mit Firmenname"/>
+            <ul class="cluster-wrapped">
+                <li><a href="/">Home</a></li>
+                <li><a href="/admin/users.html">Admin/Users</a></li>
+                <li><a href="/every-layout/index.html">Every Layout</a></li>
+                <li><a href="/legal-notice.html">Legal notice</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<div class="with-sidebar">
     <aside class="sidebar">
-        <div class="sidebar-content-wrapper" th:fragment="sidebar">
+        <div class="sidebar-content-wrapper" layout:fragment="sidecontent">
             <h2>EveryLayout</h2>
+            <h3>Elements</h3>
             <ul>
-                <li>Elements</li>
                 <li>Cluster</li>
                 <li>Sidebar</li>
             </ul>
+            <h3>Best Practises</h3>
             <ul>
-                <li>Best Practises</li>
                 <li>Configuration</li>
                 <li>Enhancement</li>
             </ul>
+            <h3>Contact</h3>
             <ul>
-                <li>Contact</li>
                 <li>Email</li>
                 <li>Website</li>
             </ul>
         </div>
     </aside>
-    <div class="content">
-        <div class="center" th:fragment="maincontent">
-
+    <main class="not-sidebar">
+        <div class="center" layout:fragment="maincontent">
             <h1>The Center</h1>
             <h2>The problem</h2>
             <p>
@@ -42,11 +66,9 @@
                 manage style and structure separately. Consequently, a change in art direction would no longer mean
                 reconstituting our content.
             </p>
-
             <div class="frame">
                 <img src="/img/every-layout-art.jpg" alt="art"/>
             </div>
-
             <p>
                 The Frame is mostly useful for cropping media (videos and images) to a desired aspect ratio. Once
                 you start
@@ -60,7 +82,6 @@
                 your control as a writer of CSS. Aspect ratio is one such characteristic, and is determined when
                 the image is originally created and cropped.
             </p>
-
             <div class="grid">
                 <div></div>
                 <div></div>
@@ -72,7 +93,6 @@
                 <div></div>
                 <div></div>
             </div>
-
             <h2>Use Cases #</h2>
             <p>
                 The Frame is mostly useful for cropping media (videos and images) to a desired aspect ratio. Once
@@ -81,15 +101,19 @@
                 you
                 might want to give images a different aspect ratio depending on the viewport orientation.
             </p>
-
             <div class="frame">
                 <img src="/img/modern-art-layout.jpg" alt="art"/>
             </div>
-
         </div>
-
-
-    </div>
+    </main>
 </div>
+<footer class="bg-color:light-teal">
+    <div class="center">
+        <p>
+            &copy; 2024 DenktMit eG. All rights reserved. <br/>
+            Contact: hallo@denktmit.de
+        </p>
+    </div>
+</footer>
 </body>
 </html>

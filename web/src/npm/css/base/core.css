@@ -5,12 +5,17 @@
     --s-3: calc(var(--s-2) / var(--ratio));
     --s-2: calc(var(--s-1) / var(--ratio));
     --s-1: calc(var(--s0) / var(--ratio));
-    --s0: 1rem;
+    --s0: calc(0.9rem + 0.5vw);
     --s1: calc(var(--s0) * var(--ratio));
     --s2: calc(var(--s1) * var(--ratio));
     --s3: calc(var(--s2) * var(--ratio));
     --s4: calc(var(--s3) * var(--ratio));
     --s5: calc(var(--s4) * var(--ratio));
+    --font-size-base: var(--s0);
+    --font-size-biggish: var(--s1);
+    --font-size-big: var(--s2);
+    --font-size-smallish: var(--s-1);
+    --font-size-small: var(--s-2);
     --color-blue: #1a69e9;
     --color-dark-petrol: #00353e;
     --color-light-green: #97f8bf;
@@ -21,7 +26,6 @@
     --color-yellow: #fdc53d;
     --measure-half: calc(var(--measure) / 2);
     --measure: 80ch;
-    --sidebar-gap: 1.5rem;
     --xImg: 16;
     --yImg: 9;
 }
@@ -46,10 +50,13 @@ article {
 body {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
 }
 
-header, main, footer {
+header, main, footer, aside, ul, ol {
     padding-inline: 0.5em;
     padding-block: 0.5em;
+}
+
+ul, ol {
+    padding-block: 0.2em;
 }

@@ -50,6 +50,11 @@ class WebappUserManagementService(
     }
 
     @Transactional
+    fun createUser(mail: String, password: WipeableCharSequence): User {
+        return userRepository.save(User.createUser(mail, passwordEncoder.encode(password)))
+    }
+
+    @Transactional
     fun updatePassword(principal: Principal, oldPassword: WipeableCharSequence, newPassword: WipeableCharSequence): Result<User> {
         val user = userRepository.findOneByMail(principal.name)
 

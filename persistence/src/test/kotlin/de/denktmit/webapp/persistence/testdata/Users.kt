@@ -11,6 +11,7 @@ object Users {
     fun createUser(
         userId: Long = 0,
         mail: String = "j.unit@denktmit.de",
+        mailVerified: Boolean = true,
         password: String = "very-secret",
         disabled: Boolean = false,
         lockedUntil: Instant = FAR_PAST,
@@ -20,6 +21,7 @@ object Users {
         return User(
             id = userId,
             mail = mail,
+            mailVerified = mailVerified,
             password = password,
             disabled = disabled,
             lockedUntil = lockedUntil,
@@ -31,6 +33,7 @@ object Users {
     val johndoe = createUser(
         userId = -100,
         mail = "user1.johndoe@example.com",
+        mailVerified = true,
         password = "{noop}johndoe",
         disabled = false,
         accountValidUntil = FAR_FUTURE,
@@ -40,6 +43,7 @@ object Users {
     val janesmith = createUser(
         userId = -200,
         mail = "admin2.janesmith@example.com",
+        mailVerified = true,
         password = "{noop}janesmith",
         disabled = false,
         accountValidUntil = FAR_FUTURE,
@@ -49,6 +53,7 @@ object Users {
     val alicejohnson = createUser(
         userId = -300,
         mail = "locked_user.alicejohnson@example.com",
+        mailVerified = true,
         password = "{noop}alicejohnson",
         disabled = true,
         lockedUntil = FAR_FUTURE,
@@ -59,6 +64,7 @@ object Users {
     val paulhiggins = createUser(
         userId = -400,
         mail = "account_expired_user4.paulhiggins@example.com",
+        mailVerified = false,
         password = "{noop}paulhiggins",
         disabled = true,
         accountValidUntil = FAR_PAST,
@@ -68,6 +74,7 @@ object Users {
     val petergabriel = createUser(
         userId = -500,
         mail = "creds_expired_user5.petergabriel@example.com",
+        mailVerified = false,
         password = "{noop}petergabriel",
         disabled = true,
         accountValidUntil = FAR_FUTURE,

@@ -19,8 +19,8 @@ app.use(connectLiveReload());
 const resources = path.join(__dirname, 'src', 'main', 'resources')
 
 // Serve static files from the /static/ directory
-const static = path.join(resources, 'static');
-app.use('/', express.static(static));
+app.use('/', express.static(path.join(resources, 'static')));
+app.use('/', express.static(path.join(resources, 'public')));
 
 // Serve static files from the /templates/ directory mapped to the root path '/'
 const templates = path.join(resources, 'templates');
@@ -28,7 +28,7 @@ app.use('/', express.static(templates));
 
 // Serve HTML files directly for the root path '/'
 app.get('/', (req, res) => {
-    res.sendFile(path.join(templates, 'index.html'));
+    res.sendFile(path.join(templates, 'form.html'));
 });
 
 // Handle errors with a custom 404 page

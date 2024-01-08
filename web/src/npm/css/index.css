@@ -13,6 +13,7 @@
 @import url('layouts/switcher.css');
 
 /** css for data elements */
+@import url('data/forms.css');
 @import url('data/tables.css');
 
 /** element specific styling */

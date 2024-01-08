@@ -2,24 +2,35 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{__layouts/centered}"
       lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>Home</title>
+    <link rel="apple-touch-icon" href="icon.png">
     <link rel="icon" href="/img/favicon.svg">
+    <link rel="manifest" href="/misc/site.webmanifest">
     <link rel="stylesheet" href="/css/styles.min.css" th:href="@{/css/styles.min.css}"/>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="theme-color" content="#fafafa">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:image" content="">
+    <meta property="og:title" content="">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Webapp</title>
 </head>
 <body>
 <header class="bg-color:dark-petrol">
-    <div class="center">
+    <div class="center" layout:fragment="page-header">
         <nav class="cluster-spaced">
             <img src="/img/logo.svg" alt="Das DenktMit eG Signet mit Firmenname"/>
             <ul class="cluster-wrapped">
-                <li><a href="/">Home</a></li>
-                <li><a href="/admin/users.html">Admin/Users</a></li>
-                <li><a href="/every-layout/index.html">Every Layout</a></li>
-                <li><a href="/legal-notice.html">Legal notice</a></li>
+                <li><a href="/" th:href="@{/}" th:text="#{menus.main.home}">Home</a></li>
+                <li><a href="/admin/users.html" th:href="@{/admin/users}" th:text="#{menus.main.admin}">Admin/Users</a>
+                </li>
+                <li><a href="/every-layout/index.html" th:href="@{/every-layout}" th:text="#{menus.main.everylayout}">Every
+                    Layout</a></li>
+                <li><a href="/legal-notice.html" th:href="@{/legal-notice.html}" th:text="#{menus.main.legalnotice}">Legal
+                    notice</a></li>
             </ul>
         </nav>
     </div>
@@ -58,12 +69,13 @@
     </div>
 </main>
 <footer class="bg-color:light-teal">
-    <div class="center">
+    <div class="center" layout:fragment="page-footer">
         <p>
             &copy; 2024 DenktMit eG. All rights reserved. <br/>
             Contact: hallo@denktmit.de
         </p>
     </div>
 </footer>
+<th:block layout:fragment="page-scripts"></th:block>
 </body>
 </html>

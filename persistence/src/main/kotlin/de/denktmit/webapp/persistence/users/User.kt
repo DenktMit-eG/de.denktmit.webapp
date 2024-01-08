@@ -1,16 +1,12 @@
 package de.denktmit.webapp.persistence.users
 
-import de.denktmit.webapp.persistence.Constants.FAR_FUTURE
-import de.denktmit.webapp.persistence.Constants.FAR_PAST
+import de.denktmit.webapp.persistence.Constants
 import de.denktmit.webapp.persistence.HasIdOfType
 import jakarta.persistence.*
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotNull
 import org.hibernate.annotations.NaturalId
-import org.hibernate.annotations.TimeZoneStorage
-import org.hibernate.annotations.TimeZoneStorageType
 import java.time.Instant
-import java.util.*
 
 @Entity
 @Table(name = "users")
@@ -26,6 +22,9 @@ data class User(
     @NotBlank
     val mail: String,
 
+    @NotNull
+    val mailVerified: Boolean,
+
     @Column(length = 500)
     @NotBlank
     val password: String,
@@ -35,7 +34,6 @@ data class User(
     val disabled: Boolean,
 
     @Column
-    @TimeZoneStorage(TimeZoneStorageType.NATIVE)
     val lockedUntil: Instant,
 
     @Column
@@ -58,5 +56,29 @@ data class User(
         var result = id.hashCode()
         result = 31 * result + mail.hashCode()
         return result
+    }
+
+    companion object {
+        fun createUser(
+            mail: String,
+            password: String,
+            userId: Long = 0,
+            mailVerified: Boolean = false,
+            disabled: Boolean = false,
+            lockedUntil: Instant = Constants.FAR_PAST,
+            accountValidUntil: Instant = Constants.FAR_FUTURE,
+            credentialsValidUntil: Instant = Constants.FAR_FUTURE,
+        ): User {
+            return User(
+                id = userId,
+                mail = mail,
+                mailVerified = mailVerified,
+                password = password,
+                disabled = disabled,
+                lockedUntil = lockedUntil,
+                accountValidUntil = accountValidUntil,
+                credentialsValidUntil = credentialsValidUntil,
+            )
+        }
     }
 }

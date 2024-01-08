@@ -30,8 +30,8 @@ tr {
 
 th {
     border-bottom: .2em solid black;
-    word-wrap: break-word;
-    overflow-wrap: anywhere;
+    word-wrap: normal;
+    overflow-wrap: break-word;
 }
 
 td {
@@ -40,6 +40,7 @@ td {
     padding-block: .2em;
     word-wrap: break-word;
     overflow-wrap: anywhere;
+    font-size: var(--font-size-small);
 }
 
 tbody tr:nth-child(even) {

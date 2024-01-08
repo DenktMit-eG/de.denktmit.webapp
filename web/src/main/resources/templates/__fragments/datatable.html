@@ -10,7 +10,10 @@
     <div class="center">
         <article>
             <!--@thymesVar id="dataTable" type="de.denktmit.webapp.common.DataTable"-->
-            <table th:fragment="frag_data_table(dataTable)" th:object="${dataTable}" id="data-table">
+            <table th:fragment="frag_data_table(dataTable, caption)" th:object="${dataTable}" id="data-table">
+                <caption th:replace="${caption}">
+                    Existing entries
+                </caption>
                 <thead>
                 <tr th:remove="all-but-first">
                     <th th:each="columnName : ${dataTable.meta.columnNames}" th:text="${columnName}">E-Mail</th>
