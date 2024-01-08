@@ -9,8 +9,8 @@
 <main>
     <div class="center">
         <article>
-            <!--@thymesVar id="dataTable" type="de.denktmit.webapp.common.DataTable"-->
             <table th:fragment="frag_data_table(dataTable, caption)" th:object="${dataTable}" id="data-table">
+                <!--@thymesVar id="dataTable" type="de.denktmit.webapp.common.DataTable"-->
                 <caption th:replace="${caption}">
                     Existing entries
                 </caption>

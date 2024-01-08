@@ -19,18 +19,18 @@ data class User(
 
     @NaturalId
     @Column(length = 255)
-    @NotBlank
+    @get:NotBlank
     val mail: String,
 
-    @NotNull
+    @get:NotNull
     val mailVerified: Boolean,
 
     @Column(length = 500)
-    @NotBlank
+    @get:NotBlank
     val password: String,
 
     @Column
-    @NotNull
+    @get:NotNull
     val disabled: Boolean,
 
     @Column
