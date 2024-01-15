@@ -2,7 +2,7 @@ package de.denktmit.webapp.business.user
 
 import de.denktmit.webapp.business.user.UserService.UserSavingResult
 import de.denktmit.webapp.persistence.otp.OtpAction
-import de.denktmit.webapp.persistence.users.UserEntity
+import de.denktmit.webapp.persistence.users.User
 import java.net.URI
 import java.time.Duration
 import java.time.Instant
@@ -11,7 +11,7 @@ import java.util.*
 interface OtpSecuredActionsService {
     fun isTokenValid(token: UUID, action: String, instant: Instant = Instant.now()): Boolean
 
-    fun createOtpAction(user: UserEntity, action: String, duration: Duration): OtpAction
+    fun createOtpAction(user: User, action: String, duration: Duration): OtpAction
 
     //fun createOtpCallbackUri(otpAction: OtpAction, baseUri: URI): String
 

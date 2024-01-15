@@ -6,7 +6,7 @@ import de.denktmit.webapp.persistence.otp.OtpRepository
 import de.denktmit.webapp.persistence.testdata.Users.janesmith
 import de.denktmit.webapp.persistence.testdata.Users.johndoe
 import de.denktmit.webapp.persistence.testdata.Users.petergabriel
-import de.denktmit.webapp.persistence.users.UserEntity
+import de.denktmit.webapp.persistence.users.User
 import java.time.Instant
 import java.util.*
 
@@ -15,7 +15,7 @@ object OtpActions {
     fun createOtpAction(
         actionId: Long = 0,
         token: UUID = UUID.fromString("ad0be000-0000-4000-a000-000000000000"),
-        user: UserEntity = Users.createUser(),
+        user: User = Users.createUser(),
         action: String = "delete",
         validUntil: Instant = FAR_FUTURE
     ): OtpAction {

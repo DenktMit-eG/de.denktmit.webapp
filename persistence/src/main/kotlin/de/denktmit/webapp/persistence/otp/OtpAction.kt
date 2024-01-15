@@ -1,7 +1,7 @@
 package de.denktmit.webapp.persistence.otp
 
 import de.denktmit.webapp.persistence.HasIdOfType
-import de.denktmit.webapp.persistence.users.UserEntity
+import de.denktmit.webapp.persistence.users.User
 import jakarta.persistence.*
 import jakarta.validation.constraints.NotNull
 import org.hibernate.annotations.NaturalId
@@ -26,7 +26,7 @@ data class OtpAction(
     @JoinColumn(name = "user_id")
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
-    val user: UserEntity,
+    val user: User,
 
     @Column(length = 25)
     @NotNull
@@ -40,7 +40,7 @@ data class OtpAction(
 
     companion object {
         fun createOtpAction(
-            user: UserEntity,
+            user: User,
             action: String,
             duration: Duration,
             actionId: Long = 0,

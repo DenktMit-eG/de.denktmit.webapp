@@ -1,6 +1,5 @@
 package de.denktmit.webapp.business.communication
 
-import org.springframework.context.i18n.LocaleContextHolder
 import java.util.*
 
 class EmailModelAndView(

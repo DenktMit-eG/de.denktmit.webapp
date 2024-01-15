@@ -1,6 +1,5 @@
 package de.denktmit.webapp.common
 
-import java.lang.IllegalArgumentException
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.Year

@@ -3,7 +3,7 @@ package de.denktmit.webapp.persistence.rbac
 import de.denktmit.webapp.jooq.generated.tables.references.*
 import de.denktmit.webapp.persistence.jooqRead
 import de.denktmit.webapp.persistence.jooqWrite
-import de.denktmit.webapp.persistence.users.UserEntity
+import de.denktmit.webapp.persistence.users.User
 import jakarta.persistence.EntityManager
 import jakarta.persistence.PersistenceContext
 import org.jooq.Field
@@ -63,7 +63,7 @@ class RbacRepositoryImpl(
         groupRecords: Array<Record2<Long?, String?>>,
         authRecords: Array<Record2<Long?, String?>>
     ): RbacMapping {
-        val user = userRecord.into(UserEntity::class.java)
+        val user = userRecord.into(User::class.java)
         val groups = groupRecords.mapNotNull { record ->
             if (record.component1() != null && record.component2() != null) {
                 record.into(Group::class.java)

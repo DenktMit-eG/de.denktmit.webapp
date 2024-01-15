@@ -1,7 +1,5 @@
 package de.denktmit.webapp.common
 
-import java.util.*
-
 
 class DataTable private constructor(
     val meta: Meta,

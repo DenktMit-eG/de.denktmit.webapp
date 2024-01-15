@@ -18,7 +18,7 @@ interface OtpRepository: CrudRepository<OtpAction, Long> {
     ): OtpAction?
 
     @Modifying
-    @Query("DELETE FROM OtpAction a WHERE a.action = :action AND EXISTS (SELECT 1 FROM UserEntity u WHERE u.id = a.user.id AND u.mail = :mail)")
+    @Query("DELETE FROM OtpAction a WHERE a.action = :action AND EXISTS (SELECT 1 FROM User u WHERE u.id = a.user.id AND u.mail = :mail)")
     fun deleteByUserMailAndAction(mail: String, action: String): Int
 
 

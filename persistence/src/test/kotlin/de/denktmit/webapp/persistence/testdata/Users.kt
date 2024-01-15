@@ -2,7 +2,7 @@ package de.denktmit.webapp.persistence.testdata
 
 import de.denktmit.webapp.persistence.Constants.FAR_FUTURE
 import de.denktmit.webapp.persistence.Constants.FAR_PAST
-import de.denktmit.webapp.persistence.users.UserEntity
+import de.denktmit.webapp.persistence.users.User
 import de.denktmit.webapp.persistence.users.UserRepository
 import java.time.Instant
 
@@ -17,8 +17,8 @@ object Users {
         lockedUntil: Instant = FAR_PAST,
         accountValidUntil: Instant = FAR_FUTURE,
         credentialsValidUntil: Instant = FAR_FUTURE,
-    ): UserEntity {
-        return UserEntity(
+    ): User {
+        return User(
             id = userId,
             mail = mail,
             mailVerified = mailVerified,
@@ -84,10 +84,10 @@ object Users {
     val all = listOf(johndoe, janesmith, alicejohnson, paulhiggins, petergabriel)
 
     open class RepoStub(
-        val data: MutableList<UserEntity> = all.toMutableList()
-    ): CrudRepositoryStub<UserEntity, Long>(data), UserRepository {
+        val data: MutableList<User> = all.toMutableList()
+    ): CrudRepositoryStub<User, Long>(data), UserRepository {
 
-        override fun findOneByMail(mail: String): UserEntity? {
+        override fun findOneByMail(mail: String): User? {
             return findAll().find { it.mail == mail }
         }
 

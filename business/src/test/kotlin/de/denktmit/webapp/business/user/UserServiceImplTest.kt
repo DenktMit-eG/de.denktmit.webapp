@@ -1,7 +1,7 @@
 package de.denktmit.webapp.business.user
 
 import de.denktmit.webapp.persistence.rbac.RbacRepository
-import de.denktmit.webapp.persistence.users.UserEntity
+import de.denktmit.webapp.persistence.users.User
 import de.denktmit.webapp.persistence.users.UserRepository
 import io.mockk.confirmVerified
 import io.mockk.every
@@ -79,7 +79,7 @@ class UserServiceImplTest {
     @Test
     fun `updateUser should persist user`() {
         // Arrange
-        val unsavedUser = UserEntity.create("test@example.com", "encodedPassword", mailVerified = true)
+        val unsavedUser = User.create("test@example.com", "encodedPassword", mailVerified = true)
         val result = UserService.UserSavingResult.Persisted(unsavedUser)
 
         every { userRepository.save(unsavedUser) } returns unsavedUser

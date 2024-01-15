@@ -10,7 +10,7 @@ class UserTest {
 
     @Test
     fun testEquals() {
-        EqualsVerifier.forClass(UserEntity::class.java).verify()
+        EqualsVerifier.forClass(User::class.java).verify()
     }
 
     @Test
@@ -20,7 +20,7 @@ class UserTest {
 
     @Test
     fun defaultCreate() {
-        Assertions.assertThat(UserEntity.create("mail", "password")).isNotNull
+        Assertions.assertThat(User.create("mail", "password")).isNotNull
     }
 
     @Test

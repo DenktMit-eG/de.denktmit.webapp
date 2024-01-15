@@ -1,7 +1,6 @@
 package de.denktmit.webapp.web.user
 
 import de.denktmit.webapp.business.user.*
-import de.denktmit.webapp.business.user.OtpActionResult
 import de.denktmit.webapp.business.user.UserService.UserSavingResult
 import de.denktmit.webapp.business.user.UserService.UserSavingResult.EmailAlreadyExists
 import de.denktmit.webapp.business.user.UserService.UserSavingResult.Persisted

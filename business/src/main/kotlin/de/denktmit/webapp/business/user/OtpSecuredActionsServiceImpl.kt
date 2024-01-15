@@ -5,7 +5,7 @@ import de.denktmit.webapp.business.user.UserService.UserSavingResult
 import de.denktmit.webapp.persistence.Constants.FAR_FUTURE
 import de.denktmit.webapp.persistence.otp.OtpAction
 import de.denktmit.webapp.persistence.otp.OtpRepository
-import de.denktmit.webapp.persistence.users.UserEntity
+import de.denktmit.webapp.persistence.users.User
 import de.denktmit.webapp.springconfig.BusinessContextConfigProperties
 import org.slf4j.LoggerFactory
 import org.springframework.context.ApplicationEventPublisher
@@ -39,7 +39,7 @@ class OtpSecuredActionsServiceImpl(
 
     @Transactional
     override fun createOtpAction(
-        user: UserEntity,
+        user: User,
         action: String,
         duration: Duration
     ): OtpAction {
@@ -139,7 +139,7 @@ class OtpSecuredActionsServiceImpl(
         return OtpActionResult.Success(otpAction)
     }
 
-    private fun saveWithNewPassword(user: UserEntity, newPassword: WipeableCharSequence): UserSavingResult =
+    private fun saveWithNewPassword(user: User, newPassword: WipeableCharSequence): UserSavingResult =
         userService.updateUser(
             user.copy(
                 password = userService.encodePassword(newPassword),

@@ -5,7 +5,7 @@ import de.denktmit.webapp.common.DataTable
 import de.denktmit.webapp.persistence.Constants
 import de.denktmit.webapp.persistence.rbac.GROUP_NAME_USERS
 import de.denktmit.webapp.persistence.rbac.RbacRepository
-import de.denktmit.webapp.persistence.users.UserEntity
+import de.denktmit.webapp.persistence.users.User
 import de.denktmit.webapp.persistence.users.UserRepository
 import org.slf4j.LoggerFactory
 import org.springframework.context.ApplicationEventPublisher
@@ -66,7 +66,7 @@ class UserServiceImpl(
         return userRepository.existsByMail(mail)
     }
 
-    override fun findOneByMail(mail: String): UserEntity? {
+    override fun findOneByMail(mail: String): User? {
         return userRepository.findOneByMail(mail)
     }
 
@@ -83,7 +83,7 @@ class UserServiceImpl(
         mailVerificationUri: URI,
         mailVerified: Boolean
     ): UserSavingResult {
-        val unsavedUser = UserEntity.create(mail, passwordEncoder.encode(password), mailVerified = mailVerified)
+        val unsavedUser = User.create(mail, passwordEncoder.encode(password), mailVerified = mailVerified)
         val result = persistUser(unsavedUser, setOf(GROUP_NAME_USERS))
         if (result is UserSavingResult.Persisted) {
             publisher.publishEvent(UserCreatedEvent(result.user, mailVerificationUri, LocaleContextHolder.getLocale()))
@@ -92,7 +92,7 @@ class UserServiceImpl(
     }
 
     @Transactional
-    override fun updateUser(unsavedUser: UserEntity): UserSavingResult {
+    override fun updateUser(unsavedUser: User): UserSavingResult {
         return persistUser(unsavedUser)
     }
 
@@ -103,7 +103,7 @@ class UserServiceImpl(
         invitationAcceptUri: URI,
         mailVerified: Boolean
     ): UserSavingResult {
-        val unsavedUser = UserEntity.create(
+        val unsavedUser = User.create(
             mail,
             encodePassword(generateRandomPassword()),
             mailVerified = true,
@@ -144,7 +144,7 @@ class UserServiceImpl(
     }
 
     private fun persistUser(
-        unsavedUser: UserEntity,
+        unsavedUser: User,
         userGroups: Set<String>? = null,
     ): UserSavingResult {
         return try {
@@ -159,7 +159,7 @@ class UserServiceImpl(
         }
     }
 
-    private fun handleUserSavingError(unsavedUser: UserEntity, throwable: Throwable): UserSavingResult {
+    private fun handleUserSavingError(unsavedUser: User, throwable: Throwable): UserSavingResult {
         TransactionAspectSupport.currentTransactionStatus().setRollbackOnly()
         if (throwable is DataIntegrityViolationException && throwable.message?.contains("uq_users_mail") == true) {
             LOGGER.error("Not created/updated $unsavedUser, email address already exists")

@@ -10,7 +10,7 @@ import java.time.Instant
 
 @Entity
 @Table(name = "users")
-data class UserEntity(
+data class User(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id")
@@ -39,7 +39,7 @@ data class UserEntity(
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
 
-        other as UserEntity
+        other as User
 
         return mail == other.mail
     }
@@ -62,8 +62,8 @@ data class UserEntity(
             lockedUntil: Instant = Constants.FAR_PAST,
             accountValidUntil: Instant = Constants.FAR_FUTURE,
             credentialsValidUntil: Instant = Constants.FAR_FUTURE,
-        ): UserEntity {
-            return UserEntity(
+        ): User {
+            return User(
                 id = userId,
                 mail = mail,
                 mailVerified = mailVerified,

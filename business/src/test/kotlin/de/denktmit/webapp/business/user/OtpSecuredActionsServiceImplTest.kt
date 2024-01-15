@@ -9,7 +9,7 @@ import de.denktmit.webapp.persistence.Constants.FAR_PAST
 import de.denktmit.webapp.persistence.otp.OtpAction
 import de.denktmit.webapp.persistence.testdata.OtpActions
 import de.denktmit.webapp.persistence.testdata.Users
-import de.denktmit.webapp.persistence.users.UserEntity
+import de.denktmit.webapp.persistence.users.User
 import de.denktmit.webapp.springconfig.BusinessContextConfigProperties
 import de.denktmit.webapp.springconfig.MailConfigProperties
 import de.denktmit.webapp.testutils.softAssert
@@ -22,7 +22,7 @@ import org.springframework.security.authentication.CredentialsExpiredException
 import java.net.URI
 import java.time.Duration
 import java.time.Instant
-import java.util.UUID
+import java.util.*
 
 class OtpSecuredActionsServiceImplTest {
 
@@ -102,7 +102,7 @@ class OtpSecuredActionsServiceImplTest {
         setupTokenResolverMocks(otpAction, validationTime, true)
 
         // Setup test specifics mocks
-        val userToUpdate = slot<UserEntity>()
+        val userToUpdate = slot<User>()
         val savingResult = Persisted(Users.createUser())
         every { userService.updateUser(capture(userToUpdate)) } returns savingResult
 
@@ -152,7 +152,7 @@ class OtpSecuredActionsServiceImplTest {
         setupTokenResolverMocks(otpAction, validationTime, true)
 
         // Setup test specifics mocks
-        val userToUpdate = slot<UserEntity>()
+        val userToUpdate = slot<User>()
         val savingResult = Persisted(Users.createUser())
         every { userService.encodePassword(any()) } returns "{noop}password"
         every { userService.updateUser(capture(userToUpdate)) } returns savingResult
@@ -212,7 +212,7 @@ class OtpSecuredActionsServiceImplTest {
         setupTokenResolverMocks(otpAction, validationTime, true)
 
         // Setup test specifics mocks
-        val userToUpdate = slot<UserEntity>()
+        val userToUpdate = slot<User>()
         val savingResult = Persisted(Users.createUser())
         every { userService.encodePassword(any()) } returns "{noop}password"
         every { userService.updateUser(capture(userToUpdate)) } returns savingResult
