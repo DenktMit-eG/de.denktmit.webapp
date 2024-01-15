@@ -1,14 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
+    <meta http-equiv="content-language" content="en">
     <meta charset="UTF-8">
-    <title>The Switcher</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page with Switcher</title>
+    <link rel="stylesheet" href="/css/styles.min.css" th:href="@{/css/styles.min.css}"/>
 </head>
 <body>
-<div class="switcher">
+<main class="switcher">
     <div>I am the first child of the switcher</div>
     <div><!-- another child element --></div>
     <div><!-- etc --></div>
-</div>
+</main>
 </body>
 </html>

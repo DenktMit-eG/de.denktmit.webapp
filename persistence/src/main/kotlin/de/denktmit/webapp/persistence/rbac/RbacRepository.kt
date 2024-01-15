@@ -2,6 +2,10 @@ package de.denktmit.webapp.persistence.rbac
 
 interface RbacRepository {
 
-    fun findByMail(mail: String): RbacMapping?
+    fun findOneByMail(mail: String): RbacMapping?
+
+    fun findAllByMails(mails: Set<String>): List<RbacMapping>
+
+    fun setUserGroups(mail: String, groupNames: Set<String>)
 
 }

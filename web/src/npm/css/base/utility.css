@@ -1,0 +1,41 @@
+/** Font size utils */
+.font-size\:base {
+    font-size: var(--font-size-base);
+}
+
+.font-size\:smallish {
+    font-size: var(--font-size-smallish);
+}
+
+.font-size\:small {
+    font-size: var(--font-size-small);
+}
+
+.font-size\:biggish {
+    font-size: var(--font-size-biggish);
+}
+
+.font-size\:big {
+    font-size: var(--font-size-big);
+}
+
+/** Color utils */
+.bg-color\:white {
+    background-color: white !important;
+}
+
+.bg-color\:light-green {
+    background-color: var(--color-light-green) !important;
+}
+
+.bg-color\:light-teal {
+    background-color: var(--color-light-teal) !important;
+}
+
+.bg-color\:petrol {
+    background-color: var(--color-petrol) !important;
+}
+
+.bg-color\:dark-petrol {
+    background-color: var(--color-dark-petrol) !important;
+}

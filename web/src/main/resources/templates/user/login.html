@@ -1,0 +1,87 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity"
+      layout:decorate="~{__layouts/centered}"
+      lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Home</title>
+    <link rel="icon" href="/img/favicon.svg">
+    <link rel="stylesheet" href="/css/styles.min.css" th:href="@{/css/styles.min.css}"/>
+</head>
+<body>
+<header class="bg-color:dark-petrol">
+    <div class="center">
+        <nav class="cluster-spaced">
+            <img src="/img/logo.svg" alt="Das DenktMit eG Signet mit Firmenname"/>
+            <ul class="cluster-wrapped">
+                <li><a href="/static">Home</a></li>
+                <li><a href="/every-layout/index.html">Every Layout</a></li>
+                <li><a href="/admin/users.html">Admin/Users</a></li>
+                <li><a href="/logout.html">Logout</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<main>
+    <div class="center" layout:fragment="page-content">
+        <hgroup>
+            <h1 th:text="#{pages.login.title}">Login</h1>
+            <p th:text="#{pages.login.titledesc}">Login with your e-mail address and password</p>
+        </hgroup>
+
+        <!-- Show error message if authentication fails -->
+        <div th:if="${loginError}">
+            <p style="color: red;" th:text="#{pages.login.failed}">Invalid username or password. Please try again.</p>
+        </div>
+
+        <p th:if="${acceptInvitationSucceeded != null}"
+           th:text="#{pages.login.acceptinvitation.succeeded}"
+           class="flash-message success">You accepted the invitation and can now log in with your new password</p>
+
+        <form action="#" th:action="@{/login}" method="post">
+            <label th:for="email">
+                <span th:text="#{shared.namings.email}">E-Mail</span>:
+                <input th:type="email" th:id="email" th:name="email" th:required="required" />
+            </label>
+            <label th:for="password">
+                <span th:text="#{shared.namings.password}">Password</span>:
+                <input th:type="password" th:id="password" th:name="password" th:required="required" />
+            </label>
+            <input type="submit" value="Login" />
+        </form>
+
+        <form action="#" th:action="@{/recover-password}" method="post">
+            <h2 th:text="#{pages.login.recoverpassword.form.title}">Forgot your password?</h2>
+            <p th:if="${passwordRecoveryStarted != null}"
+               th:text="#{pages.login.recoverpassword.started}"
+               class="flash-message success">You started a password recovery and should have gotten an email, if your account exists. Please check your emails for further instructions.</p>
+            <p th:if="${passwordRecoverySucceeded != null}"
+               th:text="#{pages.login.recoverpassword.succeeded}"
+               class="flash-message success">Password reset succeeded, you can now log in with your updated password</p>
+            <label th:for="recoverEmail">
+                <span th:text="#{shared.namings.email}">recoverEmail</span>:
+                <input th:type="email" th:id="recoverEmail" th:name="recoverEmail" th:required="required" />
+            </label>
+            <input type="submit" value="Recover" />
+        </form>
+
+    </div>
+</main>
+<footer class="bg-color:light-teal">
+    <div class="center">
+        <nav class="cluster-spaced">
+            <p>
+                &copy; 2024 DenktMit eG. All rights reserved. <br/>
+                Contact: hallo@denktmit.de
+            </p>
+            <ul class="cluster-wrapped">
+                <li><a href="/templates/fixed-content/legal-notice.html">Legal notice</a></li>
+            </ul>
+        </nav>
+    </div>
+</footer>
+</body>
+</html>

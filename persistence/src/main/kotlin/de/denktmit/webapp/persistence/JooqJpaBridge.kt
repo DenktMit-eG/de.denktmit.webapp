@@ -8,6 +8,15 @@ import org.jooq.SQLDialect
 import org.jooq.impl.DSL
 
 
+fun <T> EntityManager.jooqWrite(fn: (DSLContext) -> T) {
+    val session = this.unwrap(Session::class.java)
+    session.flush()
+    return session.doWork {
+            connection -> fn(DSL.using(connection, SQLDialect.POSTGRES))
+    }
+}
+
+
 fun <T> EntityManager.jooqRead(fn: (DSLContext) -> T): T {
     val session = this.unwrap(Session::class.java)
     session.flush()

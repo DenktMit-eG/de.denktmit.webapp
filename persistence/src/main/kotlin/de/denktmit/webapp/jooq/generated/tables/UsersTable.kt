@@ -19,7 +19,7 @@ import org.jooq.ForeignKey
 import org.jooq.Name
 import org.jooq.Record
 import org.jooq.Records
-import org.jooq.Row7
+import org.jooq.Row8
 import org.jooq.Schema
 import org.jooq.SelectField
 import org.jooq.Table
@@ -77,6 +77,12 @@ open class UsersTable(
     val MAIL: TableField<UsersRecord, String?> = createField(DSL.name("mail"), SQLDataType.VARCHAR(255).nullable(false), this, "User's unique email address")
 
     /**
+     * The column <code>public.users.mail_verified</code>. Flag to track, if
+     * User's e-mail been verified
+     */
+    val MAIL_VERIFIED: TableField<UsersRecord, Boolean?> = createField(DSL.name("mail_verified"), SQLDataType.BOOLEAN.nullable(false), this, "Flag to track, if User's e-mail been verified")
+
+    /**
      * The column <code>public.users.password</code>. User's hashed or encrypted
      * password
      */
@@ -86,7 +92,7 @@ open class UsersTable(
      * The column <code>public.users.disabled</code>. User's disabled status
      * (true or false) based on administrative actions
      */
-    val DISABLED: TableField<UsersRecord, Boolean?> = createField(DSL.name("disabled"), SQLDataType.BOOLEAN, this, "User's disabled status (true or false) based on administrative actions")
+    val DISABLED: TableField<UsersRecord, Boolean?> = createField(DSL.name("disabled"), SQLDataType.BOOLEAN.nullable(false), this, "User's disabled status (true or false) based on administrative actions")
 
     /**
      * The column <code>public.users.locked_until</code>. User's locked status
@@ -128,7 +134,7 @@ open class UsersTable(
     override fun getSchema(): Schema? = if (aliased()) null else Public.PUBLIC
     override fun getPrimaryKey(): UniqueKey<UsersRecord> = USERS_PKEY
     override fun getChecks(): List<Check<UsersRecord>> = listOf(
-        Internal.createCheck(this, DSL.name("users_disabled_check"), "((disabled = ANY (ARRAY[true, false])))", true)
+        Internal.createCheck(this, DSL.name("users_mail_check"), "((TRIM(BOTH FROM mail) <> ''::text))", true)
     )
     override fun `as`(alias: String): UsersTable = UsersTable(DSL.name(alias), this)
     override fun `as`(alias: Name): UsersTable = UsersTable(alias, this)
@@ -150,18 +156,18 @@ open class UsersTable(
     override fun rename(name: Table<*>): UsersTable = UsersTable(name.getQualifiedName(), null)
 
     // -------------------------------------------------------------------------
-    // Row7 type methods
+    // Row8 type methods
     // -------------------------------------------------------------------------
-    override fun fieldsRow(): Row7<Long?, String?, String?, Boolean?, Instant?, Instant?, Instant?> = super.fieldsRow() as Row7<Long?, String?, String?, Boolean?, Instant?, Instant?, Instant?>
+    override fun fieldsRow(): Row8<Long?, String?, Boolean?, String?, Boolean?, Instant?, Instant?, Instant?> = super.fieldsRow() as Row8<Long?, String?, Boolean?, String?, Boolean?, Instant?, Instant?, Instant?>
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    fun <U> mapping(from: (Long?, String?, String?, Boolean?, Instant?, Instant?, Instant?) -> U): SelectField<U> = convertFrom(Records.mapping(from))
+    fun <U> mapping(from: (Long?, String?, Boolean?, String?, Boolean?, Instant?, Instant?, Instant?) -> U): SelectField<U> = convertFrom(Records.mapping(from))
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    fun <U> mapping(toType: Class<U>, from: (Long?, String?, String?, Boolean?, Instant?, Instant?, Instant?) -> U): SelectField<U> = convertFrom(toType, Records.mapping(from))
+    fun <U> mapping(toType: Class<U>, from: (Long?, String?, Boolean?, String?, Boolean?, Instant?, Instant?, Instant?) -> U): SelectField<U> = convertFrom(toType, Records.mapping(from))
 }

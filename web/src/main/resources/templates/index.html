@@ -1,95 +1,74 @@
-<!DOCTYPE html>
-<html th:replace="~{layout_main :: layout(~{::sidebar}, ~{::maincontent})}" xmlns:th="http://www.thymeleaf.org">
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{__layouts/centered}"
+      lang="en">
 <head>
-    <meta http-equiv="content-language" content="en">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sidebar</title>
-    <link rel="stylesheet" href="/css/denktmit.css"/>
+    <meta charset="utf-8">
+    <title>Home</title>
+    <link rel="icon" href="/img/favicon.svg">
+    <link rel="stylesheet" href="/css/styles.min.css" th:href="@{/css/styles.min.css}"/>
 </head>
 <body>
-<div class="side-wrapper">
-    <aside class="sidebar">
-        <div class="sidebar-content-wrapper" th:fragment="sidebar">
-            <h2>EveryLayout</h2>
-            <ul>
-                <li>Elements</li>
-                <li>Cluster</li>
-                <li>Sidebar</li>
+<header class="bg-color:dark-petrol">
+    <div class="center">
+        <nav class="cluster-spaced">
+            <img src="/img/logo.svg" alt="Das DenktMit eG Signet mit Firmenname"/>
+            <ul class="cluster-wrapped">
+                <li><a href="/">Home</a></li>
+                <li><a href="/every-layout/index.html">Every Layout</a></li>
+                <li><a href="/admin/users.html">Admin/Users</a></li>
+                <li><a href="/logout.html">Logout</a></li>
             </ul>
-            <ul>
-                <li>Best Practises</li>
-                <li>Configuration</li>
-                <li>Enhancement</li>
-            </ul>
-            <ul>
-                <li>Contact</li>
-                <li>Email</li>
-                <li>Website</li>
-            </ul>
-        </div>
-    </aside>
-    <div class="content">
-        <div class="center" th:fragment="maincontent">
-
-            <h1>The Center</h1>
-            <h2>The problem</h2>
-            <p>
-                Tech' giants' whimsical usage of defunct elements aside, we mostly moved away from using
-                presentational
-                markup in the 2000s. By making styling the responsibility of a separate technology—CSS—we were able
-                to
-                manage style and structure separately. Consequently, a change in art direction would no longer mean
-                reconstituting our content.
-            </p>
-
-            <div class="frame">
-                <img src="/img/every-layout-art.jpg" alt="art"/>
-            </div>
-
-            <p>
-                The Frame is mostly useful for cropping media (videos and images) to a desired aspect ratio. Once
-                you start
-                controlling the aspect ratio, you can of course tailor it to the current circumstances. For example,
-                you
-                might want to give images a different aspect ratio depending on the viewport orientation.
-            </p>
-            <h2>The Solution</h2>
-            <p>
-                This source (an image file such as a PNG, JPEG, or SVG) has certain characteristics outside
-                your control as a writer of CSS. Aspect ratio is one such characteristic, and is determined when
-                the image is originally created and cropped.
-            </p>
-
-            <div class="grid">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
-
-            <h2>Use Cases #</h2>
-            <p>
-                The Frame is mostly useful for cropping media (videos and images) to a desired aspect ratio. Once
-                you start
-                controlling the aspect ratio, you can of course tailor it to the current circumstances. For example,
-                you
-                might want to give images a different aspect ratio depending on the viewport orientation.
-            </p>
-
-            <div class="frame">
-                <img src="/img/modern-art-layout.jpg" alt="art"/>
-            </div>
-
-        </div>
-
-
+        </nav>
     </div>
-</div>
+</header>
+<main>
+    <div class="center" layout:fragment="page-content">
+        <hgroup>
+            <h1>Ihre Gefährten für IT-Projekte</h1>
+            <p>DenktMit ist das flexible Experten-Netzwerk erfahrener IT-Spezialisten.<br>Gefährten - mehr als nur
+                Berater.</p>
+        </hgroup>
+        <article>
+            <h2>DenktMit Webapp Landingpage</h2>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vel ligula vel justo feugiat elementum.
+                Nulla
+                facilisi. Vivamus eget urna nec velit bibendum cursus.
+            </p>
+            <p>
+                Sed tincidunt justo a consectetur ultrices. In hac habitasse platea dictumst. Integer id orci vel neque
+                feugiat lacinia. Sed auctor, felis nec suscipit fermentum, sem augue convallis lectus, non feugiat
+                ligula
+                urna vel libero.
+            </p>
+            <p>
+                Ut suscipit pharetra purus, vel fringilla nunc aliquet vel. Duis in dapibus ex. Nunc fermentum quam id
+                quam
+                eleifend, ac gravida sem ultrices. In at odio nec justo commodo condimentum. Sed vel odio vitae purus
+                hendrerit sodales vel nec justo.
+            </p>
+            <p>
+                Vestibulum bibendum libero vel nisi consectetur, a ultricies metus blandit. Donec consequat mauris eu
+                posuere sagittis.
+            </p>
+        </article>
+    </div>
+</main>
+<footer class="bg-color:light-teal">
+    <div class="center">
+        <nav class="cluster-spaced">
+            <p>
+                &copy; 2024 DenktMit eG. All rights reserved. <br/>
+                Contact: hallo@denktmit.de
+            </p>
+            <ul class="cluster-wrapped">
+                <li><a href="/templates/fixed-content/legal-notice.html">Legal notice</a></li>
+            </ul>
+        </nav>
+    </div>
+</footer>
 </body>
 </html>

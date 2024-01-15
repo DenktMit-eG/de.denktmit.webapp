@@ -1,0 +1,105 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{__layouts/sidebar}"
+      lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Admin - Users</title>
+    <link rel="icon" href="/img/favicon.svg">
+    <link rel="stylesheet" href="/css/styles.min.css" th:href="@{/css/styles.min.css}"/>
+</head>
+<body>
+<header class="bg-color:dark-petrol">
+    <div class="center">
+        <nav class="cluster-spaced">
+            <img src="/img/logo.svg" alt="Das DenktMit eG Signet mit Firmenname"/>
+            <ul class="cluster-wrapped">
+                <li><a href="/">Home</a></li>
+                <li><a href="/every-layout/index.html">Every Layout</a></li>
+                <li><a href="/admin/users.html">Admin/Users</a></li>
+                <li><a href="/logout.html">Logout</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<div class="with-sidebar">
+    <aside class="sidebar">
+        <div layout:fragment="sidecontent">
+            <h2>Admin Zone</h2>
+            <h3 th:text="#{pages.admin.users.actions.headline}">Users</h3>
+            <ul role="list">
+                <li>
+                    <a href="/admin/users.html?action=invite" th:href="@{/admin/users(action=invite)}" th:text="#{pages.admin.users.actions.invite}">Invite</a>
+                </li>
+                <li>
+                    <a href="/admin/users.html" th:href="@{/admin/users}" th:text="#{shared.actions.crud.list}">List</a>
+                </li>
+            </ul>
+        </div>
+    </aside>
+    <main class="not-sidebar">
+        <div class="center" layout:fragment="maincontent">
+            <article>
+                <hgroup>
+                    <h1 th:text="#{pages.admin.users.title}">Users</h1>
+                    <p th:text="#{pages.admin.users.titledesc}">Manage your application users</p>
+                </hgroup>
+
+                <table class="table" id="data-table" th:replace="~{__fragments/datatable :: frag_data_table(${dataTable},~{::caption})}">
+                    <caption th:text="#{pages.admin.users.tablecaption}">
+                        List of existing users
+                    </caption>
+                    <thead>
+                    <tr>
+                        <th>E-Mail</th>
+                        <th>Disabled</th>
+                        <th>Locked Until</th>
+                        <th>Account Valid Until</th>
+                        <th>Credentials Valid Until</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="selected">user1.johndoe@example.com</td>
+                        <td>false</td>
+                        <td>Wed, 1 Jan 1000 00:00:00 GMT</td>
+                        <td>Wed, 1 Jan 3000 00:00:00 GMT</td>
+                        <td>Wed, 1 Jan 3000 00:00:00 GMT</td>
+                    </tr>
+                    <tr>
+                        <td>admin2.janesmith@example.com</td>
+                        <td>false</td>
+                        <td>Wed, 1 Jan 1000 00:00:00 GMT</td>
+                        <td>Wed, 1 Jan 3000 00:00:00 GMT</td>
+                        <td>Wed, 1 Jan 3000 00:00:00 GMT</td>
+                    </tr>
+                    <tr>
+                        <td>creds_expired_user5.petergabriel@example.com</td>
+                        <td>true</td>
+                        <td>Wed, 1 Jan 1000 00:00:00 GMT</td>
+                        <td>Wed, 1 Jan 3000 00:00:00 GMT</td>
+                        <td>Wed, 1 Jan 1000 00:00:00 GMT</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </article>
+        </div>
+    </main>
+</div>
+<footer class="bg-color:light-teal">
+    <div class="center">
+        <nav class="cluster-spaced">
+            <p>
+                &copy; 2024 DenktMit eG. All rights reserved. <br/>
+                Contact: hallo@denktmit.de
+            </p>
+            <ul class="cluster-wrapped">
+                <li><a href="/templates/fixed-content/legal-notice.html">Legal notice</a></li>
+            </ul>
+        </nav>
+    </div>
+</footer>
+</body>
+</html>

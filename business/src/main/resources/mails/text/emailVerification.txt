@@ -1,0 +1,10 @@
+Hello [( ${name} )],
+
+You have successfully registered on our site on [( ${#dates.format(registrationDate)} )].
+
+Please verify your e-mail by accessing the website [( ${tokenUrl} )]
+
+Your verification token is valid until [( ${#temporals.formatISO(tokenValidUntil)} )] and can only be used once.
+
+Yours sincerely,
+    The DenktMit eG

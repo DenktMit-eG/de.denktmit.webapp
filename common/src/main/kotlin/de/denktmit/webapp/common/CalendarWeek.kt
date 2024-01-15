@@ -5,6 +5,7 @@ import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.Year
 import java.time.temporal.WeekFields
+import java.util.*
 
 class CalendarWeek private constructor(
     val year: Year,
@@ -21,9 +22,10 @@ class CalendarWeek private constructor(
         fun create(year: Year, weekNumber: Int): CalendarWeek {
             val weeksCount = calendarWeeksInYear(year)
             if (weekNumber < 1 || weekNumber > weeksCount) {
-                throw IllegalArgumentException("The weekNumber must be between greater 0 and lower or equal to 53, but was $weekNumber")
+                throw IllegalArgumentException("The weekNumber must be between greater 0 and lower or equal to ${CALENDAR_YEAR_MAX_WEEKS}, but was $weekNumber")
             }
             val firstDayOfWeek = calculateDayOfCalendarWeek(year, weekNumber, DayOfWeek.MONDAY)
+            WeekFields.of(Locale.GERMANY)
             val lastDayOfWeek = firstDayOfWeek.with(DayOfWeek.SUNDAY)
             return CalendarWeek(year, weekNumber, firstDayOfWeek, lastDayOfWeek, weeksCount)
         }

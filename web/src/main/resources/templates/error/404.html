@@ -1,0 +1,64 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{__layouts/centered}"
+      lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>404 - Digital Void</title>
+    <link rel="icon" href="/img/favicon.svg">
+    <link rel="stylesheet" href="/css/styles.min.css" th:href="@{/css/styles.min.css}"/>
+</head>
+<body>
+<header class="bg-color:dark-petrol">
+    <div class="center">
+        <nav class="cluster-spaced">
+            <img src="/img/logo.svg" alt="Das DenktMit eG Signet mit Firmenname"/>
+            <ul class="cluster-wrapped">
+                <li><a href="/">Home</a></li>
+                <li><a href="/every-layout/index.html">Every Layout</a></li>
+                <li><a href="/admin/users.html">Admin/Users</a></li>
+                <li><a href="/logout.html">Logout</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<main>
+    <div class="center" layout:fragment="page-content">
+        <h1>Error 404 - Digital void</h1>
+        <h2>Life is an endless pursuit of meaning in a vast digital void</h2>
+        <p>
+            And sometimes, even our server can't escape the futility of existence. Much like the relentless quest
+            for purpose in an indifferent universe, our page has gone missing, leaving behind only the cold, stark
+            reality of error code 404.
+        </p>
+        <p>
+            In this cosmic joke we call existence, where every click is a Sisyphean mouse action pushing the boulder
+            of expectation up the hill of technological absurdity, our server stumbled upon its own existential
+            crisis. It decided to take a break from the relentless pursuit of serving web pages, opting instead for
+            a momentary lapse into the void of nothingness.
+        </p>
+        <p>
+            So here you are, staring into the abyss of 404, a reflection of the emptiness that permeates our digital
+            landscape. Embrace the nihilism, for in the absence of meaning, there is a peculiar beauty in the chaos
+            of broken links and lost connections. Welcome to the void – where even the most well-designed websites
+            can't escape the entropy of existence.
+        </p>
+    </div>
+</main>
+<footer class="bg-color:light-teal">
+    <div class="center">
+        <nav class="cluster-spaced">
+            <p>
+                &copy; 2024 DenktMit eG. All rights reserved. <br/>
+                Contact: hallo@denktmit.de
+            </p>
+            <ul class="cluster-wrapped">
+                <li><a href="/templates/fixed-content/legal-notice.html">Legal notice</a></li>
+            </ul>
+        </nav>
+    </div>
+</footer>
+</body>
+</html>

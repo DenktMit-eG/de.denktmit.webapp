@@ -1,0 +1,22 @@
+/** reset, core and typography setup */
+@import url('base/reset.css');
+@import url('base/core.css');
+@import url('base/utility.css');
+@import url('base/typographie.css');
+
+/** generic layout css */
+@import url('layouts/center.css');
+@import url('layouts/cluster.css');
+@import url('layouts/frame.css');
+@import url('layouts/grid.css');
+@import url('layouts/sidebar.css');
+@import url('layouts/switcher.css');
+
+/** css for data elements */
+@import url('data/flashmessage.css');
+@import url('data/forms.css');
+@import url('data/tables.css');
+
+/** element specific styling */
+@import url('elements/footer.css');
+@import url('elements/header.css');

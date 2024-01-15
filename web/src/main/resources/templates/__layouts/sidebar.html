@@ -1,0 +1,96 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity"
+      lang="en">
+<head>
+    <link rel="icon" href="/img/favicon.svg">
+    <link rel="manifest" href="/misc/site.webmanifest">
+    <link rel="stylesheet" href="/css/styles.min.css" th:href="@{/css/styles.min.css}"/>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="theme-color" content="#fafafa">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:image" content="">
+    <meta property="og:title" content="">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="">
+    <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Webapp</title>
+    <th:block layout:fragment="html-head-additions"></th:block>
+</head>
+<body>
+<header class="bg-color:dark-petrol">
+    <div class="center" layout:fragment="page-header">
+        <nav class="cluster-spaced">
+            <a href="/" th:href="@{/}"><img src="/img/logo.svg" alt="Das DenktMit eG Signet mit Firmenname"/></a>
+            <ul class="cluster-wrapped">
+                <li><a href="/" th:href="@{/}" th:text="#{menus.main.home}">Home</a></li>
+                <li><a href="/every-layout/index.html" th:href="@{/every-layout}" th:text="#{menus.main.everylayout}">Every
+                    Layout</a></li>
+                <li sec:authorize="hasRole('ROLE_ADMIN')">
+                    <a href="/admin/users.html" th:href="@{/admin/users}" th:text="#{menus.main.admin}">Admin/Users</a>
+                </li>
+                <th:block sec:authorize="!isAuthenticated()">
+                    <li><a href="/registration.html" th:href="@{/registration}" th:text="#{menus.main.registration}">Registration</a>
+                    </li>
+                    <li><a th:href="@{/login}">Login</a></li>
+                </th:block>
+                <th:block sec:authorize="isAuthenticated()">
+                    <li><a href="/me" th:href="@{/me}" th:text="#{menus.main.me}">My account</a></li>
+                    <a th:href="@{/logout}">Logout</a>
+                </th:block>
+            </ul>
+        </nav>
+    </div>
+</header>
+<div class="with-sidebar">
+    <aside class="sidebar">
+        <div layout:fragment="sidecontent">
+            <h2>The sidebar</h2>
+            <h3>Breakfast</h3>
+            <ul>
+                <li>Scrambled Eggs</li>
+                <li>Salad</li>
+            </ul>
+            <h3>Lunch</h3>
+            <ul>
+                <li>Big Hot Tofu Burger</li>
+                <li>Niagara Shrimps (vegan)</li>
+            </ul>
+        </div>
+    </aside>
+    <main class="not-sidebar">
+        <div class="center" layout:fragment="maincontent">
+            <h1>The main content</h1>
+            <h2>This is combined with centered</h2>
+            <p>
+                We can have this nicely centered main content. It is also showing
+                off, how to use the sidebar every-layout in combination with center
+            </p>
+            <div class="frame">
+                <img src="/img/every-layout-art.jpg" alt="art"/>
+            </div>
+        </div>
+    </main>
+</div>
+<footer class="bg-color:light-teal">
+    <div class="center">
+        <nav class="cluster-spaced">
+            <p>
+                &copy; 2024 DenktMit eG. All rights reserved. <br/>
+                Contact: hallo@denktmit.de
+            </p>
+            <ul class="cluster-wrapped">
+                <li>
+                    <a href="/templates/fixed-content/legal-notice.html"
+                       th:with="i18nPath=#{links.fixedpages.legalnotice}"
+                       th:href="@{${i18nPath}}" th:text="#{menus.main.legalnotice}">Legal notice</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</footer>
+<th:block layout:fragment="page-scripts"></th:block>
+</body>
+</html>

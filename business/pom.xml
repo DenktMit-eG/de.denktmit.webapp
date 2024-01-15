@@ -89,6 +89,11 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>com.ninja-squad</groupId>
+            <artifactId>springmockk</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>de.denktmit.webapp</groupId>
             <artifactId>test-util</artifactId>
             <scope>test</scope>

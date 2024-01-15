@@ -1,0 +1,9 @@
+footer {
+    margin-top: auto;
+    padding-inline: 0.5em;
+    padding-block: 0.5em;
+}
+
+footer nav li {
+    display: inline-block;
+}

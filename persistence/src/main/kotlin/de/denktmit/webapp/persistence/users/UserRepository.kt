@@ -2,8 +2,10 @@ package de.denktmit.webapp.persistence.users
 
 import org.springframework.data.repository.CrudRepository
 
-interface UserRepository: CrudRepository<User, Long> {
+interface UserRepository: CrudRepository<UserEntity, Long> {
 
-    fun findByMail(mail: String): User?
+    fun findOneByMail(mail: String): UserEntity?
+
+    fun existsByMail(mail: String): Boolean
 
 }

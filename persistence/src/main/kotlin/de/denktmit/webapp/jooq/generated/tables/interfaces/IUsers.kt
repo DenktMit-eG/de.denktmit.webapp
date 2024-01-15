@@ -33,11 +33,15 @@ interface IUsers : Serializable {
     @get:NotNull
     @get:Size(max = 255)
     var mail: String?
+    @get:Column(name = "mail_verified", nullable = false)
+    @get:NotNull
+    var mailVerified: Boolean?
     @get:Column(name = "password", nullable = false, length = 500)
     @get:NotNull
     @get:Size(max = 500)
     var password: String?
-    @get:Column(name = "disabled")
+    @get:Column(name = "disabled", nullable = false)
+    @get:NotNull
     var disabled: Boolean?
     @get:Column(name = "locked_until", nullable = false)
     @get:NotNull

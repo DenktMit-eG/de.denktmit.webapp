@@ -1,0 +1,50 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Webapp - Datatable</title>
+    <link rel="stylesheet" href="/css/styles.min.css" th:href="@{/css/styles.min.css}"/>
+</head>
+<body>
+<main>
+    <div class="center">
+        <article>
+            <table th:fragment="frag_data_table(dataTable, caption)" th:object="${dataTable}" id="data-table">
+                <!--@thymesVar id="dataTable" type="de.denktmit.webapp.common.DataTable"-->
+                <caption th:replace="${caption}">
+                    Existing entries
+                </caption>
+                <thead>
+                <tr th:remove="all-but-first">
+                    <th th:each="columnName : ${dataTable.meta.columnNames}" th:text="${columnName}">E-Mail</th>
+                    <th>Disabled</th>
+                    <th>Locked Until</th>
+                    <th>Account Valid Until</th>
+                    <th>Credentials Valid Until</th>
+                </tr>
+                </thead>
+                <tbody th:remove="all-but-first">
+                <tr th:each="row, stat : ${dataTable.takeRows(null)}" tabindex="0">
+                    <td th:each="cell: ${row.iterator()}" th:text="${cell}"></td>
+                </tr>
+                <tr>
+                    <td class="selected">user1.johndoe@example.com</td>
+                    <td>false</td>
+                    <td>Wed, 1 Jan 1000 00:00:00 GMT</td>
+                    <td>Wed, 1 Jan 3000 00:00:00 GMT</td>
+                    <td>Wed, 1 Jan 3000 00:00:00 GMT</td>
+                </tr>
+                <tr>
+                    <td>admin2.janesmith@example.com</td>
+                    <td>false</td>
+                    <td>Wed, 1 Jan 1000 00:00:00 GMT</td>
+                    <td>Wed, 1 Jan 3000 00:00:00 GMT</td>
+                    <td>Wed, 1 Jan 3000 00:00:00 GMT</td>
+                </tr>
+                </tbody>
+            </table>
+        </article>
+    </div>
+</main>
+</body>
+</html>

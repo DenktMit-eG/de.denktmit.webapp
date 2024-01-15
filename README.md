@@ -1,4 +1,4 @@
-# DenktMit eG - Webapp - Spring Boot 3.1+ development base
+# DenktMit eG - Webapp - Spring Boot 3.2+ development base
 This is the default development base for DenktMit eG Webapps. It is set up
 as three-tier architecture with a persistence, a business and web layer 
 for server-side HTML, as well as JSON and XML rendering
@@ -11,13 +11,13 @@ for server-side HTML, as well as JSON and XML rendering
 * Externalization of credentials via .env files with default to .env-local
 * Profile-oriented Docker-compose setup to provide external dependencies 
   for local integration tests
-* Reusable integration test data that allows simple unit instead of 
+* Reusable integration test data that allows simple unit instead of  
   integration tests above the persistence layer
 * Modular Spring configuration setup
 * Preconfigured Spring security setup for RBAC
 * UserDetailService for RBAC
-* SpringContext hanger for integration tests and first persistence integration 
-  tests
+* Node.js / Express setup to take advantage of Thymeleaf natural templating
+* SpringContext setup for persistence integration tests
 * JaCoCo CodeCoverage reporting, separated by unit and integration tests as 
   well as aggregated
 * Asciidoc Setup for documentation close to the code
@@ -111,12 +111,12 @@ fill the dev and it databases with testdata.
 
 Fill dev database with testdata
 ```bash
-./mvnw flyway:migrate@fill-dev -Dflyway.configFiles=../.flyway.dev.conf -f ./persistence/pom.xml
+./mvnw flyway:migrate -Dflyway.configFiles=../.flyway.dev.conf -f ./persistence/pom.xml
 ```
 
 Fill integration test database with testdata (done automatically in maven build)
 ```bash
-./mvnw flyway:migrate@fill-it -Dflyway.configFiles=../.flyway.it.conf -f ./persistence/pom.xml
+./mvnw flyway:migrate -Dflyway.configFiles=../.flyway.it.conf -f ./persistence/pom.xml
 ```
 
 #### Build the application

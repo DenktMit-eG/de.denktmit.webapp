@@ -1,0 +1,91 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{__layouts/sidebar}"
+      lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Admin - Users</title>
+    <link rel="icon" href="/img/favicon.svg">
+    <link rel="stylesheet" href="/css/styles.min.css" th:href="@{/css/styles.min.css}"/>
+</head>
+<body>
+<header class="bg-color:dark-petrol">
+    <div class="center">
+        <nav class="cluster-spaced">
+            <img src="/img/logo.svg" alt="Das DenktMit eG Signet mit Firmenname"/>
+            <ul class="cluster-wrapped">
+                <li><a href="/">Home</a></li>
+                <li><a href="/every-layout/index.html">Every Layout</a></li>
+                <li><a href="/admin/users.html">Admin/Users</a></li>
+                <li><a href="/logout.html">Logout</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<div class="with-sidebar">
+    <aside class="sidebar">
+        <div layout:fragment="sidecontent">
+            <h2>Admin Zone</h2>
+            <h3 th:text="#{pages.admin.users.actions.headline}">Users</h3>
+            <ul role="list">
+                <li>
+                    <a href="/admin/users.html?action=invite" th:href="@{/admin/users(action=invite)}" th:text="#{pages.admin.users.actions.invite}">Invite</a>
+                </li>
+                <li>
+                    <a href="/admin/users.html" th:href="@{/admin/users}" th:text="#{shared.actions.crud.list}">List</a>
+                </li>
+            </ul>
+        </div>
+    </aside>
+    <main class="not-sidebar">
+        <div class="center" layout:fragment="maincontent">
+            <article>
+                <hgroup>
+                    <h1 th:text="#{pages.admin.users.invite.title}">Invitation</h1>
+                    <p th:text="#{pages.admin.users.invite.titledesc}">Invite users to join</p>
+                </hgroup>
+                <form action="#" th:action="@{/admin/users(action=invite)}" th:object="${invitationForm}" method="post">
+                    <label th:for="emailAddress" th:class="${#fields.hasErrors('emailAddress')}? fieldError">
+                        <span th:text="#{shared.namings.email}">E-Mail</span>:
+                        <input th:type="email" id="emailAddress" name="emailAddress" th:field="*{emailAddress}" />
+                        <p th:if="${#fields.hasErrors('emailAddress')}"
+                           th:text="${#strings.listJoin(#fields.errors('emailAddress'), ', ')}"
+                           class="form-field-error"
+                           id="emailAddress-error">email validation error message(s).</p>
+                    </label>
+                    <label th:for="groupName" th:class="${#fields.hasErrors('groupName')}? fieldError">
+                        <span th:text="#{shared.namings.rbac.group}">User group</span>:
+                        <select th:field="*{groupName}">
+                            <option th:each="groupName : ${userGroupChoices}"
+                                    th:value="${groupName}"
+                                    th:text="${groupName}">Users</option>
+                        </select>
+                        <p th:if="${#fields.hasErrors('groupName')}"
+                           th:text="${#strings.listJoin(#fields.errors('groupName'), ', ')}"
+                           class="form-field-error"
+                           id="groupName-error">groupName validation error message(s).</p>
+                    </label>
+                    <input type="reset" id="reset" name="reset" value="Reset" />
+                    <input type="submit" id="create" name="create" value="Create" />
+                </form>
+            </article>
+        </div>
+    </main>
+</div>
+<footer class="bg-color:light-teal">
+    <div class="center">
+        <nav class="cluster-spaced">
+            <p>
+                &copy; 2024 DenktMit eG. All rights reserved. <br/>
+                Contact: hallo@denktmit.de
+            </p>
+            <ul class="cluster-wrapped">
+                <li><a href="/templates/fixed-content/legal-notice.html">Legal notice</a></li>
+            </ul>
+        </nav>
+    </div>
+</footer>
+</body>
+</html>
