@@ -15,7 +15,6 @@
 
     <properties>
         <dir.project.root>${project.basedir}/..</dir.project.root>
-        <skip.jooq-codegen>false</skip.jooq-codegen>
     </properties>
 
     <dependencies>
