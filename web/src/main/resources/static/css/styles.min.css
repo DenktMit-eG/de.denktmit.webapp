@@ -1,1 +1,396 @@
-*,:after,:before{box-sizing:border-box}html{-moz-text-size-adjust:none;-webkit-text-size-adjust:none;text-size-adjust:none}blockquote,body,dd,dl,figure,h1,h2,h3,h4,ol,p,ul{margin:0;padding:0}ol[role=list],ul[role=list]{list-style:none}body{line-height:1.5;min-height:100vh;padding:0}button,h1,h2,h3,h4,input,label{line-height:1.1}h1,h2,h3,h4{text-wrap:balance}a:not([class]){color:currentColor;text-decoration-skip-ink:auto}img,picture{display:block;max-width:100%}button,input,select,textarea{font:inherit}textarea:not([rows]){min-height:10em}:target{scroll-margin-block:5ex}:root{--ratio:1.3;--s-5:calc(var(--s-4)/var(--ratio));--s-4:calc(var(--s-3)/var(--ratio));--s-3:calc(var(--s-2)/var(--ratio));--s-2:calc(var(--s-1)/var(--ratio));--s-1:calc(var(--s0)/var(--ratio));--s0:calc(0.9rem + 0.5vw);--s1:calc(var(--s0)*var(--ratio));--s2:calc(var(--s1)*var(--ratio));--s3:calc(var(--s2)*var(--ratio));--s4:calc(var(--s3)*var(--ratio));--s5:calc(var(--s4)*var(--ratio));--font-size-base:var(--s0);--font-size-biggish:var(--s1);--font-size-big:var(--s2);--font-size-smallish:var(--s-1);--font-size-small:var(--s-2);--color-blue:#1a69e9;--color-dark-petrol:#00353e;--color-light-green:#97f8bf;--color-light-teal:#71d5da;--color-lightest-green:#bafdde;--color-petrol:#13343d;--color-pink:#ff6478;--color-yellow:#fdc53d;--measure-half:calc(var(--measure)/2);--measure:80ch;--xImg:16;--yImg:9}*{box-sizing:border-box;max-inline-size:var(--measure);overflow-wrap:break-word}article,body,div,footer,header,html,main,nav{max-inline-size:none}body{display:flex;flex-direction:column}aside,footer,header,main,ol,ul{padding-block:.5em;padding-inline:.5em}ol,ul{padding-block:.2em}.font-size\:base{font-size:var(--font-size-base)}.font-size\:smallish{font-size:var(--font-size-smallish)}.font-size\:small{font-size:var(--font-size-small)}.font-size\:biggish{font-size:var(--font-size-biggish)}.font-size\:big{font-size:var(--font-size-big)}.bg-color\:white{background-color:#fff!important}.bg-color\:light-green{background-color:var(--color-light-green)!important}.bg-color\:light-teal{background-color:var(--color-light-teal)!important}.bg-color\:petrol{background-color:var(--color-petrol)!important}.bg-color\:dark-petrol{background-color:var(--color-dark-petrol)!important}*{font-family:Calibri,serif;font-size:var(--font-size-base)}h1,h2,h3,h4,h5,h6{color:var(--color-dark-petrol);text-transform:capitalize}h1,h2{text-transform:uppercase}h1{font-size:var(--font-size-big);margin-block-end:var(--s-1);margin-block-start:var(--s-2)}h2{font-size:var(--font-size-biggish);margin-block-end:var(--s-2);margin-block-start:var(--s-3)}.center{box-sizing:content-box;display:flex;flex-direction:column;margin-inline:auto;max-inline-size:var(--measure)}.cluster-spaced{align-items:center;display:flex;justify-content:space-between}.cluster-wrapped{align-items:flex-start;display:flex;flex-wrap:wrap;gap:var(--s-1)}.frame{align-items:center;aspect-ratio:var(--xImg) /var(--yImg);display:flex;justify-content:center;overflow:hidden;padding:0 0 2rem}.frame>img{block-size:100%;inline-size:100%;object-fit:cover}.grid{display:grid;grid-gap:4rem 0;padding:0 0 2rem}.grid>div:nth-child(odd){background-color:#000}.grid>div{border:1px solid #000;height:150px;width:150px}@supports (width:min(250px,100%)){.grid{grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr))}}.with-sidebar{display:flex;flex-wrap:wrap;gap:var(--s1)}.sidebar{border-inline-end:.2ch solid #000;flex-basis:15rem;flex-grow:1}.not-sidebar{flex-basis:0;flex-grow:999;min-inline-size:60%}.switcher{display:flex;flex-wrap:wrap;gap:var(--s1)}.switcher>*{flex-basis:calc(29970rem - 99900%);flex-grow:1}.switcher>:nth-last-child(n+4),.switcher>:nth-last-child(n+4)~*{flex-basis:100%}.flash-message{display:block}.flash-message.success{border:.1em solid green}.flash-message.failure{border:.1em solid red}form{margin-block-start:.5em}form label,form label input,form label select{display:block}input[type=reset],input[type=submit]{border-radius:.2em;cursor:pointer;margin-block-start:.5em;padding:.3em .5em}input[type=submit]{background-color:#ecfff4}input[type=submit]:hover{background-color:#7fffd4}input[type=reset]{background-color:#ffe4e1}input[type=reset]:hover{background-color:#ff6478}table{border-collapse:collapse;max-width:100%;page-break-inside:auto;width:100%}table th,td{font-size:var(--s-1)}thead{display:table-header-group}tfoot{display:table-footer-group}tbody:before{content:"\200C";display:block;line-height:.2em}tr{page-break-after:auto;page-break-inside:avoid}th{border-bottom:.2em solid #000;word-wrap:normal;overflow-wrap:break-word}td{padding-block:.2em;padding-inline:1ch;text-align:left;word-wrap:break-word;font-size:var(--font-size-small);overflow-wrap:anywhere}tbody tr:nth-child(2n){background-color:#f0f8ff}tbody tr:nth-child(odd){background-color:#f8f8ff}tbody tr:has(>td.selected),tbody tr:hover{background-color:#fff8dc}tbody tr:has(>td.selected):hover{background-color:#ffe4e1}tbody td.selected,tbody td:hover{background-color:#fdc53d;border:thin dotted #000}tbody td.selected:hover{background-color:#ff6478;border:thin dotted #000}footer{margin-top:auto;padding-block:.5em;padding-inline:.5em}footer nav li{display:inline-block}header nav img{height:3em}header nav li{display:inline-block}
+/** reset, core and typography setup */
+/*
+ * Credits to Andy Bell
+ * https://andy-bell.co.uk/a-more-modern-css-reset/
+ */
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+/* Prevent font size inflation */
+html {
+    -moz-text-size-adjust: none;
+    -webkit-text-size-adjust: none;
+    text-size-adjust: none;
+}
+/* Remove default margin in favour of better control in authored CSS */
+body, h1, h2, h3, h4, p,
+figure, blockquote, dl, dd, ul, ol {
+    margin: 0;
+    padding: 0;
+}
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role='list'],
+ol[role='list'] {
+    list-style: none;
+}
+/* Set core body defaults */
+body {
+    min-height: 100vh;
+    line-height: 1.5;
+    padding: 0;
+}
+/* Set shorter line heights on headings and interactive elements */
+h1, h2, h3, h4,
+button, input, label {
+    line-height: 1.1;
+}
+/* Balance text wrapping on headings */
+h1, h2,
+h3, h4 {
+    text-wrap: balance;
+}
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+    text-decoration-skip-ink: auto;
+    color: currentColor;
+}
+/* Make images easier to work with */
+img,
+picture {
+    max-width: 100%;
+    display: block;
+}
+/* Inherit fonts for inputs and buttons */
+input, button,
+textarea, select {
+    font: inherit;
+}
+/* Make sure textareas without a rows attribute are not tiny */
+textarea:not([rows]) {
+    min-height: 10em;
+}
+/* Anything that has been anchored to should have extra scroll margin */
+:target {
+    scroll-margin-block: 5ex;
+}
+:root {
+    --ratio: 1.3;
+    --s-5: calc(var(--s-4) / var(--ratio));
+    --s-4: calc(var(--s-3) / var(--ratio));
+    --s-3: calc(var(--s-2) / var(--ratio));
+    --s-2: calc(var(--s-1) / var(--ratio));
+    --s-1: calc(var(--s0) / var(--ratio));
+    --s0: calc(0.9rem + 0.5vw);
+    --s1: calc(var(--s0) * var(--ratio));
+    --s2: calc(var(--s1) * var(--ratio));
+    --s3: calc(var(--s2) * var(--ratio));
+    --s4: calc(var(--s3) * var(--ratio));
+    --s5: calc(var(--s4) * var(--ratio));
+    --font-size-base: var(--s0);
+    --font-size-biggish: var(--s1);
+    --font-size-big: var(--s2);
+    --font-size-smallish: var(--s-1);
+    --font-size-small: var(--s-2);
+    --color-blue: #1a69e9;
+    --color-dark-petrol: #00353e;
+    --color-light-green: #97f8bf;
+    --color-light-teal: #71d5da;
+    --color-lightest-green: #bafdde;
+    --color-petrol: #13343d;
+    --color-pink: #ff6478;
+    --color-yellow: #fdc53d;
+    --measure-half: calc(var(--measure) / 2);
+    --measure: 80ch;
+    --xImg: 16;
+    --yImg: 9;
+}
+* {
+    box-sizing: border-box;
+    max-inline-size: var(--measure);
+    overflow-wrap: break-word;
+}
+html,
+body,
+div,
+header,
+nav,
+main,
+footer,
+article {
+    max-inline-size: none;
+}
+body {
+    display: flex;
+    flex-direction: column;
+}
+header, main, footer, aside, ul, ol {
+    padding-inline: 0.5em;
+    padding-block: 0.5em;
+}
+ul, ol {
+    padding-block: 0.2em;
+}
+/** Font size utils */
+.font-size\:base {
+    font-size: var(--font-size-base);
+}
+.font-size\:smallish {
+    font-size: var(--font-size-smallish);
+}
+.font-size\:small {
+    font-size: var(--font-size-small);
+}
+.font-size\:biggish {
+    font-size: var(--font-size-biggish);
+}
+.font-size\:big {
+    font-size: var(--font-size-big);
+}
+/** Color utils */
+.bg-color\:white {
+    background-color: white !important;
+}
+.bg-color\:light-green {
+    background-color: var(--color-light-green) !important;
+}
+.bg-color\:light-teal {
+    background-color: var(--color-light-teal) !important;
+}
+.bg-color\:petrol {
+    background-color: var(--color-petrol) !important;
+}
+.bg-color\:dark-petrol {
+    background-color: var(--color-dark-petrol) !important;
+}
+* {
+    font-family: Calibri, serif;
+    font-size: var(--font-size-base);
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    text-transform: capitalize;
+    color: var(--color-dark-petrol);
+}
+h1,
+h2 {
+    text-transform: uppercase;
+}
+h1 {
+    font-size: var(--font-size-big);
+    margin-block-start: var(--s-2);
+    margin-block-end: var(--s-1);
+}
+h2 {
+    font-size: var(--font-size-biggish);
+    margin-block-start: var(--s-3);
+    margin-block-end: var(--s-2);
+}
+/** generic layout css */
+.center {
+    box-sizing: content-box;
+    display: flex;
+    flex-direction: column;
+    margin-inline: auto;
+    max-inline-size: var(--measure);
+}
+.cluster-spaced {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+.cluster-wrapped {
+    align-items: flex-start;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-1);
+}
+.frame {
+    aspect-ratio: var(--xImg) / var(--yImg);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 0 2rem 0;
+}
+.frame > img {
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+}
+.grid {
+    display: grid;
+    grid-gap: 4rem 0;
+    padding: 0 0 2rem 0;
+}
+.grid>div:nth-child(odd){
+    background-color: black;
+}
+.grid > div {
+    width: 150px;
+    height: 150px;
+    border: 1px solid black;
+}
+@supports (width: min(250px, 100%)) {
+    .grid {
+        grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+    }
+}
+.with-sidebar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s1);
+}
+.sidebar {
+    flex-grow: 1;
+    flex-basis: 15rem; /* desired with of sidebar by default */
+    border-inline-end: 0.2ch solid black;
+}
+.not-sidebar {
+    flex-basis: 0;
+    flex-grow: 999;
+    min-inline-size: 60%; /* percentage of horizontal break point */
+}
+/*.sidebar-content-wrapper {*/
+/*    height: 100vh;*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: flex-start;*/
+/*    flex-direction: column;*/
+/*}*/
+/*.sidebar-content-wrapper > h2 {*/
+/*    text-decoration: underline;*/
+/*}*/
+/*.sidebar-content-wrapper > ul {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    margin: auto 0;*/
+/*}*/
+/*.sidebar-content-wrapper > ul > li:first-child {*/
+/*    text-decoration: underline;*/
+/*    text-transform: capitalize;*/
+/*    font-weight: bolder;*/
+/*    font-size: 1.7em;*/
+/*    cursor: auto !important;*/
+/*}*/
+/*.sidebar-content-wrapper > ul > li {*/
+/*    font-weight: bold;*/
+/*    padding: 0 2rem;*/
+/*    cursor: pointer;*/
+/*    font-size: 1.2em;*/
+/*}*/
+.switcher {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s1);
+}
+.switcher > * {
+    flex-grow: 1;
+    flex-basis: calc(( 30rem - 100%) * 999);
+}
+.switcher > :nth-last-child(n+ 4),
+.switcher > :nth-last-child(n+ 4) ~ * {
+    flex-basis: 100%;
+}
+/** css for data elements */
+.flash-message {
+    display: block;
+}
+.flash-message.success {
+    border: .1em solid green;
+}
+.flash-message.failure {
+    border: .1em solid red;
+}
+form {
+    margin-block-start: .5em;
+}
+form label, form label input, form label select {
+    display: block;
+}
+input[type="reset"], input[type="submit"] {
+    margin-block-start: .5em;
+    padding: .3em .5em;
+    border-radius: .2em;
+    cursor: pointer;
+}
+input[type="submit"] {
+    background-color: #ecfff4;
+}
+input[type="submit"]:hover {
+    background-color: aquamarine;
+}
+input[type="reset"] {
+    background-color: mistyrose;
+}
+input[type="reset"]:hover {
+    background-color: #ff6478
+}
+table {
+    width: 100%;
+    max-width: 100%;
+    border-collapse: collapse;
+    page-break-inside: auto;
+}
+table th, td {
+    font-size: var(--s-1);
+}
+thead {
+    display:table-header-group
+}
+tfoot {
+    display:table-footer-group
+}
+tbody:before {
+    line-height:0.2em;
+    content:"\200C";
+    display:block;
+}
+tr {
+    page-break-inside:avoid;
+    page-break-after:auto
+}
+th {
+    border-bottom: .2em solid black;
+    word-wrap: normal;
+    overflow-wrap: break-word;
+}
+td {
+    text-align: left;
+    padding-inline: 1ch;
+    padding-block: .2em;
+    word-wrap: break-word;
+    overflow-wrap: anywhere;
+    font-size: var(--font-size-small);
+}
+tbody tr:nth-child(even) {
+    background-color: aliceblue;
+}
+tbody tr:nth-child(odd) {
+    background-color: ghostwhite;
+}
+tbody tr:has(> td.selected), tbody tr:hover {
+    background-color: cornsilk;
+}
+tbody tr:has(> td.selected):hover {
+    background-color: mistyrose;
+}
+tbody td.selected, tbody td:hover {
+    background-color: #fdc53d;
+    border: thin dotted black;
+}
+tbody td.selected:hover {
+    background-color: #ff6478;
+    border: thin dotted black;
+}
+/** element specific styling */
+footer {
+    margin-top: auto;
+    padding-inline: 0.5em;
+    padding-block: 0.5em;
+}
+footer nav li {
+    display: inline-block;
+}
+header nav img {
+    height: 3em;
+}
+header nav li {
+    display: inline-block;
+}
