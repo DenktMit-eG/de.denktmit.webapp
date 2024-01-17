@@ -36,17 +36,18 @@ class WebappSecurityConfig(
         "/error", "/error.html",
         "/every-layout", "/every-layout.html",
         "/.well-known/*",
-        "/p/**"
+        "/p/**",
+        "/registration*",
+        "/recover-password*",
+        "/validate-email*",
+        "/invite-accept*",
     )
 
     /**
      * Allow access to utility pages e.g. to register new user, validate emails or recover passwords
      */
     private val utilityPagePaths = arrayOf(
-        "/registration*",
-        "/recover-password*",
-        "/validate-email*",
-        "/invite-accept*",
+        "/actuator/**",
     )
 
     @Bean
