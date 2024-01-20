@@ -1,8 +1,8 @@
 package de.denktmit.webapp.persistence.testdata
 
 import de.denktmit.webapp.persistence.Constants.FAR_FUTURE
-import de.denktmit.webapp.persistence.otp.OtpAction
-import de.denktmit.webapp.persistence.otp.OtpRepository
+import de.denktmit.webapp.persistence.users.OtpAction
+import de.denktmit.webapp.persistence.users.OtpRepository
 import de.denktmit.webapp.persistence.testdata.Users.janesmith
 import de.denktmit.webapp.persistence.testdata.Users.johndoe
 import de.denktmit.webapp.persistence.testdata.Users.petergabriel

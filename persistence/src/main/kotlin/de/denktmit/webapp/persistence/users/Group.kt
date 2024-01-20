@@ -1,4 +1,4 @@
-package de.denktmit.webapp.persistence.rbac
+package de.denktmit.webapp.persistence.users
 
 import de.denktmit.webapp.persistence.HasIdOfType
 import jakarta.persistence.*

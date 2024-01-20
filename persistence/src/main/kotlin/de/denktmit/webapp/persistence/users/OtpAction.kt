@@ -1,7 +1,6 @@
-package de.denktmit.webapp.persistence.otp
+package de.denktmit.webapp.persistence.users
 
 import de.denktmit.webapp.persistence.HasIdOfType
-import de.denktmit.webapp.persistence.users.User
 import jakarta.persistence.*
 import jakarta.validation.constraints.NotNull
 import org.hibernate.annotations.NaturalId

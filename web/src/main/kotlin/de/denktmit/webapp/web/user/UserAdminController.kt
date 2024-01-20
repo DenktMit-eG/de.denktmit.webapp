@@ -2,8 +2,8 @@ package de.denktmit.webapp.web.user
 
 import de.denktmit.webapp.business.user.UserService
 import de.denktmit.webapp.business.user.UserService.UserSavingResult
-import de.denktmit.webapp.persistence.rbac.GROUP_NAME_ADMINS
-import de.denktmit.webapp.persistence.rbac.GROUP_NAME_USERS
+import de.denktmit.webapp.persistence.users.GROUP_NAME_ADMINS
+import de.denktmit.webapp.persistence.users.GROUP_NAME_USERS
 import de.denktmit.webapp.springconfig.WebContextProperties
 import de.denktmit.webapp.web.user.internal.InvitationFormData
 import de.denktmit.webapp.web.user.internal.UniqueEmailMessageCode

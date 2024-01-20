@@ -1,7 +1,7 @@
 package it
 
-import de.denktmit.webapp.persistence.rbac.Group
-import de.denktmit.webapp.persistence.rbac.RbacRepository
+import de.denktmit.webapp.persistence.users.Group
+import de.denktmit.webapp.persistence.users.RbacRepository
 import de.denktmit.webapp.persistence.testdata.Rbac
 import de.denktmit.webapp.persistence.testdata.Rbac.all
 import de.denktmit.webapp.persistence.testdata.Rbac.groupAdmins

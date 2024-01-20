@@ -1,4 +1,4 @@
-package de.denktmit.webapp.persistence.otp
+package de.denktmit.webapp.persistence.users
 
 import de.denktmit.webapp.persistence.testdata.OtpActions.facade00
 import de.denktmit.webapp.persistence.testdata.Users.johndoe

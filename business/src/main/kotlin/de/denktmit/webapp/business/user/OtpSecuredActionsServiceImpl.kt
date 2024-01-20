@@ -3,8 +3,8 @@ package de.denktmit.webapp.business.user
 import de.denktmit.webapp.business.communication.PasswordRecoveryRequestedEvent
 import de.denktmit.webapp.business.user.UserService.UserSavingResult
 import de.denktmit.webapp.persistence.Constants.FAR_FUTURE
-import de.denktmit.webapp.persistence.otp.OtpAction
-import de.denktmit.webapp.persistence.otp.OtpRepository
+import de.denktmit.webapp.persistence.users.OtpAction
+import de.denktmit.webapp.persistence.users.OtpRepository
 import de.denktmit.webapp.persistence.users.User
 import de.denktmit.webapp.springconfig.BusinessContextConfigProperties
 import org.slf4j.LoggerFactory

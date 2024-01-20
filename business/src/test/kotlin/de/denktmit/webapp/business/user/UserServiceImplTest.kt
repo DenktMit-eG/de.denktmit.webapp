@@ -1,6 +1,6 @@
 package de.denktmit.webapp.business.user
 
-import de.denktmit.webapp.persistence.rbac.RbacRepository
+import de.denktmit.webapp.persistence.users.RbacRepository
 import de.denktmit.webapp.persistence.users.User
 import de.denktmit.webapp.persistence.users.UserRepository
 import io.mockk.confirmVerified

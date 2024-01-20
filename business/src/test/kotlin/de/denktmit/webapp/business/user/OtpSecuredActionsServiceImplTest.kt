@@ -6,7 +6,7 @@ import de.denktmit.webapp.business.user.UserService.UserSavingResult
 import de.denktmit.webapp.business.user.UserService.UserSavingResult.Persisted
 import de.denktmit.webapp.persistence.Constants.FAR_FUTURE
 import de.denktmit.webapp.persistence.Constants.FAR_PAST
-import de.denktmit.webapp.persistence.otp.OtpAction
+import de.denktmit.webapp.persistence.users.OtpAction
 import de.denktmit.webapp.persistence.testdata.OtpActions
 import de.denktmit.webapp.persistence.testdata.Users
 import de.denktmit.webapp.persistence.users.User

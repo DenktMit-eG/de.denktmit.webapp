@@ -1,6 +1,6 @@
 package de.denktmit.webapp.business.user
 
-import de.denktmit.webapp.persistence.rbac.RbacRepository
+import de.denktmit.webapp.persistence.users.RbacRepository
 import de.denktmit.webapp.springconfig.BusinessContextConfigProperties
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService

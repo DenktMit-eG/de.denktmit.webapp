@@ -3,8 +3,8 @@ package de.denktmit.webapp.business.user
 import de.denktmit.webapp.business.user.UserService.UserSavingResult
 import de.denktmit.webapp.common.DataTable
 import de.denktmit.webapp.persistence.Constants
-import de.denktmit.webapp.persistence.rbac.GROUP_NAME_USERS
-import de.denktmit.webapp.persistence.rbac.RbacRepository
+import de.denktmit.webapp.persistence.users.GROUP_NAME_USERS
+import de.denktmit.webapp.persistence.users.RbacRepository
 import de.denktmit.webapp.persistence.users.User
 import de.denktmit.webapp.persistence.users.UserRepository
 import org.slf4j.LoggerFactory

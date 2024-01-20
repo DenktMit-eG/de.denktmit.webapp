@@ -1,9 +1,8 @@
-package de.denktmit.webapp.persistence.rbac
+package de.denktmit.webapp.persistence.users
 
 import de.denktmit.webapp.jooq.generated.tables.references.*
 import de.denktmit.webapp.persistence.jooqRead
 import de.denktmit.webapp.persistence.jooqWrite
-import de.denktmit.webapp.persistence.users.User
 import jakarta.persistence.EntityManager
 import jakarta.persistence.PersistenceContext
 import org.jooq.Field

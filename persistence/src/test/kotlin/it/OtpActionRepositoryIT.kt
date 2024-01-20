@@ -2,8 +2,8 @@ package it
 
 import de.denktmit.webapp.jooq.generated.tables.references.OTP_ACTIONS
 import de.denktmit.webapp.persistence.Constants.FAR_FUTURE
-import de.denktmit.webapp.persistence.otp.OtpAction
-import de.denktmit.webapp.persistence.otp.OtpRepository
+import de.denktmit.webapp.persistence.users.OtpAction
+import de.denktmit.webapp.persistence.users.OtpRepository
 import de.denktmit.webapp.persistence.setBindParameterValues
 import de.denktmit.webapp.persistence.testdata.OtpActions
 import de.denktmit.webapp.persistence.testdata.OtpActions.all
@@ -49,13 +49,15 @@ class OtpActionRepositoryIT {
     @Test
     @Transactional
     fun testCreateNew() {
-        val result =  repo.save(OtpAction.createOtpAction(
+        val result =  repo.save(
+            OtpAction.createOtpAction(
             janesmith,
             "junit-action",
             Duration.ofHours(1),
             token = UUID.fromString("c0c0a000-0000-4000-a000-000000000000")
         ))
-        val resultStub =  repoStub.save(OtpAction.createOtpAction(
+        val resultStub =  repoStub.save(
+            OtpAction.createOtpAction(
             janesmith,
             "junit-action",
             Duration.ofHours(1),

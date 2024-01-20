@@ -1,7 +1,7 @@
 package de.denktmit.webapp.business.user
 
 import de.denktmit.webapp.business.user.UserService.UserSavingResult
-import de.denktmit.webapp.persistence.otp.OtpAction
+import de.denktmit.webapp.persistence.users.OtpAction
 import de.denktmit.webapp.persistence.users.User
 import java.net.URI
 import java.time.Duration

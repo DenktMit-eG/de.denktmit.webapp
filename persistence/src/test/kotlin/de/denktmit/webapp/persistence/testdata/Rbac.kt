@@ -1,9 +1,9 @@
 package de.denktmit.webapp.persistence.testdata
 
-import de.denktmit.webapp.persistence.rbac.Authority
-import de.denktmit.webapp.persistence.rbac.Group
-import de.denktmit.webapp.persistence.rbac.RbacMapping
-import de.denktmit.webapp.persistence.rbac.RbacRepository
+import de.denktmit.webapp.persistence.users.Authority
+import de.denktmit.webapp.persistence.users.Group
+import de.denktmit.webapp.persistence.users.RbacMapping
+import de.denktmit.webapp.persistence.users.RbacRepository
 import de.denktmit.webapp.persistence.testdata.Users.alicejohnson
 import de.denktmit.webapp.persistence.testdata.Users.janesmith
 import de.denktmit.webapp.persistence.testdata.Users.johndoe

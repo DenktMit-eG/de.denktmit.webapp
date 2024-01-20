@@ -1,7 +1,7 @@
 package de.denktmit.webapp.web.user.internal
 
-import de.denktmit.webapp.persistence.rbac.GROUP_NAME_ADMINS
-import de.denktmit.webapp.persistence.rbac.GROUP_NAME_USERS
+import de.denktmit.webapp.persistence.users.GROUP_NAME_ADMINS
+import de.denktmit.webapp.persistence.users.GROUP_NAME_USERS
 import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Pattern
@@ -15,7 +15,7 @@ class InvitationFormData(
     @get:UniqueEmail
     val emailAddress: String = "",
 
-    @Pattern(regexp = "${GROUP_NAME_ADMINS}|${GROUP_NAME_USERS}")
+    @Pattern(regexp = "$GROUP_NAME_ADMINS|$GROUP_NAME_USERS")
     val groupName: String = "",
 
 )

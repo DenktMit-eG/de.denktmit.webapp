@@ -1,6 +1,4 @@
-package de.denktmit.webapp.persistence.rbac
-
-import de.denktmit.webapp.persistence.users.User
+package de.denktmit.webapp.persistence.users
 
 data class RbacMapping(
     val user: User,
