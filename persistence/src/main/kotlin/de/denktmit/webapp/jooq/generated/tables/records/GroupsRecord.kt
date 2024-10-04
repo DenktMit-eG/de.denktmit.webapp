@@ -86,8 +86,8 @@ open class GroupsRecord() : UpdatableRecordImpl<GroupsRecord>(GroupsTable.GROUPS
     // -------------------------------------------------------------------------
 
     override fun from(from: IGroups) {
-        groupId = from.groupId
-        groupName = from.groupName
+        this.groupId = from.groupId
+        this.groupName = from.groupName
         resetChangedOnNotNull()
     }
 

@@ -86,8 +86,8 @@ open class AuthoritiesRecord() : UpdatableRecordImpl<AuthoritiesRecord>(Authorit
     // -------------------------------------------------------------------------
 
     override fun from(from: IAuthorities) {
-        authorityId = from.authorityId
-        authority = from.authority
+        this.authorityId = from.authorityId
+        this.authority = from.authority
         resetChangedOnNotNull()
     }
 

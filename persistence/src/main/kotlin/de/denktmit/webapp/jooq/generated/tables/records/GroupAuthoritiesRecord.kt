@@ -81,8 +81,8 @@ open class GroupAuthoritiesRecord() : UpdatableRecordImpl<GroupAuthoritiesRecord
     // -------------------------------------------------------------------------
 
     override fun from(from: IGroupAuthorities) {
-        groupId = from.groupId
-        authorityId = from.authorityId
+        this.groupId = from.groupId
+        this.authorityId = from.authorityId
         resetChangedOnNotNull()
     }
 

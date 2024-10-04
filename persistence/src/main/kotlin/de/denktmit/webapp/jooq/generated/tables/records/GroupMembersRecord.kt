@@ -81,8 +81,8 @@ open class GroupMembersRecord() : UpdatableRecordImpl<GroupMembersRecord>(GroupM
     // -------------------------------------------------------------------------
 
     override fun from(from: IGroupMembers) {
-        groupId = from.groupId
-        userId = from.userId
+        this.groupId = from.groupId
+        this.userId = from.userId
         resetChangedOnNotNull()
     }
 

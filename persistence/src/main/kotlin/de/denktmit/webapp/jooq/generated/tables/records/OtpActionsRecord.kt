@@ -138,11 +138,11 @@ open class OtpActionsRecord() : UpdatableRecordImpl<OtpActionsRecord>(OtpActions
     // -------------------------------------------------------------------------
 
     override fun from(from: IOtpActions) {
-        actionId = from.actionId
-        token = from.token
-        userId = from.userId
-        action = from.action
-        validUntil = from.validUntil
+        this.actionId = from.actionId
+        this.token = from.token
+        this.userId = from.userId
+        this.action = from.action
+        this.validUntil = from.validUntil
         resetChangedOnNotNull()
     }
 

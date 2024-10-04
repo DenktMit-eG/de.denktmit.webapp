@@ -179,14 +179,14 @@ open class UsersRecord() : UpdatableRecordImpl<UsersRecord>(UsersTable.USERS), R
     // -------------------------------------------------------------------------
 
     override fun from(from: IUsers) {
-        userId = from.userId
-        mail = from.mail
-        mailVerified = from.mailVerified
-        password = from.password
-        disabled = from.disabled
-        lockedUntil = from.lockedUntil
-        accountValidUntil = from.accountValidUntil
-        credentialsValidUntil = from.credentialsValidUntil
+        this.userId = from.userId
+        this.mail = from.mail
+        this.mailVerified = from.mailVerified
+        this.password = from.password
+        this.disabled = from.disabled
+        this.lockedUntil = from.lockedUntil
+        this.accountValidUntil = from.accountValidUntil
+        this.credentialsValidUntil = from.credentialsValidUntil
         resetChangedOnNotNull()
     }
 
