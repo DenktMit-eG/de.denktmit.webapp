@@ -8,22 +8,28 @@ import de.denktmit.webapp.jooq.generated.Public
 import de.denktmit.webapp.jooq.generated.keys.OTP_ACTIONS_PKEY
 import de.denktmit.webapp.jooq.generated.keys.OTP_ACTIONS_TOKEN_KEY
 import de.denktmit.webapp.jooq.generated.keys.OTP_ACTIONS__FK_OTP_ACTION_USER
+import de.denktmit.webapp.jooq.generated.tables.UsersTable.UsersPath
 import de.denktmit.webapp.jooq.generated.tables.records.OtpActionsRecord
 
 import java.time.Instant
 import java.util.UUID
-import java.util.function.Function
 
+import kotlin.collections.Collection
 import kotlin.collections.List
 
+import org.jooq.Condition
 import org.jooq.Field
 import org.jooq.ForeignKey
+import org.jooq.InverseForeignKey
 import org.jooq.Name
+import org.jooq.Path
+import org.jooq.PlainSQL
+import org.jooq.QueryPart
 import org.jooq.Record
-import org.jooq.Records
-import org.jooq.Row5
+import org.jooq.SQL
 import org.jooq.Schema
-import org.jooq.SelectField
+import org.jooq.Select
+import org.jooq.Stringly
 import org.jooq.Table
 import org.jooq.TableField
 import org.jooq.TableOptions
@@ -40,19 +46,23 @@ import org.jooq.impl.TableImpl
 @Suppress("UNCHECKED_CAST")
 open class OtpActionsTable(
     alias: Name,
-    child: Table<out Record>?,
-    path: ForeignKey<out Record, OtpActionsRecord>?,
+    path: Table<out Record>?,
+    childPath: ForeignKey<out Record, OtpActionsRecord>?,
+    parentPath: InverseForeignKey<out Record, OtpActionsRecord>?,
     aliased: Table<OtpActionsRecord>?,
-    parameters: Array<Field<*>?>?
+    parameters: Array<Field<*>?>?,
+    where: Condition?
 ): TableImpl<OtpActionsRecord>(
     alias,
     Public.PUBLIC,
-    child,
     path,
+    childPath,
+    parentPath,
     aliased,
     parameters,
     DSL.comment(""),
-    TableOptions.table()
+    TableOptions.table(),
+    where,
 ) {
     companion object {
 
@@ -96,8 +106,9 @@ open class OtpActionsTable(
      */
     val VALID_UNTIL: TableField<OtpActionsRecord, Instant?> = createField(DSL.name("valid_until"), SQLDataType.INSTANT.nullable(false), this, "Timestamp when the OTP expires")
 
-    private constructor(alias: Name, aliased: Table<OtpActionsRecord>?): this(alias, null, null, aliased, null)
-    private constructor(alias: Name, aliased: Table<OtpActionsRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, aliased, parameters)
+    private constructor(alias: Name, aliased: Table<OtpActionsRecord>?): this(alias, null, null, null, aliased, null, null)
+    private constructor(alias: Name, aliased: Table<OtpActionsRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, null, aliased, parameters, null)
+    private constructor(alias: Name, aliased: Table<OtpActionsRecord>?, where: Condition?): this(alias, null, null, null, aliased, null, where)
 
     /**
      * Create an aliased <code>public.otp_actions</code> table reference
@@ -114,29 +125,40 @@ open class OtpActionsTable(
      */
     constructor(): this(DSL.name("otp_actions"), null)
 
-    constructor(child: Table<out Record>, key: ForeignKey<out Record, OtpActionsRecord>): this(Internal.createPathAlias(child, key), child, key, OTP_ACTIONS, null)
+    constructor(path: Table<out Record>, childPath: ForeignKey<out Record, OtpActionsRecord>?, parentPath: InverseForeignKey<out Record, OtpActionsRecord>?): this(Internal.createPathAlias(path, childPath, parentPath), path, childPath, parentPath, OTP_ACTIONS, null, null)
+
+    /**
+     * A subtype implementing {@link Path} for simplified path-based joins.
+     */
+    open class OtpActionsPath : OtpActionsTable, Path<OtpActionsRecord> {
+        constructor(path: Table<out Record>, childPath: ForeignKey<out Record, OtpActionsRecord>?, parentPath: InverseForeignKey<out Record, OtpActionsRecord>?): super(path, childPath, parentPath)
+        private constructor(alias: Name, aliased: Table<OtpActionsRecord>): super(alias, aliased)
+        override fun `as`(alias: String): OtpActionsPath = OtpActionsPath(DSL.name(alias), this)
+        override fun `as`(alias: Name): OtpActionsPath = OtpActionsPath(alias, this)
+        override fun `as`(alias: Table<*>): OtpActionsPath = OtpActionsPath(alias.qualifiedName, this)
+    }
     override fun getSchema(): Schema? = if (aliased()) null else Public.PUBLIC
     override fun getPrimaryKey(): UniqueKey<OtpActionsRecord> = OTP_ACTIONS_PKEY
     override fun getUniqueKeys(): List<UniqueKey<OtpActionsRecord>> = listOf(OTP_ACTIONS_TOKEN_KEY)
     override fun getReferences(): List<ForeignKey<OtpActionsRecord, *>> = listOf(OTP_ACTIONS__FK_OTP_ACTION_USER)
 
-    private lateinit var _users: UsersTable
+    private lateinit var _users: UsersPath
 
     /**
      * Get the implicit join path to the <code>public.users</code> table.
      */
-    fun users(): UsersTable {
+    fun users(): UsersPath {
         if (!this::_users.isInitialized)
-            _users = UsersTable(this, OTP_ACTIONS__FK_OTP_ACTION_USER)
+            _users = UsersPath(this, OTP_ACTIONS__FK_OTP_ACTION_USER, null)
 
         return _users;
     }
 
-    val users: UsersTable
-        get(): UsersTable = users()
+    val users: UsersPath
+        get(): UsersPath = users()
     override fun `as`(alias: String): OtpActionsTable = OtpActionsTable(DSL.name(alias), this)
     override fun `as`(alias: Name): OtpActionsTable = OtpActionsTable(alias, this)
-    override fun `as`(alias: Table<*>): OtpActionsTable = OtpActionsTable(alias.getQualifiedName(), this)
+    override fun `as`(alias: Table<*>): OtpActionsTable = OtpActionsTable(alias.qualifiedName, this)
 
     /**
      * Rename this table
@@ -151,21 +173,55 @@ open class OtpActionsTable(
     /**
      * Rename this table
      */
-    override fun rename(name: Table<*>): OtpActionsTable = OtpActionsTable(name.getQualifiedName(), null)
-
-    // -------------------------------------------------------------------------
-    // Row5 type methods
-    // -------------------------------------------------------------------------
-    override fun fieldsRow(): Row5<Long?, UUID?, Long?, String?, Instant?> = super.fieldsRow() as Row5<Long?, UUID?, Long?, String?, Instant?>
+    override fun rename(name: Table<*>): OtpActionsTable = OtpActionsTable(name.qualifiedName, null)
 
     /**
-     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     * Create an inline derived table from this table
      */
-    fun <U> mapping(from: (Long?, UUID?, Long?, String?, Instant?) -> U): SelectField<U> = convertFrom(Records.mapping(from))
+    override fun where(condition: Condition?): OtpActionsTable = OtpActionsTable(qualifiedName, if (aliased()) this else null, condition)
 
     /**
-     * Convenience mapping calling {@link SelectField#convertFrom(Class,
-     * Function)}.
+     * Create an inline derived table from this table
      */
-    fun <U> mapping(toType: Class<U>, from: (Long?, UUID?, Long?, String?, Instant?) -> U): SelectField<U> = convertFrom(toType, Records.mapping(from))
+    override fun where(conditions: Collection<Condition>): OtpActionsTable = where(DSL.and(conditions))
+
+    /**
+     * Create an inline derived table from this table
+     */
+    override fun where(vararg conditions: Condition?): OtpActionsTable = where(DSL.and(*conditions))
+
+    /**
+     * Create an inline derived table from this table
+     */
+    override fun where(condition: Field<Boolean?>?): OtpActionsTable = where(DSL.condition(condition))
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @PlainSQL override fun where(condition: SQL): OtpActionsTable = where(DSL.condition(condition))
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @PlainSQL override fun where(@Stringly.SQL condition: String): OtpActionsTable = where(DSL.condition(condition))
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @PlainSQL override fun where(@Stringly.SQL condition: String, vararg binds: Any?): OtpActionsTable = where(DSL.condition(condition, *binds))
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @PlainSQL override fun where(@Stringly.SQL condition: String, vararg parts: QueryPart): OtpActionsTable = where(DSL.condition(condition, *parts))
+
+    /**
+     * Create an inline derived table from this table
+     */
+    override fun whereExists(select: Select<*>): OtpActionsTable = where(DSL.exists(select))
+
+    /**
+     * Create an inline derived table from this table
+     */
+    override fun whereNotExists(select: Select<*>): OtpActionsTable = where(DSL.notExists(select))
 }

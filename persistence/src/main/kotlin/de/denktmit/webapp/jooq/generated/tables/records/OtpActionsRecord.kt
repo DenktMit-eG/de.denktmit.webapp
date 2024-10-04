@@ -18,10 +18,7 @@ import jakarta.validation.constraints.Size
 import java.time.Instant
 import java.util.UUID
 
-import org.jooq.Field
 import org.jooq.Record1
-import org.jooq.Record5
-import org.jooq.Row5
 import org.jooq.impl.UpdatableRecordImpl
 
 
@@ -37,7 +34,7 @@ import org.jooq.impl.UpdatableRecordImpl
         UniqueConstraint(name = "otp_actions_token_key", columnNames = [ "token" ])
     ]
 )
-open class OtpActionsRecord() : UpdatableRecordImpl<OtpActionsRecord>(OtpActionsTable.OTP_ACTIONS), Record5<Long?, UUID?, Long?, String?, Instant?>, IOtpActions {
+open class OtpActionsRecord() : UpdatableRecordImpl<OtpActionsRecord>(OtpActionsTable.OTP_ACTIONS), IOtpActions {
 
     @get:Id
     @get:Column(name = "action_id", nullable = false)
@@ -76,62 +73,6 @@ open class OtpActionsRecord() : UpdatableRecordImpl<OtpActionsRecord>(OtpActions
     // -------------------------------------------------------------------------
 
     override fun key(): Record1<Long?> = super.key() as Record1<Long?>
-
-    // -------------------------------------------------------------------------
-    // Record5 type implementation
-    // -------------------------------------------------------------------------
-
-    override fun fieldsRow(): Row5<Long?, UUID?, Long?, String?, Instant?> = super.fieldsRow() as Row5<Long?, UUID?, Long?, String?, Instant?>
-    override fun valuesRow(): Row5<Long?, UUID?, Long?, String?, Instant?> = super.valuesRow() as Row5<Long?, UUID?, Long?, String?, Instant?>
-    override fun field1(): Field<Long?> = OtpActionsTable.OTP_ACTIONS.ACTION_ID
-    override fun field2(): Field<UUID?> = OtpActionsTable.OTP_ACTIONS.TOKEN
-    override fun field3(): Field<Long?> = OtpActionsTable.OTP_ACTIONS.USER_ID
-    override fun field4(): Field<String?> = OtpActionsTable.OTP_ACTIONS.ACTION
-    override fun field5(): Field<Instant?> = OtpActionsTable.OTP_ACTIONS.VALID_UNTIL
-    override fun component1(): Long? = actionId
-    override fun component2(): UUID? = token
-    override fun component3(): Long? = userId
-    override fun component4(): String? = action
-    override fun component5(): Instant? = validUntil
-    override fun value1(): Long? = actionId
-    override fun value2(): UUID? = token
-    override fun value3(): Long? = userId
-    override fun value4(): String? = action
-    override fun value5(): Instant? = validUntil
-
-    override fun value1(value: Long?): OtpActionsRecord {
-        set(0, value)
-        return this
-    }
-
-    override fun value2(value: UUID?): OtpActionsRecord {
-        set(1, value)
-        return this
-    }
-
-    override fun value3(value: Long?): OtpActionsRecord {
-        set(2, value)
-        return this
-    }
-
-    override fun value4(value: String?): OtpActionsRecord {
-        set(3, value)
-        return this
-    }
-
-    override fun value5(value: Instant?): OtpActionsRecord {
-        set(4, value)
-        return this
-    }
-
-    override fun values(value1: Long?, value2: UUID?, value3: Long?, value4: String?, value5: Instant?): OtpActionsRecord {
-        this.value1(value1)
-        this.value2(value2)
-        this.value3(value3)
-        this.value4(value4)
-        this.value5(value5)
-        return this
-    }
 
     // -------------------------------------------------------------------------
     // FROM and INTO

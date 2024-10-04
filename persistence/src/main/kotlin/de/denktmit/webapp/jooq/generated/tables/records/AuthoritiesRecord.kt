@@ -14,10 +14,7 @@ import jakarta.persistence.Table
 import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Size
 
-import org.jooq.Field
 import org.jooq.Record1
-import org.jooq.Record2
-import org.jooq.Row2
 import org.jooq.impl.UpdatableRecordImpl
 
 
@@ -30,7 +27,7 @@ import org.jooq.impl.UpdatableRecordImpl
     name = "authorities",
     schema = "public"
 )
-open class AuthoritiesRecord() : UpdatableRecordImpl<AuthoritiesRecord>(AuthoritiesTable.AUTHORITIES), Record2<Long?, String?>, IAuthorities {
+open class AuthoritiesRecord() : UpdatableRecordImpl<AuthoritiesRecord>(AuthoritiesTable.AUTHORITIES), IAuthorities {
 
     @get:Id
     @get:Column(name = "authority_id", nullable = false)
@@ -51,35 +48,6 @@ open class AuthoritiesRecord() : UpdatableRecordImpl<AuthoritiesRecord>(Authorit
     // -------------------------------------------------------------------------
 
     override fun key(): Record1<Long?> = super.key() as Record1<Long?>
-
-    // -------------------------------------------------------------------------
-    // Record2 type implementation
-    // -------------------------------------------------------------------------
-
-    override fun fieldsRow(): Row2<Long?, String?> = super.fieldsRow() as Row2<Long?, String?>
-    override fun valuesRow(): Row2<Long?, String?> = super.valuesRow() as Row2<Long?, String?>
-    override fun field1(): Field<Long?> = AuthoritiesTable.AUTHORITIES.AUTHORITY_ID
-    override fun field2(): Field<String?> = AuthoritiesTable.AUTHORITIES.AUTHORITY
-    override fun component1(): Long? = authorityId
-    override fun component2(): String? = authority
-    override fun value1(): Long? = authorityId
-    override fun value2(): String? = authority
-
-    override fun value1(value: Long?): AuthoritiesRecord {
-        set(0, value)
-        return this
-    }
-
-    override fun value2(value: String?): AuthoritiesRecord {
-        set(1, value)
-        return this
-    }
-
-    override fun values(value1: Long?, value2: String?): AuthoritiesRecord {
-        this.value1(value1)
-        this.value2(value2)
-        return this
-    }
 
     // -------------------------------------------------------------------------
     // FROM and INTO

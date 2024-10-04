@@ -16,10 +16,7 @@ import jakarta.validation.constraints.Size
 
 import java.time.Instant
 
-import org.jooq.Field
 import org.jooq.Record1
-import org.jooq.Record8
-import org.jooq.Row8
 import org.jooq.impl.UpdatableRecordImpl
 
 
@@ -32,7 +29,7 @@ import org.jooq.impl.UpdatableRecordImpl
     name = "users",
     schema = "public"
 )
-open class UsersRecord() : UpdatableRecordImpl<UsersRecord>(UsersTable.USERS), Record8<Long?, String?, Boolean?, String?, Boolean?, Instant?, Instant?, Instant?>, IUsers {
+open class UsersRecord() : UpdatableRecordImpl<UsersRecord>(UsersTable.USERS), IUsers {
 
     @get:Id
     @get:Column(name = "user_id", nullable = false)
@@ -90,89 +87,6 @@ open class UsersRecord() : UpdatableRecordImpl<UsersRecord>(UsersTable.USERS), R
     // -------------------------------------------------------------------------
 
     override fun key(): Record1<Long?> = super.key() as Record1<Long?>
-
-    // -------------------------------------------------------------------------
-    // Record8 type implementation
-    // -------------------------------------------------------------------------
-
-    override fun fieldsRow(): Row8<Long?, String?, Boolean?, String?, Boolean?, Instant?, Instant?, Instant?> = super.fieldsRow() as Row8<Long?, String?, Boolean?, String?, Boolean?, Instant?, Instant?, Instant?>
-    override fun valuesRow(): Row8<Long?, String?, Boolean?, String?, Boolean?, Instant?, Instant?, Instant?> = super.valuesRow() as Row8<Long?, String?, Boolean?, String?, Boolean?, Instant?, Instant?, Instant?>
-    override fun field1(): Field<Long?> = UsersTable.USERS.USER_ID
-    override fun field2(): Field<String?> = UsersTable.USERS.MAIL
-    override fun field3(): Field<Boolean?> = UsersTable.USERS.MAIL_VERIFIED
-    override fun field4(): Field<String?> = UsersTable.USERS.PASSWORD
-    override fun field5(): Field<Boolean?> = UsersTable.USERS.DISABLED
-    override fun field6(): Field<Instant?> = UsersTable.USERS.LOCKED_UNTIL
-    override fun field7(): Field<Instant?> = UsersTable.USERS.ACCOUNT_VALID_UNTIL
-    override fun field8(): Field<Instant?> = UsersTable.USERS.CREDENTIALS_VALID_UNTIL
-    override fun component1(): Long? = userId
-    override fun component2(): String? = mail
-    override fun component3(): Boolean? = mailVerified
-    override fun component4(): String? = password
-    override fun component5(): Boolean? = disabled
-    override fun component6(): Instant? = lockedUntil
-    override fun component7(): Instant? = accountValidUntil
-    override fun component8(): Instant? = credentialsValidUntil
-    override fun value1(): Long? = userId
-    override fun value2(): String? = mail
-    override fun value3(): Boolean? = mailVerified
-    override fun value4(): String? = password
-    override fun value5(): Boolean? = disabled
-    override fun value6(): Instant? = lockedUntil
-    override fun value7(): Instant? = accountValidUntil
-    override fun value8(): Instant? = credentialsValidUntil
-
-    override fun value1(value: Long?): UsersRecord {
-        set(0, value)
-        return this
-    }
-
-    override fun value2(value: String?): UsersRecord {
-        set(1, value)
-        return this
-    }
-
-    override fun value3(value: Boolean?): UsersRecord {
-        set(2, value)
-        return this
-    }
-
-    override fun value4(value: String?): UsersRecord {
-        set(3, value)
-        return this
-    }
-
-    override fun value5(value: Boolean?): UsersRecord {
-        set(4, value)
-        return this
-    }
-
-    override fun value6(value: Instant?): UsersRecord {
-        set(5, value)
-        return this
-    }
-
-    override fun value7(value: Instant?): UsersRecord {
-        set(6, value)
-        return this
-    }
-
-    override fun value8(value: Instant?): UsersRecord {
-        set(7, value)
-        return this
-    }
-
-    override fun values(value1: Long?, value2: String?, value3: Boolean?, value4: String?, value5: Boolean?, value6: Instant?, value7: Instant?, value8: Instant?): UsersRecord {
-        this.value1(value1)
-        this.value2(value2)
-        this.value3(value3)
-        this.value4(value4)
-        this.value5(value5)
-        this.value6(value6)
-        this.value7(value7)
-        this.value8(value8)
-        return this
-    }
 
     // -------------------------------------------------------------------------
     // FROM and INTO

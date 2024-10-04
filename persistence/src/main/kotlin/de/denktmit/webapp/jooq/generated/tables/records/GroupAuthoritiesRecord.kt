@@ -12,9 +12,7 @@ import jakarta.persistence.Entity
 import jakarta.persistence.Table
 import jakarta.validation.constraints.NotNull
 
-import org.jooq.Field
 import org.jooq.Record2
-import org.jooq.Row2
 import org.jooq.impl.UpdatableRecordImpl
 
 
@@ -27,7 +25,7 @@ import org.jooq.impl.UpdatableRecordImpl
     name = "group_authorities",
     schema = "public"
 )
-open class GroupAuthoritiesRecord() : UpdatableRecordImpl<GroupAuthoritiesRecord>(GroupAuthoritiesTable.GROUP_AUTHORITIES), Record2<Long?, Long?>, IGroupAuthorities {
+open class GroupAuthoritiesRecord() : UpdatableRecordImpl<GroupAuthoritiesRecord>(GroupAuthoritiesTable.GROUP_AUTHORITIES), IGroupAuthorities {
 
     @get:Column(name = "group_id", nullable = false)
     @get:NotNull
@@ -46,35 +44,6 @@ open class GroupAuthoritiesRecord() : UpdatableRecordImpl<GroupAuthoritiesRecord
     // -------------------------------------------------------------------------
 
     override fun key(): Record2<Long?, Long?> = super.key() as Record2<Long?, Long?>
-
-    // -------------------------------------------------------------------------
-    // Record2 type implementation
-    // -------------------------------------------------------------------------
-
-    override fun fieldsRow(): Row2<Long?, Long?> = super.fieldsRow() as Row2<Long?, Long?>
-    override fun valuesRow(): Row2<Long?, Long?> = super.valuesRow() as Row2<Long?, Long?>
-    override fun field1(): Field<Long?> = GroupAuthoritiesTable.GROUP_AUTHORITIES.GROUP_ID
-    override fun field2(): Field<Long?> = GroupAuthoritiesTable.GROUP_AUTHORITIES.AUTHORITY_ID
-    override fun component1(): Long? = groupId
-    override fun component2(): Long? = authorityId
-    override fun value1(): Long? = groupId
-    override fun value2(): Long? = authorityId
-
-    override fun value1(value: Long?): GroupAuthoritiesRecord {
-        set(0, value)
-        return this
-    }
-
-    override fun value2(value: Long?): GroupAuthoritiesRecord {
-        set(1, value)
-        return this
-    }
-
-    override fun values(value1: Long?, value2: Long?): GroupAuthoritiesRecord {
-        this.value1(value1)
-        this.value2(value2)
-        return this
-    }
 
     // -------------------------------------------------------------------------
     // FROM and INTO

@@ -6,18 +6,26 @@ package de.denktmit.webapp.jooq.generated.tables
 
 import de.denktmit.webapp.jooq.generated.Public
 import de.denktmit.webapp.jooq.generated.keys.AUTHORITIES_PKEY
+import de.denktmit.webapp.jooq.generated.keys.GROUP_AUTHORITIES__FK_GROUP_AUTHORITY_AUTHORITY
+import de.denktmit.webapp.jooq.generated.tables.GroupAuthoritiesTable.GroupAuthoritiesPath
+import de.denktmit.webapp.jooq.generated.tables.GroupsTable.GroupsPath
 import de.denktmit.webapp.jooq.generated.tables.records.AuthoritiesRecord
 
-import java.util.function.Function
+import kotlin.collections.Collection
 
+import org.jooq.Condition
 import org.jooq.Field
 import org.jooq.ForeignKey
+import org.jooq.InverseForeignKey
 import org.jooq.Name
+import org.jooq.Path
+import org.jooq.PlainSQL
+import org.jooq.QueryPart
 import org.jooq.Record
-import org.jooq.Records
-import org.jooq.Row2
+import org.jooq.SQL
 import org.jooq.Schema
-import org.jooq.SelectField
+import org.jooq.Select
+import org.jooq.Stringly
 import org.jooq.Table
 import org.jooq.TableField
 import org.jooq.TableOptions
@@ -34,19 +42,23 @@ import org.jooq.impl.TableImpl
 @Suppress("UNCHECKED_CAST")
 open class AuthoritiesTable(
     alias: Name,
-    child: Table<out Record>?,
-    path: ForeignKey<out Record, AuthoritiesRecord>?,
+    path: Table<out Record>?,
+    childPath: ForeignKey<out Record, AuthoritiesRecord>?,
+    parentPath: InverseForeignKey<out Record, AuthoritiesRecord>?,
     aliased: Table<AuthoritiesRecord>?,
-    parameters: Array<Field<*>?>?
+    parameters: Array<Field<*>?>?,
+    where: Condition?
 ): TableImpl<AuthoritiesRecord>(
     alias,
     Public.PUBLIC,
-    child,
     path,
+    childPath,
+    parentPath,
     aliased,
     parameters,
     DSL.comment(""),
-    TableOptions.table()
+    TableOptions.table(),
+    where,
 ) {
     companion object {
 
@@ -73,8 +85,9 @@ open class AuthoritiesTable(
      */
     val AUTHORITY: TableField<AuthoritiesRecord, String?> = createField(DSL.name("authority"), SQLDataType.VARCHAR(50).nullable(false), this, "Authority's descriptive unique name")
 
-    private constructor(alias: Name, aliased: Table<AuthoritiesRecord>?): this(alias, null, null, aliased, null)
-    private constructor(alias: Name, aliased: Table<AuthoritiesRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, aliased, parameters)
+    private constructor(alias: Name, aliased: Table<AuthoritiesRecord>?): this(alias, null, null, null, aliased, null, null)
+    private constructor(alias: Name, aliased: Table<AuthoritiesRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, null, aliased, parameters, null)
+    private constructor(alias: Name, aliased: Table<AuthoritiesRecord>?, where: Condition?): this(alias, null, null, null, aliased, null, where)
 
     /**
      * Create an aliased <code>public.authorities</code> table reference
@@ -91,12 +104,46 @@ open class AuthoritiesTable(
      */
     constructor(): this(DSL.name("authorities"), null)
 
-    constructor(child: Table<out Record>, key: ForeignKey<out Record, AuthoritiesRecord>): this(Internal.createPathAlias(child, key), child, key, AUTHORITIES, null)
+    constructor(path: Table<out Record>, childPath: ForeignKey<out Record, AuthoritiesRecord>?, parentPath: InverseForeignKey<out Record, AuthoritiesRecord>?): this(Internal.createPathAlias(path, childPath, parentPath), path, childPath, parentPath, AUTHORITIES, null, null)
+
+    /**
+     * A subtype implementing {@link Path} for simplified path-based joins.
+     */
+    open class AuthoritiesPath : AuthoritiesTable, Path<AuthoritiesRecord> {
+        constructor(path: Table<out Record>, childPath: ForeignKey<out Record, AuthoritiesRecord>?, parentPath: InverseForeignKey<out Record, AuthoritiesRecord>?): super(path, childPath, parentPath)
+        private constructor(alias: Name, aliased: Table<AuthoritiesRecord>): super(alias, aliased)
+        override fun `as`(alias: String): AuthoritiesPath = AuthoritiesPath(DSL.name(alias), this)
+        override fun `as`(alias: Name): AuthoritiesPath = AuthoritiesPath(alias, this)
+        override fun `as`(alias: Table<*>): AuthoritiesPath = AuthoritiesPath(alias.qualifiedName, this)
+    }
     override fun getSchema(): Schema? = if (aliased()) null else Public.PUBLIC
     override fun getPrimaryKey(): UniqueKey<AuthoritiesRecord> = AUTHORITIES_PKEY
+
+    private lateinit var _groupAuthorities: GroupAuthoritiesPath
+
+    /**
+     * Get the implicit to-many join path to the
+     * <code>public.group_authorities</code> table
+     */
+    fun groupAuthorities(): GroupAuthoritiesPath {
+        if (!this::_groupAuthorities.isInitialized)
+            _groupAuthorities = GroupAuthoritiesPath(this, null, GROUP_AUTHORITIES__FK_GROUP_AUTHORITY_AUTHORITY.inverseKey)
+
+        return _groupAuthorities;
+    }
+
+    val groupAuthorities: GroupAuthoritiesPath
+        get(): GroupAuthoritiesPath = groupAuthorities()
+
+    /**
+     * Get the implicit many-to-many join path to the <code>public.groups</code>
+     * table
+     */
+    val groups: GroupsPath
+        get(): GroupsPath = groupAuthorities().groups()
     override fun `as`(alias: String): AuthoritiesTable = AuthoritiesTable(DSL.name(alias), this)
     override fun `as`(alias: Name): AuthoritiesTable = AuthoritiesTable(alias, this)
-    override fun `as`(alias: Table<*>): AuthoritiesTable = AuthoritiesTable(alias.getQualifiedName(), this)
+    override fun `as`(alias: Table<*>): AuthoritiesTable = AuthoritiesTable(alias.qualifiedName, this)
 
     /**
      * Rename this table
@@ -111,21 +158,55 @@ open class AuthoritiesTable(
     /**
      * Rename this table
      */
-    override fun rename(name: Table<*>): AuthoritiesTable = AuthoritiesTable(name.getQualifiedName(), null)
-
-    // -------------------------------------------------------------------------
-    // Row2 type methods
-    // -------------------------------------------------------------------------
-    override fun fieldsRow(): Row2<Long?, String?> = super.fieldsRow() as Row2<Long?, String?>
+    override fun rename(name: Table<*>): AuthoritiesTable = AuthoritiesTable(name.qualifiedName, null)
 
     /**
-     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     * Create an inline derived table from this table
      */
-    fun <U> mapping(from: (Long?, String?) -> U): SelectField<U> = convertFrom(Records.mapping(from))
+    override fun where(condition: Condition?): AuthoritiesTable = AuthoritiesTable(qualifiedName, if (aliased()) this else null, condition)
 
     /**
-     * Convenience mapping calling {@link SelectField#convertFrom(Class,
-     * Function)}.
+     * Create an inline derived table from this table
      */
-    fun <U> mapping(toType: Class<U>, from: (Long?, String?) -> U): SelectField<U> = convertFrom(toType, Records.mapping(from))
+    override fun where(conditions: Collection<Condition>): AuthoritiesTable = where(DSL.and(conditions))
+
+    /**
+     * Create an inline derived table from this table
+     */
+    override fun where(vararg conditions: Condition?): AuthoritiesTable = where(DSL.and(*conditions))
+
+    /**
+     * Create an inline derived table from this table
+     */
+    override fun where(condition: Field<Boolean?>?): AuthoritiesTable = where(DSL.condition(condition))
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @PlainSQL override fun where(condition: SQL): AuthoritiesTable = where(DSL.condition(condition))
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @PlainSQL override fun where(@Stringly.SQL condition: String): AuthoritiesTable = where(DSL.condition(condition))
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @PlainSQL override fun where(@Stringly.SQL condition: String, vararg binds: Any?): AuthoritiesTable = where(DSL.condition(condition, *binds))
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @PlainSQL override fun where(@Stringly.SQL condition: String, vararg parts: QueryPart): AuthoritiesTable = where(DSL.condition(condition, *parts))
+
+    /**
+     * Create an inline derived table from this table
+     */
+    override fun whereExists(select: Select<*>): AuthoritiesTable = where(DSL.exists(select))
+
+    /**
+     * Create an inline derived table from this table
+     */
+    override fun whereNotExists(select: Select<*>): AuthoritiesTable = where(DSL.notExists(select))
 }

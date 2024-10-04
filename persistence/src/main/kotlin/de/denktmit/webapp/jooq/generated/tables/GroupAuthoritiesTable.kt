@@ -8,20 +8,26 @@ import de.denktmit.webapp.jooq.generated.Public
 import de.denktmit.webapp.jooq.generated.keys.GROUP_AUTHORITIES_PKEY
 import de.denktmit.webapp.jooq.generated.keys.GROUP_AUTHORITIES__FK_GROUP_AUTHORITY_AUTHORITY
 import de.denktmit.webapp.jooq.generated.keys.GROUP_AUTHORITIES__FK_GROUP_AUTHORITY_GROUP
+import de.denktmit.webapp.jooq.generated.tables.AuthoritiesTable.AuthoritiesPath
+import de.denktmit.webapp.jooq.generated.tables.GroupsTable.GroupsPath
 import de.denktmit.webapp.jooq.generated.tables.records.GroupAuthoritiesRecord
 
-import java.util.function.Function
-
+import kotlin.collections.Collection
 import kotlin.collections.List
 
+import org.jooq.Condition
 import org.jooq.Field
 import org.jooq.ForeignKey
+import org.jooq.InverseForeignKey
 import org.jooq.Name
+import org.jooq.Path
+import org.jooq.PlainSQL
+import org.jooq.QueryPart
 import org.jooq.Record
-import org.jooq.Records
-import org.jooq.Row2
+import org.jooq.SQL
 import org.jooq.Schema
-import org.jooq.SelectField
+import org.jooq.Select
+import org.jooq.Stringly
 import org.jooq.Table
 import org.jooq.TableField
 import org.jooq.TableOptions
@@ -38,19 +44,23 @@ import org.jooq.impl.TableImpl
 @Suppress("UNCHECKED_CAST")
 open class GroupAuthoritiesTable(
     alias: Name,
-    child: Table<out Record>?,
-    path: ForeignKey<out Record, GroupAuthoritiesRecord>?,
+    path: Table<out Record>?,
+    childPath: ForeignKey<out Record, GroupAuthoritiesRecord>?,
+    parentPath: InverseForeignKey<out Record, GroupAuthoritiesRecord>?,
     aliased: Table<GroupAuthoritiesRecord>?,
-    parameters: Array<Field<*>?>?
+    parameters: Array<Field<*>?>?,
+    where: Condition?
 ): TableImpl<GroupAuthoritiesRecord>(
     alias,
     Public.PUBLIC,
-    child,
     path,
+    childPath,
+    parentPath,
     aliased,
     parameters,
     DSL.comment(""),
-    TableOptions.table()
+    TableOptions.table(),
+    where,
 ) {
     companion object {
 
@@ -77,8 +87,9 @@ open class GroupAuthoritiesTable(
      */
     val AUTHORITY_ID: TableField<GroupAuthoritiesRecord, Long?> = createField(DSL.name("authority_id"), SQLDataType.BIGINT.nullable(false), this, "ID of the authority associated with this group")
 
-    private constructor(alias: Name, aliased: Table<GroupAuthoritiesRecord>?): this(alias, null, null, aliased, null)
-    private constructor(alias: Name, aliased: Table<GroupAuthoritiesRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, aliased, parameters)
+    private constructor(alias: Name, aliased: Table<GroupAuthoritiesRecord>?): this(alias, null, null, null, aliased, null, null)
+    private constructor(alias: Name, aliased: Table<GroupAuthoritiesRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, null, aliased, parameters, null)
+    private constructor(alias: Name, aliased: Table<GroupAuthoritiesRecord>?, where: Condition?): this(alias, null, null, null, aliased, null, where)
 
     /**
      * Create an aliased <code>public.group_authorities</code> table reference
@@ -95,42 +106,54 @@ open class GroupAuthoritiesTable(
      */
     constructor(): this(DSL.name("group_authorities"), null)
 
-    constructor(child: Table<out Record>, key: ForeignKey<out Record, GroupAuthoritiesRecord>): this(Internal.createPathAlias(child, key), child, key, GROUP_AUTHORITIES, null)
-    override fun getSchema(): Schema? = if (aliased()) null else Public.PUBLIC
-    override fun getPrimaryKey(): UniqueKey<GroupAuthoritiesRecord> = GROUP_AUTHORITIES_PKEY
-    override fun getReferences(): List<ForeignKey<GroupAuthoritiesRecord, *>> = listOf(GROUP_AUTHORITIES__FK_GROUP_AUTHORITY_GROUP, GROUP_AUTHORITIES__FK_GROUP_AUTHORITY_AUTHORITY)
-
-    private lateinit var _groups: GroupsTable
-    private lateinit var _authorities: AuthoritiesTable
+    constructor(path: Table<out Record>, childPath: ForeignKey<out Record, GroupAuthoritiesRecord>?, parentPath: InverseForeignKey<out Record, GroupAuthoritiesRecord>?): this(Internal.createPathAlias(path, childPath, parentPath), path, childPath, parentPath, GROUP_AUTHORITIES, null, null)
 
     /**
-     * Get the implicit join path to the <code>public.groups</code> table.
+     * A subtype implementing {@link Path} for simplified path-based joins.
      */
-    fun groups(): GroupsTable {
-        if (!this::_groups.isInitialized)
-            _groups = GroupsTable(this, GROUP_AUTHORITIES__FK_GROUP_AUTHORITY_GROUP)
-
-        return _groups;
+    open class GroupAuthoritiesPath : GroupAuthoritiesTable, Path<GroupAuthoritiesRecord> {
+        constructor(path: Table<out Record>, childPath: ForeignKey<out Record, GroupAuthoritiesRecord>?, parentPath: InverseForeignKey<out Record, GroupAuthoritiesRecord>?): super(path, childPath, parentPath)
+        private constructor(alias: Name, aliased: Table<GroupAuthoritiesRecord>): super(alias, aliased)
+        override fun `as`(alias: String): GroupAuthoritiesPath = GroupAuthoritiesPath(DSL.name(alias), this)
+        override fun `as`(alias: Name): GroupAuthoritiesPath = GroupAuthoritiesPath(alias, this)
+        override fun `as`(alias: Table<*>): GroupAuthoritiesPath = GroupAuthoritiesPath(alias.qualifiedName, this)
     }
+    override fun getSchema(): Schema? = if (aliased()) null else Public.PUBLIC
+    override fun getPrimaryKey(): UniqueKey<GroupAuthoritiesRecord> = GROUP_AUTHORITIES_PKEY
+    override fun getReferences(): List<ForeignKey<GroupAuthoritiesRecord, *>> = listOf(GROUP_AUTHORITIES__FK_GROUP_AUTHORITY_AUTHORITY, GROUP_AUTHORITIES__FK_GROUP_AUTHORITY_GROUP)
 
-    val groups: GroupsTable
-        get(): GroupsTable = groups()
+    private lateinit var _authorities: AuthoritiesPath
 
     /**
      * Get the implicit join path to the <code>public.authorities</code> table.
      */
-    fun authorities(): AuthoritiesTable {
+    fun authorities(): AuthoritiesPath {
         if (!this::_authorities.isInitialized)
-            _authorities = AuthoritiesTable(this, GROUP_AUTHORITIES__FK_GROUP_AUTHORITY_AUTHORITY)
+            _authorities = AuthoritiesPath(this, GROUP_AUTHORITIES__FK_GROUP_AUTHORITY_AUTHORITY, null)
 
         return _authorities;
     }
 
-    val authorities: AuthoritiesTable
-        get(): AuthoritiesTable = authorities()
+    val authorities: AuthoritiesPath
+        get(): AuthoritiesPath = authorities()
+
+    private lateinit var _groups: GroupsPath
+
+    /**
+     * Get the implicit join path to the <code>public.groups</code> table.
+     */
+    fun groups(): GroupsPath {
+        if (!this::_groups.isInitialized)
+            _groups = GroupsPath(this, GROUP_AUTHORITIES__FK_GROUP_AUTHORITY_GROUP, null)
+
+        return _groups;
+    }
+
+    val groups: GroupsPath
+        get(): GroupsPath = groups()
     override fun `as`(alias: String): GroupAuthoritiesTable = GroupAuthoritiesTable(DSL.name(alias), this)
     override fun `as`(alias: Name): GroupAuthoritiesTable = GroupAuthoritiesTable(alias, this)
-    override fun `as`(alias: Table<*>): GroupAuthoritiesTable = GroupAuthoritiesTable(alias.getQualifiedName(), this)
+    override fun `as`(alias: Table<*>): GroupAuthoritiesTable = GroupAuthoritiesTable(alias.qualifiedName, this)
 
     /**
      * Rename this table
@@ -145,21 +168,55 @@ open class GroupAuthoritiesTable(
     /**
      * Rename this table
      */
-    override fun rename(name: Table<*>): GroupAuthoritiesTable = GroupAuthoritiesTable(name.getQualifiedName(), null)
-
-    // -------------------------------------------------------------------------
-    // Row2 type methods
-    // -------------------------------------------------------------------------
-    override fun fieldsRow(): Row2<Long?, Long?> = super.fieldsRow() as Row2<Long?, Long?>
+    override fun rename(name: Table<*>): GroupAuthoritiesTable = GroupAuthoritiesTable(name.qualifiedName, null)
 
     /**
-     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     * Create an inline derived table from this table
      */
-    fun <U> mapping(from: (Long?, Long?) -> U): SelectField<U> = convertFrom(Records.mapping(from))
+    override fun where(condition: Condition?): GroupAuthoritiesTable = GroupAuthoritiesTable(qualifiedName, if (aliased()) this else null, condition)
 
     /**
-     * Convenience mapping calling {@link SelectField#convertFrom(Class,
-     * Function)}.
+     * Create an inline derived table from this table
      */
-    fun <U> mapping(toType: Class<U>, from: (Long?, Long?) -> U): SelectField<U> = convertFrom(toType, Records.mapping(from))
+    override fun where(conditions: Collection<Condition>): GroupAuthoritiesTable = where(DSL.and(conditions))
+
+    /**
+     * Create an inline derived table from this table
+     */
+    override fun where(vararg conditions: Condition?): GroupAuthoritiesTable = where(DSL.and(*conditions))
+
+    /**
+     * Create an inline derived table from this table
+     */
+    override fun where(condition: Field<Boolean?>?): GroupAuthoritiesTable = where(DSL.condition(condition))
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @PlainSQL override fun where(condition: SQL): GroupAuthoritiesTable = where(DSL.condition(condition))
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @PlainSQL override fun where(@Stringly.SQL condition: String): GroupAuthoritiesTable = where(DSL.condition(condition))
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @PlainSQL override fun where(@Stringly.SQL condition: String, vararg binds: Any?): GroupAuthoritiesTable = where(DSL.condition(condition, *binds))
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @PlainSQL override fun where(@Stringly.SQL condition: String, vararg parts: QueryPart): GroupAuthoritiesTable = where(DSL.condition(condition, *parts))
+
+    /**
+     * Create an inline derived table from this table
+     */
+    override fun whereExists(select: Select<*>): GroupAuthoritiesTable = where(DSL.exists(select))
+
+    /**
+     * Create an inline derived table from this table
+     */
+    override fun whereNotExists(select: Select<*>): GroupAuthoritiesTable = where(DSL.notExists(select))
 }

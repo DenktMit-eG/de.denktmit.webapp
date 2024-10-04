@@ -6,18 +6,29 @@ package de.denktmit.webapp.jooq.generated.tables
 
 import de.denktmit.webapp.jooq.generated.Public
 import de.denktmit.webapp.jooq.generated.keys.GROUPS_PKEY
+import de.denktmit.webapp.jooq.generated.keys.GROUP_AUTHORITIES__FK_GROUP_AUTHORITY_GROUP
+import de.denktmit.webapp.jooq.generated.keys.GROUP_MEMBERS__FK_GROUP_MEMBER_GROUP
+import de.denktmit.webapp.jooq.generated.tables.AuthoritiesTable.AuthoritiesPath
+import de.denktmit.webapp.jooq.generated.tables.GroupAuthoritiesTable.GroupAuthoritiesPath
+import de.denktmit.webapp.jooq.generated.tables.GroupMembersTable.GroupMembersPath
+import de.denktmit.webapp.jooq.generated.tables.UsersTable.UsersPath
 import de.denktmit.webapp.jooq.generated.tables.records.GroupsRecord
 
-import java.util.function.Function
+import kotlin.collections.Collection
 
+import org.jooq.Condition
 import org.jooq.Field
 import org.jooq.ForeignKey
+import org.jooq.InverseForeignKey
 import org.jooq.Name
+import org.jooq.Path
+import org.jooq.PlainSQL
+import org.jooq.QueryPart
 import org.jooq.Record
-import org.jooq.Records
-import org.jooq.Row2
+import org.jooq.SQL
 import org.jooq.Schema
-import org.jooq.SelectField
+import org.jooq.Select
+import org.jooq.Stringly
 import org.jooq.Table
 import org.jooq.TableField
 import org.jooq.TableOptions
@@ -34,19 +45,23 @@ import org.jooq.impl.TableImpl
 @Suppress("UNCHECKED_CAST")
 open class GroupsTable(
     alias: Name,
-    child: Table<out Record>?,
-    path: ForeignKey<out Record, GroupsRecord>?,
+    path: Table<out Record>?,
+    childPath: ForeignKey<out Record, GroupsRecord>?,
+    parentPath: InverseForeignKey<out Record, GroupsRecord>?,
     aliased: Table<GroupsRecord>?,
-    parameters: Array<Field<*>?>?
+    parameters: Array<Field<*>?>?,
+    where: Condition?
 ): TableImpl<GroupsRecord>(
     alias,
     Public.PUBLIC,
-    child,
     path,
+    childPath,
+    parentPath,
     aliased,
     parameters,
     DSL.comment(""),
-    TableOptions.table()
+    TableOptions.table(),
+    where,
 ) {
     companion object {
 
@@ -72,8 +87,9 @@ open class GroupsTable(
      */
     val GROUP_NAME: TableField<GroupsRecord, String?> = createField(DSL.name("group_name"), SQLDataType.VARCHAR(50).nullable(false), this, "Group's unique name")
 
-    private constructor(alias: Name, aliased: Table<GroupsRecord>?): this(alias, null, null, aliased, null)
-    private constructor(alias: Name, aliased: Table<GroupsRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, aliased, parameters)
+    private constructor(alias: Name, aliased: Table<GroupsRecord>?): this(alias, null, null, null, aliased, null, null)
+    private constructor(alias: Name, aliased: Table<GroupsRecord>?, parameters: Array<Field<*>?>?): this(alias, null, null, null, aliased, parameters, null)
+    private constructor(alias: Name, aliased: Table<GroupsRecord>?, where: Condition?): this(alias, null, null, null, aliased, null, where)
 
     /**
      * Create an aliased <code>public.groups</code> table reference
@@ -90,12 +106,69 @@ open class GroupsTable(
      */
     constructor(): this(DSL.name("groups"), null)
 
-    constructor(child: Table<out Record>, key: ForeignKey<out Record, GroupsRecord>): this(Internal.createPathAlias(child, key), child, key, GROUPS, null)
+    constructor(path: Table<out Record>, childPath: ForeignKey<out Record, GroupsRecord>?, parentPath: InverseForeignKey<out Record, GroupsRecord>?): this(Internal.createPathAlias(path, childPath, parentPath), path, childPath, parentPath, GROUPS, null, null)
+
+    /**
+     * A subtype implementing {@link Path} for simplified path-based joins.
+     */
+    open class GroupsPath : GroupsTable, Path<GroupsRecord> {
+        constructor(path: Table<out Record>, childPath: ForeignKey<out Record, GroupsRecord>?, parentPath: InverseForeignKey<out Record, GroupsRecord>?): super(path, childPath, parentPath)
+        private constructor(alias: Name, aliased: Table<GroupsRecord>): super(alias, aliased)
+        override fun `as`(alias: String): GroupsPath = GroupsPath(DSL.name(alias), this)
+        override fun `as`(alias: Name): GroupsPath = GroupsPath(alias, this)
+        override fun `as`(alias: Table<*>): GroupsPath = GroupsPath(alias.qualifiedName, this)
+    }
     override fun getSchema(): Schema? = if (aliased()) null else Public.PUBLIC
     override fun getPrimaryKey(): UniqueKey<GroupsRecord> = GROUPS_PKEY
+
+    private lateinit var _groupAuthorities: GroupAuthoritiesPath
+
+    /**
+     * Get the implicit to-many join path to the
+     * <code>public.group_authorities</code> table
+     */
+    fun groupAuthorities(): GroupAuthoritiesPath {
+        if (!this::_groupAuthorities.isInitialized)
+            _groupAuthorities = GroupAuthoritiesPath(this, null, GROUP_AUTHORITIES__FK_GROUP_AUTHORITY_GROUP.inverseKey)
+
+        return _groupAuthorities;
+    }
+
+    val groupAuthorities: GroupAuthoritiesPath
+        get(): GroupAuthoritiesPath = groupAuthorities()
+
+    private lateinit var _groupMembers: GroupMembersPath
+
+    /**
+     * Get the implicit to-many join path to the
+     * <code>public.group_members</code> table
+     */
+    fun groupMembers(): GroupMembersPath {
+        if (!this::_groupMembers.isInitialized)
+            _groupMembers = GroupMembersPath(this, null, GROUP_MEMBERS__FK_GROUP_MEMBER_GROUP.inverseKey)
+
+        return _groupMembers;
+    }
+
+    val groupMembers: GroupMembersPath
+        get(): GroupMembersPath = groupMembers()
+
+    /**
+     * Get the implicit many-to-many join path to the
+     * <code>public.authorities</code> table
+     */
+    val authorities: AuthoritiesPath
+        get(): AuthoritiesPath = groupAuthorities().authorities()
+
+    /**
+     * Get the implicit many-to-many join path to the <code>public.users</code>
+     * table
+     */
+    val users: UsersPath
+        get(): UsersPath = groupMembers().users()
     override fun `as`(alias: String): GroupsTable = GroupsTable(DSL.name(alias), this)
     override fun `as`(alias: Name): GroupsTable = GroupsTable(alias, this)
-    override fun `as`(alias: Table<*>): GroupsTable = GroupsTable(alias.getQualifiedName(), this)
+    override fun `as`(alias: Table<*>): GroupsTable = GroupsTable(alias.qualifiedName, this)
 
     /**
      * Rename this table
@@ -110,21 +183,55 @@ open class GroupsTable(
     /**
      * Rename this table
      */
-    override fun rename(name: Table<*>): GroupsTable = GroupsTable(name.getQualifiedName(), null)
-
-    // -------------------------------------------------------------------------
-    // Row2 type methods
-    // -------------------------------------------------------------------------
-    override fun fieldsRow(): Row2<Long?, String?> = super.fieldsRow() as Row2<Long?, String?>
+    override fun rename(name: Table<*>): GroupsTable = GroupsTable(name.qualifiedName, null)
 
     /**
-     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     * Create an inline derived table from this table
      */
-    fun <U> mapping(from: (Long?, String?) -> U): SelectField<U> = convertFrom(Records.mapping(from))
+    override fun where(condition: Condition?): GroupsTable = GroupsTable(qualifiedName, if (aliased()) this else null, condition)
 
     /**
-     * Convenience mapping calling {@link SelectField#convertFrom(Class,
-     * Function)}.
+     * Create an inline derived table from this table
      */
-    fun <U> mapping(toType: Class<U>, from: (Long?, String?) -> U): SelectField<U> = convertFrom(toType, Records.mapping(from))
+    override fun where(conditions: Collection<Condition>): GroupsTable = where(DSL.and(conditions))
+
+    /**
+     * Create an inline derived table from this table
+     */
+    override fun where(vararg conditions: Condition?): GroupsTable = where(DSL.and(*conditions))
+
+    /**
+     * Create an inline derived table from this table
+     */
+    override fun where(condition: Field<Boolean?>?): GroupsTable = where(DSL.condition(condition))
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @PlainSQL override fun where(condition: SQL): GroupsTable = where(DSL.condition(condition))
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @PlainSQL override fun where(@Stringly.SQL condition: String): GroupsTable = where(DSL.condition(condition))
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @PlainSQL override fun where(@Stringly.SQL condition: String, vararg binds: Any?): GroupsTable = where(DSL.condition(condition, *binds))
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @PlainSQL override fun where(@Stringly.SQL condition: String, vararg parts: QueryPart): GroupsTable = where(DSL.condition(condition, *parts))
+
+    /**
+     * Create an inline derived table from this table
+     */
+    override fun whereExists(select: Select<*>): GroupsTable = where(DSL.exists(select))
+
+    /**
+     * Create an inline derived table from this table
+     */
+    override fun whereNotExists(select: Select<*>): GroupsTable = where(DSL.notExists(select))
 }

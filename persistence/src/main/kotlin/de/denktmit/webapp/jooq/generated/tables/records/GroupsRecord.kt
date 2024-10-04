@@ -14,10 +14,7 @@ import jakarta.persistence.Table
 import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Size
 
-import org.jooq.Field
 import org.jooq.Record1
-import org.jooq.Record2
-import org.jooq.Row2
 import org.jooq.impl.UpdatableRecordImpl
 
 
@@ -30,7 +27,7 @@ import org.jooq.impl.UpdatableRecordImpl
     name = "groups",
     schema = "public"
 )
-open class GroupsRecord() : UpdatableRecordImpl<GroupsRecord>(GroupsTable.GROUPS), Record2<Long?, String?>, IGroups {
+open class GroupsRecord() : UpdatableRecordImpl<GroupsRecord>(GroupsTable.GROUPS), IGroups {
 
     @get:Id
     @get:Column(name = "group_id", nullable = false)
@@ -51,35 +48,6 @@ open class GroupsRecord() : UpdatableRecordImpl<GroupsRecord>(GroupsTable.GROUPS
     // -------------------------------------------------------------------------
 
     override fun key(): Record1<Long?> = super.key() as Record1<Long?>
-
-    // -------------------------------------------------------------------------
-    // Record2 type implementation
-    // -------------------------------------------------------------------------
-
-    override fun fieldsRow(): Row2<Long?, String?> = super.fieldsRow() as Row2<Long?, String?>
-    override fun valuesRow(): Row2<Long?, String?> = super.valuesRow() as Row2<Long?, String?>
-    override fun field1(): Field<Long?> = GroupsTable.GROUPS.GROUP_ID
-    override fun field2(): Field<String?> = GroupsTable.GROUPS.GROUP_NAME
-    override fun component1(): Long? = groupId
-    override fun component2(): String? = groupName
-    override fun value1(): Long? = groupId
-    override fun value2(): String? = groupName
-
-    override fun value1(value: Long?): GroupsRecord {
-        set(0, value)
-        return this
-    }
-
-    override fun value2(value: String?): GroupsRecord {
-        set(1, value)
-        return this
-    }
-
-    override fun values(value1: Long?, value2: String?): GroupsRecord {
-        this.value1(value1)
-        this.value2(value2)
-        return this
-    }
 
     // -------------------------------------------------------------------------
     // FROM and INTO
