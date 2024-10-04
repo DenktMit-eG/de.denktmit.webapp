@@ -52,7 +52,7 @@
         <version.com.github.ekryd.sortpom.sortpom-maven-plugin>3.3.0</version.com.github.ekryd.sortpom.sortpom-maven-plugin>
         <version.com.google.cloud.tools.jib-maven-plugin>3.4.0</version.com.google.cloud.tools.jib-maven-plugin>
         <version.com.ninja-squad.springmockk>4.0.2</version.com.ninja-squad.springmockk>
-        <version.io.hypersistence.hypersistence-utils-hibernate-62>3.6.0</version.io.hypersistence.hypersistence-utils-hibernate-62>
+        <version.io.hypersistence.hypersistence-utils-hibernate-63>3.8.3</version.io.hypersistence.hypersistence-utils-hibernate-63>
         <version.nl.jqno.equalsverifier.equalsverifier>3.15.6</version.nl.jqno.equalsverifier.equalsverifier>
         <version.org.asciidoctor.asciidoctor-maven-plugin>2.2.4</version.org.asciidoctor.asciidoctor-maven-plugin>
         <version.org.codehaus.mojo.flatten-maven-plugin>1.5.0</version.org.codehaus.mojo.flatten-maven-plugin>
@@ -94,8 +94,8 @@
             </dependency>
             <dependency>
                 <groupId>io.hypersistence</groupId>
-                <artifactId>hypersistence-utils-hibernate-62</artifactId>
-                <version>${version.io.hypersistence.hypersistence-utils-hibernate-62}</version>
+                <artifactId>hypersistence-utils-hibernate-63</artifactId>
+                <version>${version.io.hypersistence.hypersistence-utils-hibernate-63}</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
