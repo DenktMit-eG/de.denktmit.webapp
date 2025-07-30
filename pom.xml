@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.4</version>
+        <version>3.5.4</version>
         <relativePath></relativePath>
         <!-- lookup parent from repository -->
     </parent>
@@ -50,7 +50,7 @@
         <skip.tests.unit>${skip.tests.all}</skip.tests.unit>
         <version.com.github.eirslett.frontend-maven-plugin>1.15.1</version.com.github.eirslett.frontend-maven-plugin>
         <version.com.github.ekryd.sortpom.sortpom-maven-plugin>4.0.0</version.com.github.ekryd.sortpom.sortpom-maven-plugin>
-        <version.com.google.cloud.tools.jib-maven-plugin>3.4.3</version.com.google.cloud.tools.jib-maven-plugin>
+        <version.com.google.cloud.tools.jib-maven-plugin>3.4.6</version.com.google.cloud.tools.jib-maven-plugin>
         <version.com.ninja-squad.springmockk>4.0.2</version.com.ninja-squad.springmockk>
         <version.io.hypersistence.hypersistence-utils-hibernate-63>3.8.3</version.io.hypersistence.hypersistence-utils-hibernate-63>
         <version.nl.jqno.equalsverifier.equalsverifier>3.17.1</version.nl.jqno.equalsverifier.equalsverifier>
