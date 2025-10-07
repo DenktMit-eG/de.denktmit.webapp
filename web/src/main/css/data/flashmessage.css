@@ -1,0 +1,11 @@
+.flash-message {
+    display: block;
+}
+
+.flash-message.success {
+    border: .1em solid green;
+}
+
+.flash-message.failure {
+    border: .1em solid red;
+}

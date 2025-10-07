@@ -1,0 +1,12 @@
+.cluster-spaced {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+
+.cluster-wrapped {
+    align-items: flex-start;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-1);
+}

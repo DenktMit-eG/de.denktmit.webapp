@@ -48,7 +48,7 @@
         <skip.tests.e2e>${skip.tests.all}</skip.tests.e2e>
         <skip.tests.it>${skip.tests.all}</skip.tests.it>
         <skip.tests.unit>${skip.tests.all}</skip.tests.unit>
-        <version.com.github.eirslett.frontend-maven-plugin>1.15.1</version.com.github.eirslett.frontend-maven-plugin>
+        <version.com.github.eirslett.frontend-maven-plugin>1.15.4</version.com.github.eirslett.frontend-maven-plugin>
         <version.com.github.ekryd.sortpom.sortpom-maven-plugin>4.0.0</version.com.github.ekryd.sortpom.sortpom-maven-plugin>
         <version.com.google.cloud.tools.jib-maven-plugin>3.4.6</version.com.google.cloud.tools.jib-maven-plugin>
         <version.com.ninja-squad.springmockk>4.0.2</version.com.ninja-squad.springmockk>

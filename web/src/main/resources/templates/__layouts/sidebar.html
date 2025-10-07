@@ -7,7 +7,7 @@
 <head>
     <link rel="icon" href="/img/favicon.svg">
     <link rel="manifest" href="/misc/site.webmanifest">
-    <link rel="stylesheet" href="/css/styles.min.css" th:href="@{/css/styles.min.css}"/>
+    <link rel="stylesheet" href="/@css/webapp.css" th:href="@{/css/webapp.min.css}"/>
     <meta charset="utf-8">
     <meta name="description" content="">
     <meta name="theme-color" content="#fafafa">
@@ -92,5 +92,6 @@
     </div>
 </footer>
 <th:block layout:fragment="page-scripts"></th:block>
+<script type="module" src="/@ts/lib.ts" th:src="@{/js/webapp.min.js}"></script>
 </body>
 </html>

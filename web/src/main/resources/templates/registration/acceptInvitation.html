@@ -8,7 +8,7 @@
     <meta charset="utf-8">
     <title>Home</title>
     <link rel="icon" href="/img/favicon.svg">
-    <link rel="stylesheet" href="/css/styles.min.css" th:href="@{/css/styles.min.css}"/>
+    <link rel="stylesheet" href="/@css/webapp.css" th:href="@{/css/webapp.min.css}"/>
 </head>
 <body>
 <header class="bg-color:dark-petrol">
@@ -16,10 +16,10 @@
         <nav class="cluster-spaced">
             <img src="/img/logo.svg" alt="Das DenktMit eG Signet mit Firmenname"/>
             <ul class="cluster-wrapped">
-                <li><a href="/static">Home</a></li>
-                <li><a href="/every-layout/index.html">Every Layout</a></li>
-                <li><a href="/admin/users.html">Admin/Users</a></li>
-                <li><a href="/logout.html">Logout</a></li>
+                <li><a href="/@basePath/index.html" th:href="@{/}">Home</a></li>
+                <li><a href="/@basePath/every-layout/index.html" th:href="@{/every-layout/index}">Every Layout</a></li>
+                <li><a href="/@basePath/admin/users.html" th:href="@{/admin/users}">Admin/Users</a></li>
+                <li><a href="/@basePath/user/logout.html" th:href="@{/logout}">Logout</a></li>
             </ul>
         </nav>
     </div>
@@ -65,10 +65,11 @@
                 Contact: hallo@denktmit.de
             </p>
             <ul class="cluster-wrapped">
-                <li><a href="/templates/fixed-content/legal-notice.html">Legal notice</a></li>
+                <li><a href="/@basePath/fixed-content/legal-notice.html" th:href="@{/fixed-content/legal-notice}">Legal notice</a></li>
             </ul>
         </nav>
     </div>
 </footer>
+<script type="module" src="/@ts/lib.ts" th:src="@{/js/webapp.min.js}"></script>
 </body>
 </html>

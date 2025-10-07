@@ -2,25 +2,22 @@
   "name": "de.denktmit.webapp",
   "version": "1.0.0",
   "description": "Interactive templating support",
-  "main": "server.js",
+  "private": true,
+  "type": "module",
+  "files": [
+    "dist",
+    "src"
+  ],
   "scripts": {
-    "build": "NODE_ENV=production npm run postcss",
-    "dev": "NODE_ENV=development npm run postcss && concurrently 'npm run start' 'npm run postcss:watch'",
-    "postcss": "postcss src/npm/css/index.css -o src/main/resources/static/css/styles.min.css",
-    "postcss:watch": "onchange 'src/npm/css/**/*.css' -- npm run postcss",
-    "start": "nodemon --ext js,html,css server.js"
+    "dev": "vite --config vite.config.ts --debug",
+    "build": "tsc && vite build --config vite.config.build.ts --debug",
+    "preview": "vite preview"
   },
   "devDependencies": {
-    "concurrently": "^8.2.2",
-    "connect-livereload": "^0.6.1",
-    "cssnano": "^6.0.3",
-    "express": "^4.18.2",
-    "livereload": "^0.9.3",
-    "nodemon": "^3.0.2",
-    "onchange": "^7.1.0",
-    "postcss": "^8.4.33",
-    "postcss-cli": "^11.0.0",
-    "postcss-import": "^16.0.0",
-    "postcss-nested": "^6.0.1"
+    "@types/node": "^24.7.0",
+    "typescript": "~5.9.3",
+    "vite": "^7.1.9",
+    "vite-plugin-dts": "^4.5.4",
+    "vite-tsconfig-paths": "^5.1.4"
   }
 }
