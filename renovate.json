@@ -1,7 +1,99 @@
-
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:base"
+    "config:base",
+    ":semanticCommits",
+    ":semanticPrefixFixDepsChoreOthers",
+    ":automergeMinor",
+    ":automergeBranch",
+    "group:monorepos",
+    "helpers:pinGitHubActionDigests"
+  ],
+
+  "enabledManagers": ["maven", "github-actions"],
+  "timezone": "Europe/Berlin",
+  "schedule": ["after 02:00 and before 06:00 every weekday"],
+
+  "dependencyDashboard": true,
+  "dependencyDashboardTitle": "🔧 Renovate Dependency Dashboard",
+  "labels": ["dependencies"],
+  "assigneesFromCodeOwners": true,
+
+  "prConcurrentLimit": 10,
+  "prHourlyLimit": 2,
+  "rebaseWhen": "behind-base-branch",
+  "rangeStrategy": "bump",
+  "separateMultipleMajor": true,
+  "commitBodyTable": true,
+
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "labels": ["dependencies", "security"]
+  },
+
+  "packageRules": [
+    {
+      "description": "Automerge safe updates for Maven dependencies",
+      "matchManagers": ["maven"],
+      "matchUpdateTypes": ["patch", "minor"],
+      "automerge": true
+    },
+    {
+      "description": "Group Spring ecosystem (Boot/Framework/BOMs)",
+      "matchManagers": ["maven"],
+      "matchPackagePatterns": [
+        "^org\\.springframework($|\\.)",
+        "^org\\.springframework\\.boot($|\\.)",
+        "^io\\.spring($|\\.)"
+      ],
+      "groupName": "spring ecosystem",
+      "groupSlug": "spring"
+    },
+    {
+      "description": "Group common test libraries",
+      "matchManagers": ["maven"],
+      "matchPackagePatterns": [
+        "^org\\.junit",
+        "^org\\.junit-jupiter",
+        "^org\\.mockito",
+        "^org\\.assertj",
+        "^org\\.hamcrest"
+      ],
+      "groupName": "test dependencies",
+      "groupSlug": "testing"
+    },
+    {
+      "description": "Group Maven plugins (safe to automerge)",
+      "matchManagers": ["maven"],
+      "matchDepTypes": ["plugins", "pluginManagement"],
+      "groupName": "maven plugins",
+      "groupSlug": "maven-plugins",
+      "automerge": true
+    },
+    {
+      "description": "Handle major updates with extra care",
+      "matchUpdateTypes": ["major"],
+      "labels": ["dependencies", "major"],
+      "schedule": ["after 02:00 and before 06:00 on monday"],
+      "automerge": false
+    },
+    {
+      "description": "Keep GitHub Actions up to date (digest-pinned)",
+      "matchManagers": ["github-actions"],
+      "groupName": "github actions",
+      "groupSlug": "gh-actions",
+      "automerge": true
+    }
+  ],
+
+  "regexManagers": [
+    {
+      "description": "Update dependency versions mentioned in docs",
+      "fileMatch": ["(^|/)README\\.md$", "(^|/)docs/.+\\.md$"],
+      "matchStrings": [
+        "maven-central:\\s*(?<depName>[\\w\\.-]+):(?<currentValue>[\\w\\.-]+)"
+      ],
+      "datasourceTemplate": "maven"
+    }
   ]
 }
