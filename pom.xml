@@ -24,6 +24,7 @@
         <module>business</module>
         <module>web</module>
         <module>application</module>
+        <module>webwicket</module>
         <module>e2e-tests</module>
         <module>build-reports</module>
     </modules>

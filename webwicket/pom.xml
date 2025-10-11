@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>de.denktmit.webapp</groupId>
+        <artifactId>aggregator</artifactId>
+        <version>${revision}${sha1}${changelist}</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>webwicket</artifactId>
+    <name>DenktMit eG :: Webapp :: Webwicket</name>
+    <description>The DenktMit eG Webapp Apache Wicket layer</description>
+
+    <properties>
+        <dir.project.root>${project.basedir}/..</dir.project.root>
+        <version.frontend-maven-plugin.node>v24.9.0</version.frontend-maven-plugin.node>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>de.denktmit.wicket</groupId>
+                <artifactId>dm-wicket-bom</artifactId>
+                <version>0.1.0-SNAPSHOT+38.6ee610c</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>business</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>de.denktmit.wicket</groupId>
+            <artifactId>dm-wicket-components</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>de.denktmit.wicket</groupId>
+            <artifactId>dm-wicket-kotlin</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>de.denktmit.wicket</groupId>
+            <artifactId>dm-wicket-model</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>de.denktmit.wicket</groupId>
+            <artifactId>dm-wicket-spring</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-stdlib</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
+        <testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
+    </build>
+
+    <repositories>
+        <repository>
+            <id>denktmit-git</id>
+            <url>https://git.denktmit.tech/api/packages/DenktMiteG/maven</url>
+        </repository>
+    </repositories>
+
+</project>
