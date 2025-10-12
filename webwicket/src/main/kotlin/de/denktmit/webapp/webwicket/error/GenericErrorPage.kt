@@ -1,6 +1,6 @@
 package de.denktmit.webapp.webwicket.error
 
-import de.denktmit.webapp.webwicket.BasePage
+import de.denktmit.webapp.webwicket.layout.BasePage
 import de.denktmit.webapp.webwicket.utils.exceptionMessages
 import de.denktmit.wicket.components.q
 import org.apache.wicket.markup.html.basic.MultiLineLabel
@@ -8,14 +8,14 @@ import org.apache.wicket.request.mapper.parameter.PageParameters
 import org.slf4j.LoggerFactory
 
 class GenericErrorPage(
-  val exception: Exception?,
-  pageParameters: PageParameters?,
+    val exception: Exception?,
+    pageParameters: PageParameters?,
 ) : BasePage(pageParameters) {
-  public constructor(pageParameters: PageParameters) : this(null, pageParameters)
+    public constructor(pageParameters: PageParameters) : this(null, pageParameters)
 
-  companion object {
-    private val logger = LoggerFactory.getLogger(GenericErrorPage::class.java)
-  }
+    companion object {
+        private val logger = LoggerFactory.getLogger(GenericErrorPage::class.java)
+    }
 
     override fun onInitialize() {
         super.onInitialize()

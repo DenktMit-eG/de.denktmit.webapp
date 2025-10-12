@@ -1,0 +1,59 @@
+<!doctype html>
+<html class="no-js" lang="en" xmlns:wicket="http://wicket.apache.org">
+  <head>
+    <meta charset="utf-8">
+    <title>DenktMit Webapp - Header Panel</title>
+    <link rel="stylesheet" href="/css/webapp.min.css"/>
+  </head>
+  <body>
+    <header class="bg-color:dark-petrol">
+      <div class="center">
+        <nav class="cluster-spaced">
+          <a href="/p/dashboard">
+            <img src="/img/DenktMit-Logo.svg" alt="Das DenktMit eG Signet mit Firmenname"/>
+          </a>
+          <ul class="cluster-wrapped">
+            <li>
+              <a href="/@basePath/index.html" th:href="@{/}">Home</a>
+            </li>
+            <li>
+              <a href="/@basePath/every-layout/index.html" th:href="@{/every-layout/index}">Every Layout</a>
+            </li>
+            <li>
+              <a href="/@basePath/admin/users.html" th:href="@{/admin/users}">Admin/Users</a>
+            </li>
+            <li>
+              <a href="/@basePath/user/logout.html" th:href="@{/logout}">Logout</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <div class="center">
+        <p>main content</p>
+      </div>
+    </main>
+    <footer class="bg-color:light-teal">
+      <div class="center">
+        <wicket:panel>
+          <nav class="cluster-spaced">
+            <p>
+              &copy; 2024 DenktMit eG. All rights reserved.
+              <br/>
+              Contact: hallo@denktmit.de
+            </p>
+            <ul class="cluster-wrapped">
+              <li>
+                <a href="/@basePath/fixed-content/legal-notice.html"
+                   th:href="@{/fixed-content/legal-notice}">Legal notice
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </wicket:panel>
+      </div>
+    </footer>
+    <script type="module" src="/js/webapp.min.js"></script>
+  </body>
+</html>

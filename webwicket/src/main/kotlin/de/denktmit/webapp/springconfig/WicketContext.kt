@@ -18,45 +18,45 @@ import java.util.*
 
 @Configuration
 class WicketContext {
-  @Bean
-  fun getWicketApplication(env: Environment): WebappUIApplication {
-    val isDev =
-      env.activeProfiles
-        .takeIf { it.isNotEmpty() }
-        ?.any { it.contains("development") } ?: false
+    @Bean
+    fun getWicketApplication(env: Environment): WebappUIApplication {
+        val isDev =
+            env.activeProfiles
+                .takeIf { it.isNotEmpty() }
+                ?.any { it.contains("development") } ?: false
 
-    return WebappUIApplication().apply {
-      configurationType =
-        if (isDev) {
-          RuntimeConfigurationType.DEVELOPMENT
-        } else {
-          RuntimeConfigurationType.DEPLOYMENT
+        return WebappUIApplication().apply {
+            configurationType =
+                if (isDev) {
+                    RuntimeConfigurationType.DEVELOPMENT
+                } else {
+                    RuntimeConfigurationType.DEPLOYMENT
+                }
         }
     }
-  }
 
-  @Bean
-  fun getWicketFilter(webApplication: WebappUIApplication): FilterRegistrationBean<out Filter> {
-    val filter =
-      WicketFilter(webApplication).apply {
-        filterPath = "/"
-      }
+    @Bean
+    fun getWicketFilter(webApplication: WebappUIApplication): FilterRegistrationBean<out Filter> {
+        val filter =
+            WicketFilter(webApplication).apply {
+                filterPath = "/"
+            }
 
-    return FilterRegistrationBean(WicketFilterWrapper(filter)).apply {
-        order = -10
-        setDispatcherTypes(EnumSet.allOf(DispatcherType::class.java))
+        return FilterRegistrationBean(WicketFilterWrapper(filter)).apply {
+            order = -10
+            setDispatcherTypes(EnumSet.allOf(DispatcherType::class.java))
+        }
     }
-  }
 
-  @Bean
-  fun springContextUtil() = SpringContextUtil()
+    @Bean
+    fun springContextUtil() = SpringContextUtil()
 
-  @Bean
-  fun errorPageRegistrar(): ErrorPageRegistrar =
-    ErrorPageRegistrar {
-      it.addErrorPages(
-        ErrorPage(HttpStatus.NOT_FOUND, "/error/404"),
-        ErrorPage(HttpStatus.FORBIDDEN, "/error/403"),
-      )
-    }
+    @Bean
+    fun errorPageRegistrar(): ErrorPageRegistrar =
+        ErrorPageRegistrar {
+            it.addErrorPages(
+                ErrorPage(HttpStatus.NOT_FOUND, "/error/404"),
+                ErrorPage(HttpStatus.FORBIDDEN, "/error/403"),
+            )
+        }
 }

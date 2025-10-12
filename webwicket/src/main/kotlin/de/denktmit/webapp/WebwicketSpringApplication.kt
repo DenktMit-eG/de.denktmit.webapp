@@ -6,17 +6,17 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.context.annotation.ComponentScan
 
 @SpringBootApplication(
-  exclude =
-    [
-      SecurityAutoConfiguration::class,
-    ],
+    exclude =
+        [
+            SecurityAutoConfiguration::class,
+        ],
 )
 @ComponentScan(
-  "de.denktmit.webapp.springconfig",
+    "de.denktmit.webapp.springconfig",
 )
 class WebwicketSpringApplication
 
 fun main(args: Array<String>) {
-  val app = SpringApplication(WebwicketSpringApplication::class.java)
-  app.run(*args).environment
+    val app = SpringApplication(WebwicketSpringApplication::class.java)
+    app.run(*args).environment
 }
