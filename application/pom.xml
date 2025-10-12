@@ -15,7 +15,7 @@
 
     <properties>
         <dir.project.root>${project.basedir}/..</dir.project.root>
-        <jib-maven-plugin.image>eclipse-temurin:17-jre@sha256:9e416007cfe1ebd4ec0bd86ca84f6d0af305af87872c9411d61a9c90ce188415</jib-maven-plugin.image>
+        <jib-maven-plugin.image>eclipse-temurin:21-jre@sha256:e48ae1e7797cee055b4392e619c19a6653a018a47ab36bac9d6eb0e4d5061656</jib-maven-plugin.image>
     </properties>
 
     <dependencies>

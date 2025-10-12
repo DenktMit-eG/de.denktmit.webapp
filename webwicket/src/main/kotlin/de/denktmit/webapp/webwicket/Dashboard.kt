@@ -1,10 +1,10 @@
-package de.denktmit.webapp.webwicket.pages
+package de.denktmit.webapp.webwicket
 
 import org.apache.wicket.markup.html.WebMarkupContainer
 import org.apache.wicket.request.mapper.parameter.PageParameters
 
 class Dashboard(
-  pageParameters: PageParameters?,
+    pageParameters: PageParameters?,
 ) : BasePage(pageParameters) {
   override fun onInitialize() {
     super.onInitialize()

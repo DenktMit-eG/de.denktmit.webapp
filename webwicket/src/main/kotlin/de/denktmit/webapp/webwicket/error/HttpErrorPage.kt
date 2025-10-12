@@ -1,6 +1,6 @@
-package de.denktmit.webapp.webwicket.pages.errors
+package de.denktmit.webapp.webwicket.error
 
-import de.denktmit.webapp.webwicket.pages.BasePage
+import de.denktmit.webapp.webwicket.BasePage
 import de.denktmit.wicket.components.component.DmLabel
 import de.denktmit.wicket.components.q
 

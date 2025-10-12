@@ -1,6 +1,6 @@
-package de.denktmit.webapp.webwicket.pages.errors
+package de.denktmit.webapp.webwicket.error
 
-import de.denktmit.webapp.webwicket.pages.BasePage
+import de.denktmit.webapp.webwicket.BasePage
 
 class Http403ErrorPage : BasePage() {
   override fun onInitialize() {

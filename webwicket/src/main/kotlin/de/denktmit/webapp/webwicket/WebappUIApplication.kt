@@ -1,9 +1,9 @@
 package de.denktmit.webapp.webwicket
 
-import de.denktmit.webapp.webwicket.pages.Dashboard
-import de.denktmit.webapp.webwicket.pages.errors.GenericErrorPage
-import de.denktmit.webapp.webwicket.pages.errors.Http403ErrorPage
-import de.denktmit.webapp.webwicket.pages.errors.HttpErrorPage
+import de.denktmit.webapp.webwicket.error.GenericErrorPage
+import de.denktmit.webapp.webwicket.error.Http403ErrorPage
+import de.denktmit.webapp.webwicket.error.HttpErrorPage
+import de.denktmit.webapp.webwicket.fixedcontent.LegalPage
 import org.apache.wicket.IRequestCycleProvider
 import org.apache.wicket.Page
 import org.apache.wicket.bean.validation.BeanValidationConfiguration
@@ -23,10 +23,16 @@ class WebappUIApplication : WebApplication() {
 
         cspSettings.blocking().disabled()
 
-        mountPage("dashboard", Dashboard::class.java)
-        mountPage("error", GenericErrorPage::class.java)
-        mountPage("error/404", HttpErrorPage.Http404ErrorPage::class.java)
-        mountPage("error/403", Http403ErrorPage::class.java)
+        mountPage("/p/dashboard", Dashboard::class.java)
+        mountPage("/p/legal-notice", LegalPage::class.java)
+        mountPage("/p/impressum", LegalPage::class.java)
+
+
+
+
+        mountPage("/p/error", GenericErrorPage::class.java)
+        mountPage("/p/error/403", Http403ErrorPage::class.java)
+        mountPage("/p/error/404", HttpErrorPage.Http404ErrorPage::class.java)
 
         applicationSettings.setInternalErrorPage(GenericErrorPage::class.java)
         exceptionSettings.setUnexpectedExceptionDisplay(ExceptionSettings.SHOW_INTERNAL_ERROR_PAGE)
