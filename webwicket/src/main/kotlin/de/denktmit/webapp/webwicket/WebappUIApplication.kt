@@ -3,6 +3,7 @@ package de.denktmit.webapp.webwicket
 import de.denktmit.webapp.webwicket.error.GenericErrorPage
 import de.denktmit.webapp.webwicket.error.Http403ErrorPage
 import de.denktmit.webapp.webwicket.error.HttpErrorPage
+import de.denktmit.webapp.webwicket.everylayout.EveryLayoutPage
 import de.denktmit.webapp.webwicket.fixedcontent.LegalPage
 import org.apache.wicket.IRequestCycleProvider
 import org.apache.wicket.Page
@@ -26,6 +27,7 @@ class WebappUIApplication : WebApplication() {
         mountPage("/p/dashboard", Dashboard::class.java)
         mountPage("/p/legal-notice", LegalPage::class.java)
         mountPage("/p/impressum", LegalPage::class.java)
+        mountPage("/p/every-layout", EveryLayoutPage::class.java)
 
 
 

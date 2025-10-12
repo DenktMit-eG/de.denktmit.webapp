@@ -1,6 +1,6 @@
 package de.denktmit.webapp.webwicket.error
 
-import de.denktmit.webapp.webwicket.layout.BasePage
+import de.denktmit.webapp.webwicket.layout.CenteredBasePage
 import de.denktmit.webapp.webwicket.utils.exceptionMessages
 import de.denktmit.wicket.components.q
 import org.apache.wicket.markup.html.basic.MultiLineLabel
@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory
 class GenericErrorPage(
     val exception: Exception?,
     pageParameters: PageParameters?,
-) : BasePage(pageParameters) {
+) : CenteredBasePage(pageParameters) {
     public constructor(pageParameters: PageParameters) : this(null, pageParameters)
 
     companion object {

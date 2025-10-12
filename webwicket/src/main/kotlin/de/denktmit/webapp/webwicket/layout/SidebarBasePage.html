@@ -39,12 +39,30 @@
     </nav>
   </div>
 </header>
-<wicket:child/>
-<main>
-  <div class="center">
-    <wicket:child/>
+<wicket:extend>
+  <div class="with-sidebar">
+    <aside class="sidebar" wicket:id="sidebarPanel">
+      <div>
+        <h2>The sidebar</h2>
+        <h3>Breakfast</h3>
+        <ul>
+          <li>Scrambled Eggs</li>
+          <li>Salad</li>
+        </ul>
+        <h3>Lunch</h3>
+        <ul>
+          <li>Big Hot Tofu Burger</li>
+          <li>Niagara Shrimps (vegan)</li>
+        </ul>
+      </div>
+    </aside>
+    <main class="not-sidebar">
+      <div class="center">
+        <wicket:child/>
+      </div>
+    </main>
   </div>
-</main>
+</wicket:extend>
 <footer class="bg-color:light-teal">
   <div class="center" wicket:id="footerPanel">
     <nav class="cluster-spaced">
