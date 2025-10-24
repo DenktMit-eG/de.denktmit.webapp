@@ -1,0 +1,65 @@
+<!doctype html>
+<html class="no-js" lang="en" xmlns:wicket="http://wicket.apache.org">
+<head>
+  <meta charset="utf-8">
+  <title>Admin - Users</title>
+</head>
+<body>
+<wicket:extend>
+  <!-- Users list section -->
+  <article wicket:id="listSection">
+    <hgroup>
+      <h1>Users</h1>
+      <p>Manage your application users</p>
+    </hgroup>
+
+    <table class="table" id="data-table">
+      <caption>List of existing users</caption>
+      <thead>
+      <tr>
+        <th>E-Mail</th>
+        <th>Disabled</th>
+        <th>Locked Until</th>
+        <th>Account Valid Until</th>
+        <th>Credentials Valid Until</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr wicket:id="rows">
+        <td wicket:id="email">email@example.com</td>
+        <td wicket:id="disabled">false</td>
+        <td wicket:id="lockedUntil">Wed, 1 Jan 1000 00:00:00 GMT</td>
+        <td wicket:id="accountValidUntil">Wed, 1 Jan 3000 00:00:00 GMT</td>
+        <td wicket:id="credentialsValidUntil">Wed, 1 Jan 3000 00:00:00 GMT</td>
+      </tr>
+      </tbody>
+    </table>
+  </article>
+
+  <!-- Invite form section -->
+  <article wicket:id="inviteSection">
+    <hgroup>
+      <h1>Invitation</h1>
+      <p>Invite users to join</p>
+    </hgroup>
+
+    <div wicket:id="feedback"></div>
+
+    <form wicket:id="form" method="post">
+      <label for="emailAddress">
+        <span>E-Mail</span>:
+        <input type="email" id="emailAddress" wicket:id="emailAddress" />
+      </label>
+
+      <label for="groupName">
+        <span>User group</span>:
+        <select id="groupName" wicket:id="groupName"></select>
+      </label>
+
+      <input type="reset" id="reset" name="reset" value="Reset" />
+      <input type="submit" id="create" name="create" value="Create" />
+    </form>
+  </article>
+</wicket:extend>
+</body>
+</html>

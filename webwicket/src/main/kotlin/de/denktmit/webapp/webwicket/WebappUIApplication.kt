@@ -5,6 +5,7 @@ import de.denktmit.webapp.webwicket.error.Http403ErrorPage
 import de.denktmit.webapp.webwicket.error.HttpErrorPage
 import de.denktmit.webapp.webwicket.everylayout.EveryLayoutPage
 import de.denktmit.webapp.webwicket.fixedcontent.LegalPage
+import de.denktmit.webapp.webwicket.admin.AdminUsersPage
 import org.apache.wicket.IRequestCycleProvider
 import org.apache.wicket.Page
 import org.apache.wicket.bean.validation.BeanValidationConfiguration
@@ -28,9 +29,7 @@ class WebappUIApplication : WebApplication() {
         mountPage("/p/legal-notice", LegalPage::class.java)
         mountPage("/p/impressum", LegalPage::class.java)
         mountPage("/p/every-layout", EveryLayoutPage::class.java)
-
-
-
+        mountPage("/p/admin/users", AdminUsersPage::class.java)
 
         mountPage("/p/error", GenericErrorPage::class.java)
         mountPage("/p/error/403", Http403ErrorPage::class.java)
