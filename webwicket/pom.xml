@@ -14,6 +14,7 @@
 
     <properties>
         <dir.project.root>${project.basedir}/..</dir.project.root>
+        <version.de.denktmit.wicket.dm-wicket-bom>0.1.0</version.de.denktmit.wicket.dm-wicket-bom>
         <version.frontend-maven-plugin.node>v24.9.0</version.frontend-maven-plugin.node>
     </properties>
 
@@ -22,7 +23,7 @@
             <dependency>
                 <groupId>de.denktmit.wicket</groupId>
                 <artifactId>dm-wicket-bom</artifactId>
-                <version>0.1.0-SNAPSHOT+39.57dbb39</version>
+                <version>${version.de.denktmit.wicket.dm-wicket-bom}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -128,12 +129,5 @@
             </plugin>
         </plugins>
     </build>
-
-    <repositories>
-        <repository>
-            <id>denktmit-git</id>
-            <url>https://git.denktmit.tech/api/packages/DenktMiteG/maven</url>
-        </repository>
-    </repositories>
 
 </project>
