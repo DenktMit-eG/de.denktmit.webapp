@@ -6,6 +6,10 @@ import de.denktmit.webapp.webwicket.error.HttpErrorPage
 import de.denktmit.webapp.webwicket.everylayout.EveryLayoutPage
 import de.denktmit.webapp.webwicket.fixedcontent.LegalPage
 import de.denktmit.webapp.webwicket.admin.AdminUsersPage
+import de.denktmit.webapp.webwicket.user.LoginPage
+import de.denktmit.webapp.webwicket.user.LogoutPage
+import de.denktmit.webapp.webwicket.user.MePage
+import de.denktmit.webapp.webwicket.user.ResetPasswordPage
 import org.apache.wicket.IRequestCycleProvider
 import org.apache.wicket.Page
 import org.apache.wicket.bean.validation.BeanValidationConfiguration
@@ -30,6 +34,10 @@ class WebappUIApplication : WebApplication() {
         mountPage("/p/impressum", LegalPage::class.java)
         mountPage("/p/every-layout", EveryLayoutPage::class.java)
         mountPage("/p/admin/users", AdminUsersPage::class.java)
+        mountPage("/p/user/login", LoginPage::class.java)
+        mountPage("/p/user/logout", LogoutPage::class.java)
+        mountPage("/p/me", MePage::class.java)
+        mountPage("/p/recoverPassword", ResetPasswordPage::class.java)
 
         mountPage("/p/error", GenericErrorPage::class.java)
         mountPage("/p/error/403", Http403ErrorPage::class.java)
