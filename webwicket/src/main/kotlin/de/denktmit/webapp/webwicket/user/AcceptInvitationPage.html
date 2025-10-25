@@ -1,0 +1,37 @@
+<!doctype html>
+<html class="no-js" lang="en" xmlns:wicket="http://wicket.apache.org">
+<head>
+  <meta charset="utf-8">
+  <title wicket:message="text:pages.acceptinvitation.title">Accept invitation</title>
+</head>
+<body>
+<wicket:extend>
+  <article>
+    <hgroup>
+      <h1 wicket:message="text:pages.acceptinvitation.title">Accept invitation</h1>
+      <p wicket:id="tokenValidText" wicket:message="text:pages.acceptinvitation.tokensuccess.titledesc">Please set up your password, you will be asked to log in afterward</p>
+      <p wicket:id="tokenInvalidText" wicket:message="text:pages.acceptinvitation.tokenfail.titledesc">The token you provided seems invalid, please use password recovery</p>
+    </hgroup>
+
+    <div wicket:id="feedback"></div>
+
+    <div wicket:id="formContainer">
+      <form wicket:id="form" method="post">
+        <label for="password">
+          <span wicket:message="text:shared.namings.password">Password</span>:
+          <input type="password" id="password" wicket:id="password" />
+        </label>
+        <label for="passwordRepeated">
+          <span wicket:message="text:shared.namings.passwordRepeat">Repeat password</span>:
+          <input type="password" id="passwordRepeated" wicket:id="passwordRepeated" />
+        </label>
+        <input type="reset" id="reset" name="reset" value="Reset" />
+        <input type="submit" id="create" name="create" value="Create" />
+      </form>
+    </div>
+
+    <div wicket:id="infoContainer"></div>
+  </article>
+</wicket:extend>
+</body>
+</html>

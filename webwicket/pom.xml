@@ -32,6 +32,10 @@
 
     <dependencies>
         <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>business</artifactId>
+        </dependency>
+        <dependency>
             <groupId>de.denktmit.wicket</groupId>
             <artifactId>dm-wicket-components</artifactId>
         </dependency>

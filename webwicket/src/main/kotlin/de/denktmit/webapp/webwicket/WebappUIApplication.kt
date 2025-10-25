@@ -6,10 +6,7 @@ import de.denktmit.webapp.webwicket.error.HttpErrorPage
 import de.denktmit.webapp.webwicket.everylayout.EveryLayoutPage
 import de.denktmit.webapp.webwicket.fixedcontent.LegalPage
 import de.denktmit.webapp.webwicket.admin.AdminUsersPage
-import de.denktmit.webapp.webwicket.user.LoginPage
-import de.denktmit.webapp.webwicket.user.LogoutPage
-import de.denktmit.webapp.webwicket.user.MePage
-import de.denktmit.webapp.webwicket.user.ResetPasswordPage
+import de.denktmit.webapp.webwicket.user.*
 import org.apache.wicket.IRequestCycleProvider
 import org.apache.wicket.Page
 import org.apache.wicket.bean.validation.BeanValidationConfiguration
@@ -19,25 +16,36 @@ import org.apache.wicket.protocol.http.WebApplication
 import org.apache.wicket.request.IRequestHandler
 import org.apache.wicket.request.cycle.RequestCycle
 import org.apache.wicket.request.mapper.parameter.PageParameters
+import org.apache.wicket.resource.loader.BundleStringResourceLoader
 import org.apache.wicket.settings.ExceptionSettings
+import org.slf4j.LoggerFactory
+import java.util.Locale
 
 class WebappUIApplication : WebApplication() {
     override fun getHomePage(): Class<out Page> = Dashboard::class.java
+
+    companion object {
+        val LOGGER = LoggerFactory.getLogger(WebappUIApplication::class.java)
+    }
 
     override fun init() {
         super.init()
 
         cspSettings.blocking().disabled()
+        resourceSettings.stringResourceLoaders.add(BundleStringResourceLoader("messages"))
 
-        mountPage("/p/dashboard", Dashboard::class.java)
-        mountPage("/p/legal-notice", LegalPage::class.java)
-        mountPage("/p/impressum", LegalPage::class.java)
-        mountPage("/p/every-layout", EveryLayoutPage::class.java)
         mountPage("/p/admin/users", AdminUsersPage::class.java)
-        mountPage("/p/user/login", LoginPage::class.java)
-        mountPage("/p/user/logout", LogoutPage::class.java)
+        mountPage("/p/dashboard", Dashboard::class.java)
+        mountPage("/p/every-layout", EveryLayoutPage::class.java)
+        mountPage("/p/impressum", LegalPage::class.java)
+        mountPage("/p/invite-accept", AcceptInvitationPage::class.java)
+        mountPage("/p/legal-notice", LegalPage::class.java)
         mountPage("/p/me", MePage::class.java)
         mountPage("/p/recoverPassword", ResetPasswordPage::class.java)
+        mountPage("/p/registration", RegistrationPage::class.java)
+        mountPage("/p/registration-success", RegistrationSuccessPage::class.java)
+        mountPage("/p/user/login", LoginPage::class.java)
+        mountPage("/p/user/logout", LogoutPage::class.java)
 
         mountPage("/p/error", GenericErrorPage::class.java)
         mountPage("/p/error/403", Http403ErrorPage::class.java)
