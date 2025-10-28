@@ -4,6 +4,7 @@ import de.denktmit.webapp.business.user.UserService.UserSavingResult
 import de.denktmit.webapp.common.DataTable
 import de.denktmit.webapp.persistence.Constants
 import de.denktmit.webapp.persistence.users.GROUP_NAME_USERS
+import de.denktmit.webapp.persistence.users.RbacMapping
 import de.denktmit.webapp.persistence.users.RbacRepository
 import de.denktmit.webapp.persistence.users.User
 import de.denktmit.webapp.persistence.users.UserRepository
@@ -35,6 +36,15 @@ class UserServiceImpl(
     companion object {
         private val LOGGER = LoggerFactory.getLogger(UserServiceImpl::class.java)
         private val FORMATTER: DateTimeFormatter = DateTimeFormatter.RFC_1123_DATE_TIME
+    }
+
+    override fun userDataV2(): List<RbacMapping> {
+
+        val mails = userRepository
+            .findAll()
+            .map { it.mail }
+            .toSet()
+        return rbacRepository.findAllByMails(mails)
     }
 
     override fun userData(): DataTable {

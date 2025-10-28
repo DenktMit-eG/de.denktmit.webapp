@@ -1,6 +1,10 @@
 package de.denktmit.webapp.webwicket.admin
 
+import de.denktmit.webapp.business.user.UserService
+import de.denktmit.webapp.springconfig.WicketContextProperties
 import de.denktmit.webapp.webwicket.layout.SidebarBasePage
+import de.denktmit.webapp.webwicket.user.AcceptInvitationPage
+import de.denktmit.wicket.spring.bean
 import org.apache.wicket.markup.html.WebMarkupContainer
 import org.apache.wicket.markup.html.basic.Label
 import org.apache.wicket.markup.html.form.DropDownChoice
@@ -15,10 +19,24 @@ import org.apache.wicket.validation.IValidator
 import org.apache.wicket.validation.validator.EmailAddressValidator
 import org.apache.wicket.validation.validator.StringValidator
 import java.io.Serializable
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 
 class AdminUsersPage(
     pageParameters: PageParameters?,
 ) : SidebarBasePage(pageParameters, AdminSidebarPanel()) {
+
+    @delegate:Transient
+    private val userService: UserService by bean()
+    @delegate:Transient
+    private val wicketContextProperties: WicketContextProperties by bean()
+
+    @Transient
+    private val formatter = DateTimeFormatter
+        .ofLocalizedDateTime(FormatStyle.MEDIUM)
+        .withLocale(session.locale)
+        .withZone(ZoneId.systemDefault())
 
     // Decide whether to show the invite form or the list based on the query parameter
     private val inviteMode: Boolean = pageParameters?.get("action")?.toString()?.equals("invite", ignoreCase = true) ?: false
@@ -37,30 +55,15 @@ class AdminUsersPage(
 
     private val usersModel: IModel<List<UserRow>> = object : LoadableDetachableModel<List<UserRow>>() {
         override fun load(): List<UserRow> {
-            // TODO: Replace with real data source (service/DAO)
-            return listOf(
+            return userService.userDataV2().map {
                 UserRow(
-                    email = "user1.johndoe@example.com",
-                    disabled = false,
-                    lockedUntil = "Wed, 1 Jan 1000 00:00:00 GMT",
-                    accountValidUntil = "Wed, 1 Jan 3000 00:00:00 GMT",
-                    credentialsValidUntil = "Wed, 1 Jan 3000 00:00:00 GMT",
-                ),
-                UserRow(
-                    email = "admin2.janesmith@example.com",
-                    disabled = false,
-                    lockedUntil = "Wed, 1 Jan 1000 00:00:00 GMT",
-                    accountValidUntil = "Wed, 1 Jan 3000 00:00:00 GMT",
-                    credentialsValidUntil = "Wed, 1 Jan 3000 00:00:00 GMT",
-                ),
-                UserRow(
-                    email = "creds_expired_user5.petergabriel@example.com",
-                    disabled = true,
-                    lockedUntil = "Wed, 1 Jan 1000 00:00:00 GMT",
-                    accountValidUntil = "Wed, 1 Jan 3000 00:00:00 GMT",
-                    credentialsValidUntil = "Wed, 1 Jan 1000 00:00:00 GMT",
-                ),
-            )
+                    it.user.mail,
+                    it.user.disabled,
+                    formatter.format(it.user.lockedUntil),
+                    formatter.format(it.user.accountValidUntil),
+                    formatter.format(it.user.credentialsValidUntil),
+                )
+            }
         }
     }
 
@@ -101,8 +104,12 @@ class AdminUsersPage(
 
         val form = object : Form<InvitationForm>("form", invitationFormModel) {
             override fun onSubmit() {
-                // TODO: Wire to service sending the invitation
-                // For now, we just report success
+                val redirectUri = wicketContextProperties.baseUri.resolve(requestCycle.mapUrlFor(AcceptInvitationPage::class.java, PageParameters()).toString())
+                userService.inviteUser(
+                    invitationFormModel.`object`.emailAddress!!,
+                    invitationFormModel.`object`.groupName!!,
+                    redirectUri,
+                )
                 info("Invitation created for email='${'$'}{modelObject.emailAddress}' with group='${'$'}{modelObject.groupName}'")
             }
         }

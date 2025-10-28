@@ -91,6 +91,6 @@ business:
   mail:
     sender: "mailbot@denktmit.de"
 
-web:
+webwicket:
   hostname: localhost
   port: 8080

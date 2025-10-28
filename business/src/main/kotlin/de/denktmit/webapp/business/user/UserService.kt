@@ -1,12 +1,14 @@
 package de.denktmit.webapp.business.user
 
 import de.denktmit.webapp.common.DataTable
+import de.denktmit.webapp.persistence.users.RbacMapping
 import de.denktmit.webapp.persistence.users.User
 import java.net.URI
 import java.security.Principal
 
 interface UserService {
     fun userData(): DataTable
+    fun userDataV2(): List<RbacMapping>
 
     fun isEmailExisting(mail: String): Boolean
 

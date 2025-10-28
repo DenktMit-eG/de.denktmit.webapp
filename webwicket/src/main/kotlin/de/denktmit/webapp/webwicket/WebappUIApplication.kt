@@ -19,7 +19,6 @@ import org.apache.wicket.request.mapper.parameter.PageParameters
 import org.apache.wicket.resource.loader.BundleStringResourceLoader
 import org.apache.wicket.settings.ExceptionSettings
 import org.slf4j.LoggerFactory
-import java.util.Locale
 
 class WebappUIApplication : WebApplication() {
     override fun getHomePage(): Class<out Page> = Dashboard::class.java

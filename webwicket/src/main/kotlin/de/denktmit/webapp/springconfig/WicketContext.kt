@@ -7,16 +7,22 @@ import jakarta.servlet.DispatcherType
 import jakarta.servlet.Filter
 import org.apache.wicket.RuntimeConfigurationType
 import org.apache.wicket.protocol.http.WicketFilter
+import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.web.server.ErrorPage
 import org.springframework.boot.web.server.ErrorPageRegistrar
 import org.springframework.boot.web.servlet.FilterRegistrationBean
 import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.env.Environment
 import org.springframework.http.HttpStatus
 import java.util.*
 
 @Configuration
+@EnableConfigurationProperties(
+    WicketContextProperties::class,
+)
+@ComponentScan("de.denktmit.webapp.webwicket")
 class WicketContext {
     @Bean
     fun getWicketApplication(env: Environment): WebappUIApplication {
@@ -55,8 +61,8 @@ class WicketContext {
     fun errorPageRegistrar(): ErrorPageRegistrar =
         ErrorPageRegistrar {
             it.addErrorPages(
-                ErrorPage(HttpStatus.NOT_FOUND, "/error/404"),
-                ErrorPage(HttpStatus.FORBIDDEN, "/error/403"),
+                ErrorPage(HttpStatus.NOT_FOUND, "/p/error/404"),
+                ErrorPage(HttpStatus.FORBIDDEN, "/p/error/403"),
             )
         }
 }
