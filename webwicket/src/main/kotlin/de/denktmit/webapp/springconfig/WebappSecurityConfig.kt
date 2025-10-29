@@ -1,5 +1,6 @@
 package de.denktmit.webapp.springconfig
 
+import de.denktmit.webapp.business.user.WebappUserDetailsService
 import de.denktmit.webapp.webwicket.filters.RedirectAuthenticatedUsersFilter
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -17,6 +18,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 class WebappSecurityConfig(
     private val securityProperties: WebappSecurityProperties,
     private val redirectAuthenticatedUsersFilter: RedirectAuthenticatedUsersFilter,
+    private val userDetailsService: WebappUserDetailsService,
 ) {
 
     /**
@@ -36,7 +38,6 @@ class WebappSecurityConfig(
         "/p/error", "/p/error.html",
         "/p/every-layout", "/p/every-layout.html",
         "/p/.well-known/*",
-        "/p/**",
         "/p/registration*",
         "/p/recover-password*",
         "/p/validate-email*",
@@ -80,15 +81,14 @@ class WebappSecurityConfig(
         .formLogin { formLoginConfigurer ->
             formLoginConfigurer
                 .loginPage("/p/user/login")
-                .loginProcessingUrl("/p/user/login")
                 .defaultSuccessUrl("/p/me")
                 .usernameParameter("email")
                 .passwordParameter("password")
                 .permitAll()
         }.logout { logoutConfigurer ->
             logoutConfigurer
-                .logoutUrl("/p/user/logout")
-                .logoutSuccessUrl("/p")
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/p/user/login")
         }
         .authorizeHttpRequests { authorizationConfigurer ->
             authorizationConfigurer
@@ -101,5 +101,12 @@ class WebappSecurityConfig(
                 .principal(securityProperties.anonymousPrincipal)
                 .authorities("ROLE_ANON")
         }
-
+        .rememberMe {
+            it
+                .key("de.denktmit.webapp.webwicket")
+                .tokenValiditySeconds(14 * 24 * 60 * 60) // 14 days
+                .userDetailsService(userDetailsService)
+                .alwaysRemember(true)
+        }
+        .userDetailsService(userDetailsService)
 }

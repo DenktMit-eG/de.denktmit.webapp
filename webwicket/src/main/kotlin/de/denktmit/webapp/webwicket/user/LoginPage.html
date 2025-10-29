@@ -12,16 +12,14 @@
       <p>Login with your e-mail address and password</p>
     </hgroup>
 
-    <div wicket:id="feedback"></div>
-
-    <form wicket:id="form" method="post" action="LoginPage.html">
+    <form method="post" action="/login">
       <label for="email">
         <span>E-Mail</span>:
-        <input type="email" id="email" wicket:id="email" required="required" />
+        <input name="email" type="email" id="email" required="required" />
       </label>
       <label for="password">
         <span>Password</span>:
-        <input type="password" id="password" wicket:id="password" required="required" />
+        <input name="password" type="password" id="password" required="required" />
       </label>
       <input type="submit" value="Login" />
     </form>
