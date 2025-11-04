@@ -11,6 +11,7 @@ import de.denktmit.wicket.components.component.DmListView
 import de.denktmit.wicket.components.feedback.DmFeedbackPanel
 import de.denktmit.wicket.components.form.DmCheckbox
 import de.denktmit.wicket.components.form.DmForm
+import de.denktmit.wicket.model.modelOf
 import de.denktmit.wicket.spring.bean
 import org.apache.wicket.markup.html.form.EmailTextField
 import org.apache.wicket.model.*
@@ -58,7 +59,7 @@ class AdminUsersPage(
 
     private val usersModel: IModel<List<UserRow>> = object : LoadableDetachableModel<List<UserRow>>() {
         override fun load(): List<UserRow> {
-            return userService.userDataV2().map {
+            return userService.userDataV2().sortedBy { it.user.mail }.map {
                 UserRow(
                     it.user.mail,
                     it.user.disabled,
@@ -86,7 +87,7 @@ class AdminUsersPage(
             isVisible = !inviteMode
             add(DmForm("tableForm", usersModel) {
                 +DmListView("rows", model) {
-                    +DmCheckbox(it::selected)
+                    +DmCheckbox("selected", modelOf(model, UserRow::selected))
                     +DmLabel("email", it.email)
                     +DmLabel("disabled", it.disabled.toString())
                     +DmLabel("lockedUntil", it.lockedUntil)
@@ -94,7 +95,7 @@ class AdminUsersPage(
                     +DmLabel("credentialsValidUntil", it.credentialsValidUntil)
                 }
                 onSubmit = {
-                    val result = userService.disableUsers(model.`object`.map { it.email })
+                    val result = userService.disableUsers(model.`object`.filter { it.selected }.map { it.email })
                     usersModel.`object` = result.map { UserRow(
                         it.mail,
                         it.disabled,
