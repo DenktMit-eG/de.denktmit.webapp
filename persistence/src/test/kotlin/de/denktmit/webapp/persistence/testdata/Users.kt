@@ -91,6 +91,10 @@ object Users {
             return findAll().find { it.mail == mail }
         }
 
+        override fun findAllByMail(email: List<String>): List<User> {
+            return findAll().toList()
+        }
+
         override fun existsByMail(mail: String): Boolean {
             return findOneByMail(mail) != null
         }

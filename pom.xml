@@ -39,6 +39,9 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.dev.db.pw>db-dev-pass</project.dev.db.pw>
+        <project.dev.db.url>jdbc:postgresql://localhost:25432/webapp</project.dev.db.url>
+        <project.dev.db.user>db-dev-user</project.dev.db.user>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <revision>0.0.1</revision>
         <sha1></sha1>

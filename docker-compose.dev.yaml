@@ -46,9 +46,9 @@ services:
       - TZ="Europe/Berlin"
 
   hub:
-    profiles: [ e2e ]
+    profiles: [ e2e ] # TODO should we really add profiles to the services? I love it if docker compose up is just working for local setup
     image: selenium/hub:4.15.0-20231102
-    container_name: "${COMPOSE_PROJECT_NAME}_selenium_hub"
+    container_name: "${COMPOSE_PROJECT_NAME}_selenium_hub" # TODO If we put default values to the env vars we also lose the --env parameter and after renaming it to docker-compose.yaml we can just do docker compose up -d
     restart: always
     ports:
       - "4442:4442"
@@ -74,7 +74,7 @@ services:
       - SE_EVENT_BUS_PUBLISH_PORT=4442
       - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
       # forcing lang by below props
-      # Details: https://bugs.chromium.org/p/chromium/issues/detail?id=19491
+      # Details: https://bugs.chromium.org/chromium/issues/detail?id=19491
       - LANG=de_DE.UTF-8
       - LANGUAGE=de_DE
       - LC_CTYPE=de_DE.UTF-8

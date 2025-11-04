@@ -61,8 +61,8 @@ class WicketContext {
     fun errorPageRegistrar(): ErrorPageRegistrar =
         ErrorPageRegistrar {
             it.addErrorPages(
-                ErrorPage(HttpStatus.NOT_FOUND, "/p/error/404"),
-                ErrorPage(HttpStatus.FORBIDDEN, "/p/error/403"),
+                ErrorPage(HttpStatus.NOT_FOUND, "/error/404"),
+                ErrorPage(HttpStatus.FORBIDDEN, "/error/403"),
             )
         }
 }

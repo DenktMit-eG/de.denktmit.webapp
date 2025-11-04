@@ -1,72 +1,72 @@
 <!doctype html>
 <html lang="en" data-bs-theme="dark" xmlns:wicket="http://wicket.apache.org">
 <head>
-  <meta charset="utf-8">
-  <title>Home</title>
-  <link rel="icon" href="/img/favicon.svg">
-  <link rel="stylesheet" href="/@css/webapp.css" th:href="@{/css/webapp.min.css}"/>
+    <meta charset="utf-8">
+    <title>Home</title>
+    <link rel="icon" href="/img/favicon.svg">
+    <link rel="stylesheet" href="/@css/webapp.css"/>
 </head>
 <body>
 <header class="bg-color:dark-petrol">
-  <div class="center">
-    <nav class="cluster-spaced">
-      <img src="/img/logo.svg" alt="Das DenktMit eG Signet mit Firmenname"/>
-      <ul class="cluster-wrapped">
-        <li><a href="/@basePath/index.html" th:href="@{/}">Home</a></li>
-        <li><a href="/@basePath/every-layout/index.html" th:href="@{/every-layout/index}">Every Layout</a></li>
-        <li><a href="/@basePath/admin/users.html" th:href="@{/admin/users}">Admin/Users</a></li>
-        <li><a href="/@basePath/user/logout.html" th:href="@{/logout}">Logout</a></li>
-      </ul>
-    </nav>
-  </div>
+    <div class="center">
+        <nav class="cluster-spaced">
+            <img src="/img/logo.svg" alt="Das DenktMit eG Signet mit Firmenname"/>
+            <ul class="cluster-wrapped">
+                <li><a href="/@basePath/index.html">Home</a></li>
+                <li><a href="/@basePath/every-layout/index.html">Every Layout</a></li>
+                <li><a href="/@basePath/admin/users.html">Admin/Users</a></li>
+                <li><a href="/@basePath/user/logout.html">Logout</a></li>
+            </ul>
+        </nav>
+    </div>
 </header>
 <main>
-  <wicket:extend>
-    <hgroup>
-      <h1>Impressum</h1>
-      <p>Bei allgemeinen Kontaktanfragen wenden Sie sich bitte an hallo@denktmit.de.</p>
-      <p>Das folgende Impressum wurde gemäß § 5 TMG gestaltet.</p>
-    </hgroup>
-    <article>
-      <h2>DenktMit Webapp Inhaltsseite</h2>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vel ligula vel justo feugiat elementum.
-        Nulla
-        facilisi. Vivamus eget urna nec velit bibendum cursus.
-      </p>
-      <p>
-        Sed tincidunt justo a consectetur ultrices. In hac habitasse platea dictumst. Integer id orci vel neque
-        feugiat lacinia. Sed auctor, felis nec suscipit fermentum, sem augue convallis lectus, non feugiat
-        ligula
-        urna vel libero.
-      </p>
-      <p>
-        Ut suscipit pharetra purus, vel fringilla nunc aliquet vel. Duis in dapibus ex. Nunc fermentum quam id
-        quam
-        eleifend, ac gravida sem ultrices. In at odio nec justo commodo condimentum. Sed vel odio vitae purus
-        hendrerit sodales vel nec justo.
-      </p>
-      <p>
-        Vestibulum bibendum libero vel nisi consectetur, a ultricies metus blandit. Donec consequat mauris eu
-        posuere sagittis.
-      </p>
-    </article>
-  </wicket:extend>
+    <wicket:extend>
+        <hgroup>
+            <h1>Impressum</h1>
+            <p>Bei allgemeinen Kontaktanfragen wenden Sie sich bitte an hallo@denktmit.de.</p>
+            <p>Das folgende Impressum wurde gemäß § 5 TMG gestaltet.</p>
+        </hgroup>
+        <article>
+            <h2>DenktMit Webapp Inhaltsseite</h2>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vel ligula vel justo feugiat elementum.
+                Nulla
+                facilisi. Vivamus eget urna nec velit bibendum cursus.
+            </p>
+            <p>
+                Sed tincidunt justo a consectetur ultrices. In hac habitasse platea dictumst. Integer id orci vel neque
+                feugiat lacinia. Sed auctor, felis nec suscipit fermentum, sem augue convallis lectus, non feugiat
+                ligula
+                urna vel libero.
+            </p>
+            <p>
+                Ut suscipit pharetra purus, vel fringilla nunc aliquet vel. Duis in dapibus ex. Nunc fermentum quam id
+                quam
+                eleifend, ac gravida sem ultrices. In at odio nec justo commodo condimentum. Sed vel odio vitae purus
+                hendrerit sodales vel nec justo.
+            </p>
+            <p>
+                Vestibulum bibendum libero vel nisi consectetur, a ultricies metus blandit. Donec consequat mauris eu
+                posuere sagittis.
+            </p>
+        </article>
+    </wicket:extend>
 </main>
 <footer class="bg-color:light-teal">
-  <div class="center">
-    <nav class="cluster-spaced">
-      <p>
-        &copy; 2024 DenktMit eG. All rights reserved. <br/>
-        Contact: hallo@denktmit.de
-      </p>
-      <ul class="cluster-wrapped">
-        <li><a href="/@basePath/fixed-content/legal-notice.html" th:href="@{/fixed-content/legal-notice}">Legal
-          notice</a></li>
-      </ul>
-    </nav>
-  </div>
+    <div class="center">
+        <nav class="cluster-spaced">
+            <p>
+                &copy; 2024 DenktMit eG. All rights reserved. <br/>
+                Contact: hallo@denktmit.de
+            </p>
+            <ul class="cluster-wrapped">
+                <li><a href="/@basePath/fixed-content/legal-notice.html">Legal
+                    notice</a></li>
+            </ul>
+        </nav>
+    </div>
 </footer>
-<script type="module" src="/@ts/lib.ts" th:src="@{/js/webapp.min.js}"></script>
+<script type="module" src="/@ts/lib.ts"></script>
 </body>
 </html>

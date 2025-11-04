@@ -2,6 +2,7 @@ package de.denktmit.webapp.webwicket.layout
 
 import de.denktmit.webapp.webwicket.user.LoginPage
 import de.denktmit.webapp.webwicket.user.LogoutPage
+import de.denktmit.wicket.components.base.DmContainer
 import de.denktmit.wicket.components.component.DmPageLink
 import de.denktmit.wicket.components.component.DmPanel
 import de.denktmit.wicket.model.modelOf
@@ -15,14 +16,16 @@ open class HeaderPanel : DmPanel("headerPanel") {
 
         val isAuthenticated = SecurityContextHolder.getContext().authentication.name != "anonymous"
 
-        add(
-            DmPageLink(
+        +DmContainer("admin") {
+            isVisible = isAuthenticated
+        }
+        +DmPageLink(
             "logout",
             if (isAuthenticated) LogoutPage::class.java else LoginPage::class.java,
             PageParameters(),
             modelOf {
                 SecurityContextHolder.getContext().authentication.name
             }
-        ))
+        )
     }
 }

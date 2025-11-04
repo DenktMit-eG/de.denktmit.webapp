@@ -12,8 +12,8 @@ import java.io.IOException
 @Component
 class RedirectAuthenticatedUsersFilter(
     private val redirectDefinitions: Map<String, String> = mapOf(
-        "/p/user/login" to "/p/me",
-        "/p/user/registration" to "/p/me",
+        "/user/login" to "/me",
+        "/user/registration" to "/me",
     )
 ) : OncePerRequestFilter() {
     @Throws(ServletException::class, IOException::class)

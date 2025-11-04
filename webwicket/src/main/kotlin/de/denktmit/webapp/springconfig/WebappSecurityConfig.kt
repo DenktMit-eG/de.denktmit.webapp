@@ -1,10 +1,8 @@
 package de.denktmit.webapp.springconfig
 
-import de.denktmit.webapp.business.user.WebappUserDetailsService
 import de.denktmit.webapp.webwicket.filters.RedirectAuthenticatedUsersFilter
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.security.config.Customizer.withDefaults
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configurers.CorsConfigurer
@@ -18,7 +16,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 class WebappSecurityConfig(
     private val securityProperties: WebappSecurityProperties,
     private val redirectAuthenticatedUsersFilter: RedirectAuthenticatedUsersFilter,
-    private val userDetailsService: WebappUserDetailsService,
 ) {
 
     /**
@@ -34,22 +31,23 @@ class WebappSecurityConfig(
      * Allow access to pages that a public on purpose, like e.g. landing pages, error pages, and legal pages
      */
     private val publicPagePaths = arrayOf(
-        "/p/", "/p/index.html",
-        "/p/error", "/p/error.html",
-        "/p/every-layout", "/p/every-layout.html",
-        "/p/.well-known/*",
-        "/p/registration*",
-        "/p/recover-password*",
-        "/p/validate-email*",
-        "/p/invite-accept*",
+        "/", "/index.html",
+        "/error", "/error.html",
+        "/every-layout", "/every-layout.html",
+        "/.well-known/*",
+        "/registration*",
+        "/recover-password*",
+        "/validate-email*",
+        "/invite-accept*",
+        "/dashboard*",
     )
 
     /**
      * Allow access to utility pages e.g. to register new user, validate emails or recover passwords
      */
     private val utilityPagePaths = arrayOf(
-        "/p/user/login",
-        "/p/actuator/**",
+        "/user/login",
+        "/actuator/**",// TODO actuator über einen eigenen port laufen lassen -> dann kann der cluster sich die daten im pod ziehen ohne dass andere darauf kommen
     )
 
     @Bean
@@ -76,24 +74,25 @@ class WebappSecurityConfig(
 
     private fun formAuthChain(httpSecurity: HttpSecurity): HttpSecurity = httpSecurity
         .addFilterBefore(redirectAuthenticatedUsersFilter, UsernamePasswordAuthenticationFilter::class.java)
-        .cors(withDefaults())
-        .csrf(withDefaults())
+        .cors(CorsConfigurer<HttpSecurity>::disable)
+        .csrf(CsrfConfigurer<HttpSecurity>::disable)
         .formLogin { formLoginConfigurer ->
             formLoginConfigurer
-                .loginPage("/p/user/login")
-                .defaultSuccessUrl("/p/me")
+                .loginPage("/user/login")
+                .loginProcessingUrl("/login")
+                .defaultSuccessUrl("/me", true)
                 .usernameParameter("email")
                 .passwordParameter("password")
                 .permitAll()
         }.logout { logoutConfigurer ->
             logoutConfigurer
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/p/user/login")
+                .logoutSuccessUrl("/user/login")
         }
         .authorizeHttpRequests { authorizationConfigurer ->
             authorizationConfigurer
                 .requestMatchers(*staticAssetsPaths, *publicPagePaths, *utilityPagePaths).permitAll()
-                .requestMatchers("/p/admin/**").hasRole("ADMIN")
+                .requestMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
         }
         .anonymous { anonymousConfigurer ->
@@ -101,12 +100,5 @@ class WebappSecurityConfig(
                 .principal(securityProperties.anonymousPrincipal)
                 .authorities("ROLE_ANON")
         }
-        .rememberMe {
-            it
-                .key("de.denktmit.webapp.webwicket")
-                .tokenValiditySeconds(14 * 24 * 60 * 60) // 14 days
-                .userDetailsService(userDetailsService)
-                .alwaysRemember(true)
-        }
-        .userDetailsService(userDetailsService)
+
 }

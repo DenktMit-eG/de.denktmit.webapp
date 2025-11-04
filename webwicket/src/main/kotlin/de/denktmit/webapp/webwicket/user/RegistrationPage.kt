@@ -6,14 +6,11 @@ import de.denktmit.webapp.business.user.WipeableCharSequence
 import de.denktmit.webapp.webwicket.layout.CenteredBasePage
 import de.denktmit.wicket.components.form.DmPasswordTextfield
 import de.denktmit.wicket.spring.bean
-import org.apache.wicket.Session
 import org.apache.wicket.markup.html.form.EmailTextField
 import org.apache.wicket.markup.html.form.Form
-import org.apache.wicket.markup.html.form.PasswordTextField
 import org.apache.wicket.markup.html.panel.FeedbackPanel
 import org.apache.wicket.model.CompoundPropertyModel
 import org.apache.wicket.model.Model
-import org.apache.wicket.request.cycle.RequestCycle
 import org.apache.wicket.request.mapper.parameter.PageParameters
 import org.slf4j.LoggerFactory
 import java.io.Serializable
@@ -54,7 +51,7 @@ class RegistrationPage(pageParameters: PageParameters?) : CenteredBasePage(pageP
                 }
 
                 val mailVerificationUri = URI.create("/validate-email")
-                when (val result = userService.createUser(email, WipeableCharSequence(pwd.toCharArray()), mailVerificationUri)) {
+                when (userService.createUser(email, WipeableCharSequence(pwd.toCharArray()), mailVerificationUri)) {
                     is UserSavingResult.EmailAlreadyExists -> error(getString("de.denktmit.webapp.web.validators.UniqueEmailValidator.message"))
                     is UserSavingResult.Persisted -> setResponsePage(RegistrationSuccessPage::class.java)
                     else -> error("Registration failed: ${'$'}result")
@@ -64,7 +61,7 @@ class RegistrationPage(pageParameters: PageParameters?) : CenteredBasePage(pageP
         add(form)
 
         val emailField = EmailTextField("emailAddress").apply { isRequired = true }
-        val passwordField = DmPasswordTextfield(RegistrationFormModel::password.name)
+        val passwordField = DmPasswordTextfield(RegistrationFormModel::password.name) // TODO KMutableProp
         val passwordRepeatedField = DmPasswordTextfield(RegistrationFormModel::passwordRepeated.name).apply { isRequired = true }
         form.add(emailField)
         form.add(passwordField)

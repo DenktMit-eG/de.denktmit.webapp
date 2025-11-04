@@ -3,11 +3,7 @@ package de.denktmit.webapp.business.user
 import de.denktmit.webapp.business.user.UserService.UserSavingResult
 import de.denktmit.webapp.common.DataTable
 import de.denktmit.webapp.persistence.Constants
-import de.denktmit.webapp.persistence.users.GROUP_NAME_USERS
-import de.denktmit.webapp.persistence.users.RbacMapping
-import de.denktmit.webapp.persistence.users.RbacRepository
-import de.denktmit.webapp.persistence.users.User
-import de.denktmit.webapp.persistence.users.UserRepository
+import de.denktmit.webapp.persistence.users.*
 import org.slf4j.LoggerFactory
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.context.i18n.LocaleContextHolder
@@ -31,7 +27,7 @@ class UserServiceImpl(
     private val passwordEncoder: PasswordEncoder,
     private val userRepository: UserRepository,
     private val rbacRepository: RbacRepository,
-): UserService {
+) : UserService {
 
     companion object {
         private val LOGGER = LoggerFactory.getLogger(UserServiceImpl::class.java)
@@ -48,7 +44,14 @@ class UserServiceImpl(
     }
 
     override fun userData(): DataTable {
-        val meta = DataTable.Meta.create("Groups", "E-Mail", "Disabled", "Locked Until", "Account Valid Until", "Credentials Valid Until")
+        val meta = DataTable.Meta.create(
+            "Groups",
+            "E-Mail",
+            "Disabled",
+            "Locked Until",
+            "Account Valid Until",
+            "Credentials Valid Until"
+        )
         val mails = userRepository
             .findAll()
             .map { it.mail }
@@ -135,9 +138,12 @@ class UserServiceImpl(
     }
 
 
-
     @Transactional
-    override fun updatePassword(principal: Principal, oldPassword: WipeableCharSequence, newPassword: WipeableCharSequence): UserSavingResult {
+    override fun updatePassword(
+        principal: Principal,
+        oldPassword: WipeableCharSequence,
+        newPassword: WipeableCharSequence
+    ): UserSavingResult {
         try {
             val user = userRepository.findOneByMail(principal.name)
                 ?: return UserSavingResult.UserNotFound(principal.name)
@@ -151,6 +157,16 @@ class UserServiceImpl(
             oldPassword.wipe()
             newPassword.wipe()
         }
+    }
+
+    @Transactional
+    override fun disableUsers(userMails: List<String>): Iterable<User> {
+        val relevantUsers = userRepository.findAllByMail(userMails)
+        return userRepository.saveAll(relevantUsers.map {
+            it.copy(
+                disabled = !it.disabled
+            )
+        })
     }
 
     private fun persistUser(

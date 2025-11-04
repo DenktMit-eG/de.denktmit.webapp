@@ -1,3 +1,5 @@
+server:
+  port: 8081
 spring:
   config:
     import:
@@ -5,12 +7,6 @@ spring:
       - optional:file:../.env-dev[.properties]
       - optional:file:./.env[.properties]
       - optional:file:../.env[.properties]
-
-  logging:
-    group:
-      db: 'org.hibernate,org.springframework.data.jpa,org.springframework.jdbc'
-    level:
-      db: DEBUG
 
   datasource:
     url: ${DB_DEV_URL}:${DB_DEV_PORT}/${DB_DEV_NAME}
@@ -86,6 +82,7 @@ management:
 business:
   adminUsers:
     - admin.user@denktmit.de
+    - matze_weisse@web.de
   domainNames:
     - denktmit.de
   mail:

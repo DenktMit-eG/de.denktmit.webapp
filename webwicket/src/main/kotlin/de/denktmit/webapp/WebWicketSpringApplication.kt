@@ -14,9 +14,9 @@ import org.springframework.context.annotation.ComponentScan
 @ComponentScan(
     "de.denktmit.webapp.springconfig",
 )
-class WebwicketSpringApplication
+class WebWicketSpringApplication
 
 fun main(args: Array<String>) {
-    val app = SpringApplication(WebwicketSpringApplication::class.java)
+    val app = SpringApplication(WebWicketSpringApplication::class.java)
     app.run(*args).environment
 }
