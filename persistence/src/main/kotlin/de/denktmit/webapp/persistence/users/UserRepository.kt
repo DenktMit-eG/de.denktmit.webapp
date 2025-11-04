@@ -1,12 +1,14 @@
 package de.denktmit.webapp.persistence.users
 
+import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.CrudRepository
 
 interface UserRepository: CrudRepository<User, Long> {
 
     fun findOneByMail(mail: String): User?
 
-    fun findAllByMail(email: List<String>): List<User>
+    @Query("select u from User u where u.mail = :mail")
+    fun findAllByMails(mails: List<String>): List<User>
 
     fun existsByMail(mail: String): Boolean
 
