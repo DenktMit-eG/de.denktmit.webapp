@@ -27,6 +27,7 @@
         <module>webwicket</module>
         <module>e2e-tests</module>
         <module>build-reports</module>
+        <module>wicketapplication</module>
     </modules>
 
     <properties>

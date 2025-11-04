@@ -4,9 +4,6 @@ import de.denktmit.webapp.webwicket.layout.CenteredBasePage
 import de.denktmit.wicket.components.feedback.DmFeedbackPanel
 import de.denktmit.wicket.components.form.DmForm
 import de.denktmit.wicket.components.form.DmPasswordTextfield
-import org.apache.wicket.markup.html.form.Form
-import org.apache.wicket.markup.html.form.PasswordTextField
-import org.apache.wicket.markup.html.panel.FeedbackPanel
 import org.apache.wicket.model.CompoundPropertyModel
 import org.apache.wicket.model.Model
 import org.apache.wicket.request.mapper.parameter.PageParameters
