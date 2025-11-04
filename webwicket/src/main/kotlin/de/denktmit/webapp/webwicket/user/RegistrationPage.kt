@@ -4,6 +4,8 @@ import de.denktmit.webapp.business.user.UserService
 import de.denktmit.webapp.business.user.UserService.UserSavingResult
 import de.denktmit.webapp.business.user.WipeableCharSequence
 import de.denktmit.webapp.webwicket.layout.CenteredBasePage
+import de.denktmit.wicket.components.feedback.DmFeedbackPanel
+import de.denktmit.wicket.components.form.DmForm
 import de.denktmit.wicket.components.form.DmPasswordTextfield
 import de.denktmit.wicket.spring.bean
 import org.apache.wicket.markup.html.form.EmailTextField
@@ -28,10 +30,15 @@ class RegistrationPage(pageParameters: PageParameters?) : CenteredBasePage(pageP
     override fun onInitialize() {
         super.onInitialize()
 
-        add(FeedbackPanel("feedback"))
+        +DmFeedbackPanel("feedback")
 
         val formModel = CompoundPropertyModel(Model(RegistrationFormModel("", "", "")))
-        val form = object : Form<RegistrationFormModel>("registrationForm", formModel) {
+        +object : DmForm<RegistrationFormModel>("registrationForm", formModel, {
+
+            +EmailTextField("emailAddress").apply { isRequired = true }
+            +DmPasswordTextfield(RegistrationFormModel::password.name) // TODO KMutableProp
+            +DmPasswordTextfield(RegistrationFormModel::passwordRepeated.name).apply { isRequired = true }
+        }) {
             override fun onSubmit() {
                 val email = modelObject.emailAddress?.trim()
                 val pwd = modelObject.password
@@ -58,14 +65,6 @@ class RegistrationPage(pageParameters: PageParameters?) : CenteredBasePage(pageP
                 }
             }
         }
-        add(form)
-
-        val emailField = EmailTextField("emailAddress").apply { isRequired = true }
-        val passwordField = DmPasswordTextfield(RegistrationFormModel::password.name) // TODO KMutableProp
-        val passwordRepeatedField = DmPasswordTextfield(RegistrationFormModel::passwordRepeated.name).apply { isRequired = true }
-        form.add(emailField)
-        form.add(passwordField)
-        form.add(passwordRepeatedField)
     }
 }
 

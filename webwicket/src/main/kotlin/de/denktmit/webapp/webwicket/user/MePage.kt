@@ -1,6 +1,9 @@
 package de.denktmit.webapp.webwicket.user
 
 import de.denktmit.webapp.webwicket.layout.CenteredBasePage
+import de.denktmit.wicket.components.feedback.DmFeedbackPanel
+import de.denktmit.wicket.components.form.DmForm
+import de.denktmit.wicket.components.form.DmPasswordTextfield
 import org.apache.wicket.markup.html.form.Form
 import org.apache.wicket.markup.html.form.PasswordTextField
 import org.apache.wicket.markup.html.panel.FeedbackPanel
@@ -20,11 +23,15 @@ class MePage(pageParameters: PageParameters?) : CenteredBasePage(pageParameters)
     override fun onInitialize() {
         super.onInitialize()
 
-        val feedback = FeedbackPanel("feedback")
-        add(feedback)
+        +DmFeedbackPanel("feedback")
 
         val formModel = CompoundPropertyModel(Model(ChangePasswordFormModel()))
-        val form = object : Form<ChangePasswordFormModel>("form", formModel) {
+        +object : DmForm<ChangePasswordFormModel>("form", formModel, {
+
+            +DmPasswordTextfield("oldPassword") { isRequired = true }
+            +DmPasswordTextfield("password") { isRequired = true }
+            +DmPasswordTextfield("passwordRepeated") { isRequired = true }
+        }) {
             override fun onSubmit() {
                 // Placeholder; validate repeat matches
                 if (modelObject.password != modelObject.passwordRepeated) {
@@ -34,13 +41,5 @@ class MePage(pageParameters: PageParameters?) : CenteredBasePage(pageParameters)
                 }
             }
         }
-        add(form)
-
-        val oldPwd = PasswordTextField("oldPassword").apply { isRequired = true }
-        val pwd = PasswordTextField("password").apply { isRequired = true }
-        val pwdRep = PasswordTextField("passwordRepeated").apply { isRequired = true }
-        form.add(oldPwd)
-        form.add(pwd)
-        form.add(pwdRep)
     }
 }

@@ -8,12 +8,11 @@ import de.denktmit.wicket.components.base.DmContainer
 import de.denktmit.wicket.components.component.DmDropDownChoice
 import de.denktmit.wicket.components.component.DmLabel
 import de.denktmit.wicket.components.component.DmListView
+import de.denktmit.wicket.components.feedback.DmFeedbackPanel
 import de.denktmit.wicket.components.form.DmCheckbox
 import de.denktmit.wicket.components.form.DmForm
 import de.denktmit.wicket.spring.bean
-import org.apache.wicket.markup.html.basic.Label
 import org.apache.wicket.markup.html.form.EmailTextField
-import org.apache.wicket.markup.html.panel.FeedbackPanel
 import org.apache.wicket.model.*
 import org.apache.wicket.request.mapper.parameter.PageParameters
 import org.apache.wicket.validation.IValidator
@@ -85,7 +84,7 @@ class AdminUsersPage(
 
         +DmContainer("listSection") {
             isVisible = !inviteMode
-            add(DmForm("tableForm", usersModel) {// TODO missing unaryOperator on DM
+            add(DmForm("tableForm", usersModel) {
                 +DmListView("rows", model) {
                     +DmCheckbox(it::selected)
                     +DmLabel("email", it.email)
@@ -108,8 +107,8 @@ class AdminUsersPage(
         }
         +DmContainer("inviteSection") {
             isVisible = inviteMode
-            +FeedbackPanel("feedback")
-            +DmForm("form", invitationFormModel) {
+            add(DmFeedbackPanel("feedback"))
+            add(DmForm("form", invitationFormModel) {
                 onSubmit = {
                     val redirectUri = wicketContextProperties.baseUri.resolve(
                         requestCycle.mapUrlFor(
@@ -139,7 +138,7 @@ class AdminUsersPage(
                 ) {
                     isRequired = true
                 }
-            }
+            })
         }
     }
 }

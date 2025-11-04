@@ -1,10 +1,10 @@
 package de.denktmit.webapp.webwicket.user
 
 import de.denktmit.webapp.webwicket.layout.CenteredBasePage
-import org.apache.wicket.markup.html.WebMarkupContainer
-import org.apache.wicket.markup.html.form.Form
+import de.denktmit.wicket.components.base.DmContainer
+import de.denktmit.wicket.components.feedback.DmFeedbackPanel
+import de.denktmit.wicket.components.form.DmForm
 import org.apache.wicket.markup.html.form.PasswordTextField
-import org.apache.wicket.markup.html.panel.FeedbackPanel
 import org.apache.wicket.model.CompoundPropertyModel
 import org.apache.wicket.model.Model
 import org.apache.wicket.request.mapper.parameter.PageParameters
@@ -22,38 +22,33 @@ class ResetPasswordPage(pageParameters: PageParameters?) : CenteredBasePage(page
     override fun onInitialize() {
         super.onInitialize()
 
-        val feedback = FeedbackPanel("feedback")
-        add(feedback)
+        +DmFeedbackPanel("feedback")
 
         val isValid = token?.isNotBlank() == true
 
         // Headline texts visibility
-        val tokenValidText = WebMarkupContainer("tokenValidText").apply { isVisible = isValid }
-        val tokenInvalidText = WebMarkupContainer("tokenInvalidText").apply { isVisible = !isValid }
-        add(tokenValidText)
-        add(tokenInvalidText)
+        +DmContainer("tokenValidText") { isVisible = isValid }
+        +DmContainer("tokenInvalidText") { isVisible = !isValid }
 
         // Containers for content
-        val formContainer = WebMarkupContainer("formContainer").apply { isVisible = isValid }
-        val infoContainer = WebMarkupContainer("infoContainer").apply { isVisible = !isValid }
-        add(formContainer)
-        add(infoContainer)
+        +DmContainer("formContainer") {
+            isVisible = isValid
 
-        val formModel = CompoundPropertyModel(Model(PasswordResetFormModel()))
-        val form = object : Form<PasswordResetFormModel>("form", formModel) {
-            override fun onSubmit() {
-                if (modelObject.password != modelObject.passwordRepeated) {
-                    error("Passwords do not match")
-                } else {
-                    info("Password reset submitted")
+            val formModel = CompoundPropertyModel(Model(PasswordResetFormModel()))
+            +object : DmForm<PasswordResetFormModel>("form", formModel, {
+
+                +PasswordTextField("password").apply { isRequired = true }
+                +PasswordTextField("passwordRepeated").apply { isRequired = true }
+            }) {
+                override fun onSubmit() {
+                    if (modelObject.password != modelObject.passwordRepeated) {
+                        error("Passwords do not match")
+                    } else {
+                        info("Password reset submitted")
+                    }
                 }
             }
         }
-        formContainer.add(form)
-
-        val pwd = PasswordTextField("password").apply { isRequired = true }
-        val pwdRep = PasswordTextField("passwordRepeated").apply { isRequired = true }
-        form.add(pwd)
-        form.add(pwdRep)
+        +DmContainer("infoContainer") { isVisible = !isValid }
     }
 }
