@@ -35,12 +35,11 @@ class ResetPasswordPage(pageParameters: PageParameters?) : CenteredBasePage(page
             isVisible = isValid
 
             val formModel = CompoundPropertyModel(Model(PasswordResetFormModel()))
-            +object : DmForm<PasswordResetFormModel>("form", formModel, {
+            +DmForm<PasswordResetFormModel>("form", formModel) {
 
                 +PasswordTextField("password").apply { isRequired = true }
                 +PasswordTextField("passwordRepeated").apply { isRequired = true }
-            }) {
-                override fun onSubmit() {
+                onSubmit = fun() {
                     if (modelObject.password != modelObject.passwordRepeated) {
                         error("Passwords do not match")
                     } else {

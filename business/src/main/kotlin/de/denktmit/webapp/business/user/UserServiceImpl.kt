@@ -160,9 +160,9 @@ class UserServiceImpl(
     }
 
     @Transactional
-    override fun disableUsers(userMails: List<String>): Iterable<User> {
-        val relevantUsers = userRepository.findAllByMails(userMails)
-        return userRepository.saveAll(relevantUsers.map {
+    override fun disableUsers(userMails: List<String>) {
+        val relevantUsers = userRepository.findAllByMailIn(userMails)
+        userRepository.saveAll(relevantUsers.map {
             it.copy(
                 disabled = !it.disabled
             )

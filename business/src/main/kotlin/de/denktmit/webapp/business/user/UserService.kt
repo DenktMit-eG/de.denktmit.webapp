@@ -67,7 +67,7 @@ interface UserService {
         newPassword: WipeableCharSequence
     ): UserSavingResult
 
-    fun disableUsers(userMails: List<String>): Iterable<User>
+    fun disableUsers(userMails: List<String>)
 
     sealed class UserSavingResult {
         data class Persisted(val user: User): UserSavingResult()

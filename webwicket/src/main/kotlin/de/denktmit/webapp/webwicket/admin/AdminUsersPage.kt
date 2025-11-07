@@ -85,7 +85,7 @@ class AdminUsersPage(
 
         +DmContainer("listSection") {
             isVisible = !inviteMode
-            add(DmForm("tableForm", usersModel) {
+            +DmForm("tableForm", usersModel) {
                 +DmListView("rows", model) {
                     +DmCheckbox("selected", modelOf(model, UserRow::selected))
                     +DmLabel("email", it.email)
@@ -95,21 +95,24 @@ class AdminUsersPage(
                     +DmLabel("credentialsValidUntil", it.credentialsValidUntil)
                 }
                 onSubmit = {
-                    val result = userService.disableUsers(model.`object`.filter { it.selected }.map { it.email })
-                    usersModel.`object` = result.map { UserRow(
-                        it.mail,
-                        it.disabled,
-                        formatter.format(it.lockedUntil),
-                        formatter.format(it.accountValidUntil),
-                        formatter.format(it.credentialsValidUntil),
-                    ) }
+                    userService.disableUsers(model.`object`.filter { it.selected }.map { it.email })
+                    val result = userService.userDataV2().sortedBy { it.user.mail }
+                    usersModel.`object` = result.map {
+                        UserRow(
+                            it.user.mail,
+                            it.user.disabled,
+                            formatter.format(it.user.lockedUntil),
+                            formatter.format(it.user.accountValidUntil),
+                            formatter.format(it.user.credentialsValidUntil),
+                        )
+                    }
                 }
-            })
+            }
         }
         +DmContainer("inviteSection") {
             isVisible = inviteMode
-            add(DmFeedbackPanel("feedback"))
-            add(DmForm("form", invitationFormModel) {
+            +DmFeedbackPanel("feedback")
+            +DmForm("form", invitationFormModel) {
                 onSubmit = {
                     val redirectUri = wicketContextProperties.baseUri.resolve(
                         requestCycle.mapUrlFor(
@@ -126,9 +129,8 @@ class AdminUsersPage(
                 }
                 +EmailTextField("emailAddress").apply {
                     isRequired = true
-                    @Suppress("UNCHECKED_CAST")
                     run {
-                        add(EmailAddressValidator.getInstance() as IValidator<String>)
+                        add(EmailAddressValidator.getInstance())
                         add(StringValidator.maximumLength(320) as IValidator<String>)
                     }
                 }
@@ -139,7 +141,7 @@ class AdminUsersPage(
                 ) {
                     isRequired = true
                 }
-            })
+            }
         }
     }
 }

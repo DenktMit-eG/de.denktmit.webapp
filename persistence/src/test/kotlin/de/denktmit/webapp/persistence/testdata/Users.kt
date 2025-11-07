@@ -91,7 +91,7 @@ object Users {
             return findAll().find { it.mail == mail }
         }
 
-        override fun findAllByMails(mails: List<String>): List<User> {
+        override fun findAllByMailIn(mails: List<String>): List<User> {
             return findAll().toList()
         }
 

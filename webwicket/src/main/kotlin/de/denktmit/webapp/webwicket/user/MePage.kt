@@ -23,13 +23,12 @@ class MePage(pageParameters: PageParameters?) : CenteredBasePage(pageParameters)
         +DmFeedbackPanel("feedback")
 
         val formModel = CompoundPropertyModel(Model(ChangePasswordFormModel()))
-        +object : DmForm<ChangePasswordFormModel>("form", formModel, {
+        +DmForm<ChangePasswordFormModel>("form", formModel) {
 
             +DmPasswordTextfield("oldPassword") { isRequired = true }
             +DmPasswordTextfield("password") { isRequired = true }
             +DmPasswordTextfield("passwordRepeated") { isRequired = true }
-        }) {
-            override fun onSubmit() {
+            onSubmit = fun() {
                 // Placeholder; validate repeat matches
                 if (modelObject.password != modelObject.passwordRepeated) {
                     error("Passwords do not match")

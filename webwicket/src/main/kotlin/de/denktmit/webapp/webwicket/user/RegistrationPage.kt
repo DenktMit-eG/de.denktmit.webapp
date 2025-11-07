@@ -31,13 +31,12 @@ class RegistrationPage(pageParameters: PageParameters?) : CenteredBasePage(pageP
         +DmFeedbackPanel("feedback")
 
         val formModel = CompoundPropertyModel(Model(RegistrationFormModel("", "", "")))
-        +object : DmForm<RegistrationFormModel>("registrationForm", formModel, {
+        +DmForm<RegistrationFormModel>("registrationForm", formModel) {
 
             +EmailTextField("emailAddress").apply { isRequired = true }
             +DmPasswordTextfield(RegistrationFormModel::password.name) // TODO KMutableProp
-            +DmPasswordTextfield(RegistrationFormModel::passwordRepeated.name).apply { isRequired = true }
-        }) {
-            override fun onSubmit() {
+            +DmPasswordTextfield(RegistrationFormModel::passwordRepeated.name) { isRequired = true }
+            onSubmit =  fun() {
                 val email = modelObject.emailAddress?.trim()
                 val pwd = modelObject.password
                 val pwdRep = modelObject.passwordRepeated
@@ -53,13 +52,6 @@ class RegistrationPage(pageParameters: PageParameters?) : CenteredBasePage(pageP
                 if (pwd != pwdRep) {
                     error("Passwords do not match")
                     return
-                }
-
-                val mailVerificationUri = URI.create("/validate-email")
-                when (userService.createUser(email, WipeableCharSequence(pwd.toCharArray()), mailVerificationUri)) {
-                    is UserSavingResult.EmailAlreadyExists -> error(getString("de.denktmit.webapp.web.validators.UniqueEmailValidator.message"))
-                    is UserSavingResult.Persisted -> setResponsePage(RegistrationSuccessPage::class.java)
-                    else -> error("Registration failed: ${'$'}result")
                 }
             }
         }

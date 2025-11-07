@@ -135,8 +135,8 @@
                         <id>fill-db</id>
                         <configuration>
                             <locations>
-                                <location>classpath:db/default/migration</location>
-                                <location>filesystem:src/test/resources/db/default/migration</location>
+                                <location>classpath:db/migration</location>
+                                <location>filesystem:src/test/resources/db/migration</location>
                             </locations>
                         </configuration>
                     </execution>

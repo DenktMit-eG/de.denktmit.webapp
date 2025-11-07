@@ -44,12 +44,11 @@ class AcceptInvitationPage(pageParameters: PageParameters?) : CenteredBasePage(p
             isVisible = isValid
 
             val formModel = CompoundPropertyModel(Model(PasswordResetFormModel()))
-            +object : DmForm<PasswordResetFormModel>("form", formModel, {
+            +DmForm<PasswordResetFormModel>("form", formModel) {
 
                 +DmPasswordTextfield("password") { isRequired = true }
-                +DmPasswordTextfield("passwordRepeated").apply { isRequired = true }
-            }) {
-                override fun onSubmit() {
+                +DmPasswordTextfield("passwordRepeated") { isRequired = true }
+                onSubmit = fun () {
                     val pwd = modelObject.password
                     val pwdRep = modelObject.passwordRepeated
                     if (pwd.isNullOrBlank() || pwdRep.isNullOrBlank()) {
