@@ -1,0 +1,37 @@
+<!doctype html>
+<html class="no-js" lang="en" xmlns:wicket="http://wicket.apache.org">
+<head>
+  <meta charset="utf-8">
+  <title>My account</title>
+</head>
+<body>
+<wicket:extend>
+  <article>
+    <hgroup>
+      <h1>My account</h1>
+      <p>This is your user account page.</p>
+    </hgroup>
+
+    <div wicket:id="feedback"></div>
+
+    <form wicket:id="form" method="post">
+      <h2>Change password</h2>
+      <label for="oldPassword">
+        <span>Old password</span>:
+        <input type="password" id="oldPassword" wicket:id="oldPassword" />
+      </label>
+      <label for="password">
+        <span>Password</span>:
+        <input type="password" id="password" wicket:id="password" />
+      </label>
+      <label for="passwordRepeated">
+        <span>Repeat password</span>:
+        <input type="password" id="passwordRepeated" wicket:id="passwordRepeated" />
+      </label>
+      <input type="reset" id="reset" name="reset" value="Reset" />
+      <input type="submit" id="create" name="create" value="Change" />
+    </form>
+  </article>
+</wicket:extend>
+</body>
+</html>

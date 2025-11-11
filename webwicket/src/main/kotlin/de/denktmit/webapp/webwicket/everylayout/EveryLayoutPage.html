@@ -1,0 +1,123 @@
+<!doctype html>
+<html class="no-js" lang="en" xmlns:wicket="http://wicket.apache.org">
+<head>
+  <link rel="apple-touch-icon" href="icon.png">
+  <link rel="icon" href="/img/favicon.svg">
+  <link rel="manifest" href="/misc/site.webmanifest">
+  <link rel="stylesheet" href="/@css/webapp.css" />
+  <meta charset="utf-8">
+  <meta name="description" content="">
+  <meta name="theme-color" content="#fafafa">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:image" content="">
+  <meta property="og:title" content="">
+  <meta property="og:type" content="">
+  <meta property="og:url" content="">
+</head>
+<body>
+<header class="bg-color:dark-petrol">
+  <div class="center">
+    <nav class="cluster-spaced">
+      <img src="/img/logo.svg" alt="Das DenktMit eG Signet mit Firmenname"/>
+      <ul class="cluster-wrapped">
+        <li><a href="/@basePath/index.html" >Home</a></li>
+        <li><a href="/@basePath/every-layout/index.html" >Every Layout</a></li>
+        <li><a href="/@basePath/admin/users.html" >Admin/Users</a></li>
+        <li><a href="/@basePath/user/logout.html" >Logout</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<div class="with-sidebar">
+  <aside class="sidebar" wicket:id="sidebarPanel">
+    <div class="sidebar-content-wrapper">
+      <h2>EveryLayout</h2>
+      <h3>Elements</h3>
+      <ul>
+        <li>Cluster</li>
+        <li>Sidebar</li>
+      </ul>
+      <h3>Best Practises</h3>
+      <ul>
+        <li>Configuration</li>
+        <li>Enhancement</li>
+      </ul>
+      <h3>Contact</h3>
+      <ul>
+        <li>Email</li>
+        <li>Website</li>
+      </ul>
+    </div>
+  </aside>
+  <main class="not-sidebar">
+    <div class="center">
+      <wicket:extend>
+        <h1>The Center</h1>
+        <h2>The problem</h2>
+        <p>
+          Tech' giants' whimsical usage of defunct elements aside, we mostly moved away from using
+          presentational
+          markup in the 2000s. By making styling the responsibility of a separate technology—CSS—we were able
+          to
+          manage style and structure separately. Consequently, a change in art direction would no longer mean
+          reconstituting our content.
+        </p>
+        <div class="frame">
+          <img src="/img/every-layout-art.jpg" alt="art"/>
+        </div>
+        <p>
+          The Frame is mostly useful for cropping media (videos and images) to a desired aspect ratio. Once
+          you start
+          controlling the aspect ratio, you can of course tailor it to the current circumstances. For example,
+          you
+          might want to give images a different aspect ratio depending on the viewport orientation.
+        </p>
+        <h2>The Solution</h2>
+        <p>
+          This source (an image file such as a PNG, JPEG, or SVG) has certain characteristics outside
+          your control as a writer of CSS. Aspect ratio is one such characteristic, and is determined when
+          the image is originally created and cropped.
+        </p>
+        <div class="grid">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+        <h2>Use Cases #</h2>
+        <p>
+          The Frame is mostly useful for cropping media (videos and images) to a desired aspect ratio. Once
+          you start
+          controlling the aspect ratio, you can of course tailor it to the current circumstances. For example,
+          you
+          might want to give images a different aspect ratio depending on the viewport orientation.
+        </p>
+        <div class="frame">
+          <img src="/img/modern-art-layout.jpg" alt="art"/>
+        </div>
+      </wicket:extend>
+    </div>
+  </main>
+</div>
+<footer class="bg-color:light-teal">
+  <div class="center">
+    <nav class="cluster-spaced">
+      <p>
+        &copy; 2024 DenktMit eG. All rights reserved. <br/>
+        Contact: hallo@denktmit.de
+      </p>
+      <ul class="cluster-wrapped">
+        <li><a href="/@basePath/fixed-content/legal-notice.html" >Legal
+          notice</a></li>
+      </ul>
+    </nav>
+  </div>
+</footer>
+<script type="module" src="/@ts/lib.ts" ></script>
+</body>
+</html>

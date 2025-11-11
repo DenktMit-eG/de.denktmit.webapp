@@ -1,0 +1,36 @@
+<!doctype html>
+<html class="no-js" lang="en" xmlns:wicket="http://wicket.apache.org">
+<head>
+  <meta charset="utf-8">
+  <title>Registration</title>
+</head>
+<body>
+<wicket:extend>
+  <article>
+    <hgroup>
+      <h1><wicket:message key="pages.registration.title">Registration</wicket:message></h1>
+      <p><wicket:message key="pages.registration.titledesc">Register as a new user</wicket:message></p>
+    </hgroup>
+
+    <div wicket:id="feedback"></div>
+
+    <form wicket:id="registrationForm" method="post">
+      <label for="emailAddress">
+        <span><wicket:message key="shared.namings.email">Email</wicket:message></span>:
+        <input type="email" id="emailAddress" wicket:id="emailAddress" />
+      </label>
+      <label for="password">
+        <span><wicket:message key="shared.namings.password">Password</wicket:message></span>:
+        <input type="password" id="password" wicket:id="password" />
+      </label>
+      <label for="passwordRepeated">
+        <span><wicket:message key="shared.namings.passwordRepeat">Repeat password</wicket:message></span>:
+        <input type="password" id="passwordRepeated" wicket:id="passwordRepeated" />
+      </label>
+      <input type="reset" id="reset" name="reset" value="Reset" />
+      <input type="submit" id="create" name="create" value="Create" />
+    </form>
+  </article>
+</wicket:extend>
+</body>
+</html>

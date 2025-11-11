@@ -80,9 +80,9 @@
                     <skip>${skip.jooq-codegen}</skip>
                     <jdbc>
                         <driver>org.postgresql.Driver</driver>
-                        <url>${DB_DEV_URL}:${DB_DEV_PORT}/${DB_DEV_NAME}</url>
-                        <user>${DB_DEV_USER}</user>
-                        <password>${DB_DEV_PASS}</password>
+                        <url>${project.dev.db.url}</url>
+                        <user>${project.dev.db.user}</user>
+                        <password>${project.dev.db.pw}</password>
                     </jdbc>
                     <configurationFile>${project.basedir}/jooq-codegen-config.xml</configurationFile>
                 </configuration>
@@ -120,6 +120,27 @@
             <plugin>
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-maven-plugin</artifactId>
+                <configuration>
+                    <url>${project.dev.db.url}</url>
+                    <user>${project.dev.db.user}</user>
+                    <password>${project.dev.db.pw}</password>
+                    <locations>
+                        <location>classpath:db/migration</location>
+                        <!-- TODO: Interesting for local setup to push test data to DB                       <location>filesystem:src/test/resources/db/migration</location>-->
+                    </locations>
+                    <cleanDisabled>false</cleanDisabled>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>fill-db</id>
+                        <configuration>
+                            <locations>
+                                <location>classpath:db/migration</location>
+                                <location>filesystem:src/test/resources/db/migration</location>
+                            </locations>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

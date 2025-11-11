@@ -1,0 +1,29 @@
+<!doctype html>
+<html class="no-js" lang="en" xmlns:wicket="http://wicket.apache.org">
+<head>
+  <meta charset="utf-8">
+  <title>Login</title>
+</head>
+<body>
+<wicket:extend>
+  <article>
+    <hgroup>
+      <h1>Login</h1>
+      <p>Login with your e-mail address and password</p>
+    </hgroup>
+
+    <form method="post" action="/login">
+      <label for="email">
+        <span>E-Mail</span>:
+        <input name="email" type="email" id="email" required="required" />
+      </label>
+      <label for="password">
+        <span>Password</span>:
+        <input name="password" type="password" id="password" required="required" />
+      </label>
+      <input type="submit" value="Login" />
+    </form>
+  </article>
+</wicket:extend>
+</body>
+</html>

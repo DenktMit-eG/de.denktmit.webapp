@@ -6,6 +6,8 @@ interface UserRepository: CrudRepository<User, Long> {
 
     fun findOneByMail(mail: String): User?
 
+    fun findAllByMailIn(mails: List<String>): List<User>
+
     fun existsByMail(mail: String): Boolean
 
 }

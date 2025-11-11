@@ -1,0 +1,93 @@
+server:
+  port: 8081
+spring:
+  config:
+    import:
+      - optional:file:./.env-dev[.properties]
+      - optional:file:../.env-dev[.properties]
+      - optional:file:./.env[.properties]
+      - optional:file:../.env[.properties]
+
+  datasource:
+    url: ${DB_DEV_URL}:${DB_DEV_PORT}/${DB_DEV_NAME}
+    username: ${DB_DEV_USER}
+    password: ${DB_DEV_PASS}
+    hikari:
+      connectionTimeout: 20000
+      maximumPoolSize: 5
+      pool-name: 'hikari-pool'
+
+  jpa:
+    properties:
+      hibernate:
+        format_sql: false
+        type:
+          preferred_instant_jdbc_type: TIMESTAMP_WITH_TIMEZONE
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        tmp:
+          use_jdbc_metadata_defaults: false
+        jdbc:
+          lob:
+            non_contextual_creation: true
+        hbm2ddl:
+          auto: none
+    open-in-view: false
+    show-sql: true
+
+  # Java Mail config
+  mail:
+    host: localhost
+    #username: <login user to smtp server>
+    #password: <login password to smtp server>
+    port: '1025'
+    properties:
+      mail:
+        smtp:
+          auth: 'false'
+          starttls:
+            enable: 'false'
+            required: 'false'
+          # Enable, if target server expects SSL instead of STARTTLS
+          #socketFactory:
+          #  port: '1025'
+          #  class: javax.net.ssl.SSLSocketFactor
+          #  fallback: 'false'
+
+  messages:
+    basename: messages,mailMessages
+
+  thymeleaf:
+    template-resolver-order: 2
+
+  web:
+    locale: en
+
+# Documentation https://docs.spring.io/spring-boot/docs/current/reference/html/actuator.html
+management:
+  endpoints:
+    enabled-by-default: false
+    web:
+      exposure:
+        include: flyway,health,info,metrics
+  endpoint:
+    flyway:
+      enabled: true
+    info:
+      enabled: true
+    health:
+      enabled: true
+    metrics:
+      enabled: true
+
+business:
+  adminUsers:
+    - admin.user@denktmit.de
+    - matze_weisse@web.de
+  domainNames:
+    - denktmit.de
+  mail:
+    sender: "mailbot@denktmit.de"
+
+webwicket:
+  hostname: localhost
+  port: 8080

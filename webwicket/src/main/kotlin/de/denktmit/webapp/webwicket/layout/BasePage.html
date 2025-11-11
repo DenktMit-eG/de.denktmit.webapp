@@ -1,0 +1,67 @@
+<!doctype html>
+<html class="no-js" lang="en" xmlns:wicket="http://wicket.apache.org">
+<head>
+  <meta charset="utf-8">
+  <title>DenktMit Webapp - Home</title>
+
+  <meta property="og:title" content="DenktMit eG">
+  <meta property="og:type" content="">
+  <meta property="og:url" content="">
+  <meta property="og:image" content="">
+
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="apple-touch-icon" href="/icon.png">
+  <link rel="icon" href="/img/denktmit-favicon.svg">
+
+  <link rel="stylesheet" href="/css/webapp.min.css"/>
+</head>
+<body>
+<header class="bg-color:dark-petrol">
+  <div class="center" wicket:id="headerPanel">
+    <nav class="cluster-spaced">
+      <a href="/dashboard">
+        <img src="/img/DenktMit-Logo.svg" alt="Das DenktMit eG Signet mit Firmenname"/>
+      </a>
+      <ul class="cluster-wrapped">
+        <li>
+          <a href="/de/denktmit/webapp/webwicket/Dashboard.html">Home</a>
+        </li>
+        <li>
+          <a href="/de/denktmit/webapp/webwicket/everylayout/EveryLayoutPage.html">Every Layout</a>
+        </li>
+        <li>
+          <a href="/de/denktmit/webapp/webwicket/user/RegistrationPage.html">Registrierung</a>
+        </li>
+        <li>
+          <a href="/de/denktmit/webapp/webwicket/admin/AdminUsersPage.html">Admin/Users</a>
+        </li>
+        <li>
+          <a href="/@basePath/user/logout.html">Logout</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<wicket:child/>
+<main>
+  <div class="center">
+    <wicket:child/>
+  </div>
+</main>
+<footer class="bg-color:light-teal">
+  <div class="center" wicket:id="footerPanel">
+    <nav class="cluster-spaced">
+      <p>
+        &copy; 2024 DenktMit eG. All rights reserved. <br/>
+        Contact: hallo@denktmit.de
+      </p>
+      <ul class="cluster-wrapped">
+        <li><a href="/@basePath/fixed-content/legal-notice.html" >Legal
+          notice</a></li>
+      </ul>
+    </nav>
+  </div>
+</footer>
+<script type="module" src="/js/webapp.min.js"></script>
+</body>
+</html>

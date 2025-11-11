@@ -9,9 +9,9 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>application</artifactId>
-    <name>DenktMit eG :: Webapp :: Application</name>
-    <description>The DenktMit eG Webapp runnable application</description>
+    <artifactId>wicketapplication</artifactId>
+    <name>DenktMit eG :: Webapp :: Wicket Application</name>
+    <description>The DenktMit eG Wicket Webapp runnable application</description>
 
     <properties>
         <dir.project.root>${project.basedir}/..</dir.project.root>
@@ -31,7 +31,7 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>web</artifactId>
+            <artifactId>webwicket</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
